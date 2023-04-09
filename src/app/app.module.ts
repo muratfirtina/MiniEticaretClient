@@ -21,7 +21,9 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     AdminModule, UiModule,
     NgxSpinnerModule
   ],
-  providers: [],
+  providers: [
+    {provide: "baseUrl", useValue: "https://localhost:7284/api",multi: true}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
