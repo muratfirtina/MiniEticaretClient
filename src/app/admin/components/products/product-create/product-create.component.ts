@@ -19,12 +19,12 @@ export class ProductCreateComponent extends BaseComponent implements OnInit{
     
   }
 
-  create(Name: HTMLInputElement, Stock: HTMLInputElement, Price: HTMLInputElement){
+  create(name: HTMLInputElement, stock: HTMLInputElement, price: HTMLInputElement){
     this.showSpinner(SpinnerType.BallSpinClockwise);
     const create_product : Create_Product = new Create_Product();
-    create_product.name = Name.value;
-    create_product.stock = parseInt(Stock.value);
-    create_product.price = parseFloat(Price.value);
+    create_product.name = name.value;
+    create_product.stock = parseInt(stock.value);
+    create_product.price = parseFloat(price.value);
 
     this.productService.create(create_product, () => {
       this.hideSpinner(SpinnerType.BallSpinClockwise);
@@ -35,7 +35,12 @@ export class ProductCreateComponent extends BaseComponent implements OnInit{
 
       });
 
+    }, errorMessage => {
+      this.alertify.message(errorMessage, {
+        dismissOthers: true,
+        messageType: MessageType.Error,
+        position: Position.TopRight
+        });
     });
-
   }
 }
