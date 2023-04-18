@@ -14,7 +14,7 @@ export class HttpClientService {
     
 
     return `${requestParameters.baseUrl ? requestParameters.baseUrl : this.baseUrl}/${requestParameters.controller}
-    ${requestParameters.action ? `/${requestParameters.action}` : ""}`;
+    ${requestParameters.action ? `/${requestParameters.action}` : ""}`.trim();
   }
 
   get<T>(requestParameters: Partial<RequestParameters>, id?: string): Observable<T> {
@@ -25,7 +25,8 @@ export class HttpClientService {
       url = requestParameters.fullEndpoint;
     }
     else{
-      url = `${this.url(requestParameters)}${id ? `/${id}` : ""}`;
+     url = `${this.url(requestParameters)}${id ? `/${id}` : ""}${requestParameters.queryString ? `?${requestParameters.queryString}` : ""}`.trim();
+     
     }
 
     return this.httpClient.get<T>(url, {headers: requestParameters.headers})
@@ -38,7 +39,7 @@ export class HttpClientService {
       url = requestParameters.fullEndpoint;
     }
     else{
-      url = `${this.url(requestParameters)}`;
+      url = `${this.url(requestParameters)}${requestParameters.queryString ? `?${requestParameters.queryString}` : ""}`.trim();
     }
     
     return this.httpClient.post<T>(url,body,{headers: requestParameters.headers});
@@ -51,7 +52,7 @@ export class HttpClientService {
       url = requestParameters.fullEndpoint;
     }
     else{
-      url = `${this.url(requestParameters)}`;
+      url = `${this.url(requestParameters)}${requestParameters.queryString ? `?${requestParameters.queryString}` : ""}`.trim();
     }
     
     return this.httpClient.put<T>(url,body,{headers: requestParameters.headers});
@@ -63,7 +64,7 @@ export class HttpClientService {
       url = requestParameters.fullEndpoint;
     }
     else{
-      url = `${this.url(requestParameters).trim()}/${id}`;
+      url = `${this.url(requestParameters).trim()}/${id}${requestParameters.queryString ? `?${requestParameters.queryString}` : ""}`.trim();
     }
     
     return this.httpClient.delete<T>(url,{headers: requestParameters.headers});
@@ -72,10 +73,11 @@ export class HttpClientService {
 }
 
 export class RequestParameters {
-  controller: string
-  action?: string
+  controller: string;
+  action?: string;
+  queryString?: string;
 
-  headers?: HttpHeaders
-  baseUrl?: string
-  fullEndpoint?: string
+  headers?: HttpHeaders;
+  baseUrl?: string;
+  fullEndpoint?: string;
 }
