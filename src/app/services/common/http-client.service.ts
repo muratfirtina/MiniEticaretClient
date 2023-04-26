@@ -80,4 +80,6 @@ export class RequestParameters {
   headers?: HttpHeaders;
   baseUrl?: string;
   fullEndpoint?: string;
+
+  responseType?: string;
 }
