@@ -1,0 +1,78 @@
+.mat-column-createdDate {
+  text-align: center;
+}
+
+.mat-column-updatedDate {
+  text-align: center;
+}
+
+.mat-column-name {
+  text-align: center;
+}
+.mat-column-price {
+  text-align: center;
+}
+.mat-column-stock {
+  text-align: center;
+}
+
+.button_edit {
+    position: relative;
+    width: 45px;
+    height: 25px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #0418ae;
+    background-color: #11bbefba;
+  }
+  
+  .button_edit, .button_edit__icon, .button_edit__text {
+    transition: all 0.3s;
+  }
+  
+  .button_edit .button_edit__text {
+    position: relative;
+    transform: translateX(0);
+    color: #fff;
+    font-weight: 500;
+  }
+  
+  .button_edit .button_edit__icon {
+    position: absolute;
+    transform: translateX(124px);
+    height: 100%;
+    width: 45px;
+    background-color: #0418ae;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .button_edit .svg {
+    width: 20px;
+    stroke: #fff;
+  }
+  
+  .button_edit:hover {
+    background: #0418ae;
+  }
+  
+  .button_edit:hover .button_edit__text {
+    color: transparent;
+  }
+  
+  .button_edit:hover .button_edit__icon {
+    width: 25px;
+    transform: translateX(0);
+  }
+  
+  .button_edit:active .button_edit__icon {
+    background-color: #0418ae;
+  }
+  
+  .button_edit:active {
+    border: 1px solid #0418ae;
+  }
+  

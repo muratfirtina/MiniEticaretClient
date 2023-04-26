@@ -35,80 +35,76 @@ export class DeleteDirective {
     private alertifyService: AlertifyService
   ) { 
     
-    const button = this._renderer.createElement('button');
+    const button = this._renderer.createElement('button__text');
     button.innerHTML =
-      '<span class="text">Sil</span><span class="icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M24 20.188l-8.315-8.209 8.2-8.282-3.697-3.697-8.212 8.318-8.31-8.203-3.666 3.666 8.321 8.24-8.206 8.313 3.666 3.666 8.237-8.318 8.285 8.203z"></path></svg></span>';
-    this._renderer.addClass(button, 'noselect');
-    this._renderer.setStyle(button, 'width', '40px');
-    this._renderer.setStyle(button, 'height', '25px');
-    this._renderer.setStyle(button, 'cursor', 'pointer');
-    this._renderer.setStyle(button, 'display', 'flex');
-    this._renderer.setStyle(button, 'align-items', 'center');
-    this._renderer.setStyle(button, 'background', 'red');
-    this._renderer.setStyle(button, 'border', 'none');
-    this._renderer.setStyle(button, 'border-radius', '5px');
-    this._renderer.setStyle(
-      button,
-      'box-shadow',
-      '1px 1px 3px rgba(0,0,0,0.15)'
-    );
-    this._renderer.setStyle(button, 'background', '#e62222');
-
+      '<span class="button_delete__text">Delete</span><span class="button_delete__icon"><svg class="svg" xmlns="http://www.w3.org/2000/svg" width="512" viewBox="0 0 512 512" height="512" class="svg"><path d="M112,112l20,320c.95,18.49,14.4,32,32,32H348c17.67,0,30.87-13.51,32-32l20-320" style="fill:none;stroke:#fff;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"></path><line style="stroke:#fff;stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px" x1="80" x2="432" y1="112" y2="112"></line><path d="M192,112V72h0a23.93,23.93,0,0,1,24-24h80a23.93,23.93,0,0,1,24,24h0v40" style="fill:none;stroke:#fff;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"></path><line style="fill:none;stroke:#fff;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px" x1="256" x2="256" y1="176" y2="400"></line><line style="fill:none;stroke:#fff;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px" x1="184" x2="192" y1="176" y2="400"></line><line style="fill:none;stroke:#fff;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px" x1="328" x2="320" y1="176" y2="400"></line></svg></span>';
     this._renderer.appendChild(this.element.nativeElement, button);
 
-    this._renderer.addClass(button, 'my-custom-button');
+    this._renderer.addClass(button, 'button_delete');
 
     const buttonStyle = document.createElement('style');
-    buttonStyle.type = 'text/css';
     buttonStyle.innerHTML = `
-    .my-custom-button,
-    .my-custom-button span {
-    transition: 200ms;
+    .button_delete {
+      position: relative;
+      width: 45px;
+      height: 25px;
+      cursor: pointer;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border: 1px solid #cc0000;
+      background-color: #ff2d2d;
+    }
+    
+    .button_delete, .button_delete__icon, .button_delete__text {
+      transition: all 0.3s;
+    }
+    
+    .button_delete .button_delete__text {
+      position: relative;
+      transform: translateX(0);
+      color: #fff;
+      font-weight: 500;
+    }
+    
+    .button_delete .button_delete__icon {
+      position: absolute;
+      transform: translateX(124px);
+      height: 100%;
+      width: 45px;
+      background-color: #cc0000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .button_delete .svg {
+      width: 20px;
+      stroke: #fff;
+    }
+    
+    .button_delete:hover {
+      background: #cc0000;
+    }
+    
+    .button_delete:hover .button_delete__text {
+      color: transparent;
+    }
+    
+    .button_delete:hover .button_delete__icon {
+      width: 25px;
+      transform: translateX(0);
+    }
+    
+    .button_delete:active .button_delete__icon {
+      background-color: #b20000;
+    }
+    
+    .button_delete:active {
+      border: 1px solid #b20000;
     }
 
-    .my-custom-button .text {
-    transform: translateX(0px);
-    color: white;
-    font-weight: bold;
-    }
-
-   .my-custom-button .icon {
-    position: absolute;
-    transform: translateX(10px);
-    height: 24px;
-    width: 25px;
-    display: flex;
-    align-items: right;
-    justify-content: center;
-    margin-left: 3px;
-   }
-
-    .my-custom-button svg {
-    width: 10px;
-    fill: #eee;
-    }
-
-   .my-custom-button:hover {
-    background: #ff3636;
-    }
-
-   .my-custom-button:hover .text {
-    color: transparent;
-    }
-
-    .my-custom-button:hover .icon {
-    width: 15px;
-    border-left: none;
-    transform: translateX(5px);
-   }
-
-   .my-custom-button:focus {
-    outline: none;
-   }
-
-    .my-custom-button:active .icon svg {
-    transform: scale(0.8);
-    }`;
+    `;
 
     this._renderer.appendChild(this.element.nativeElement, buttonStyle);
 
