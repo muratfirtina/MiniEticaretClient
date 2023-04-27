@@ -13,8 +13,7 @@ export class HttpClientService {
   private url(requestParameters: Partial<RequestParameters>): string {
     
 
-    return `${requestParameters.baseUrl ? requestParameters.baseUrl : this.baseUrl}/${requestParameters.controller}
-    ${requestParameters.action ? `/${requestParameters.action}` : ""}`.trim();
+    return `${requestParameters.baseUrl ? requestParameters.baseUrl : this.baseUrl}/${requestParameters.controller}${requestParameters.action ? `/${requestParameters.action}` : ""}`.trim();
   }
 
   get<T>(requestParameters: Partial<RequestParameters>, id?: string): Observable<T> {
@@ -73,7 +72,7 @@ export class HttpClientService {
 }
 
 export class RequestParameters {
-  controller: string;
+  controller?: string;
   action?: string;
   queryString?: string;
 
