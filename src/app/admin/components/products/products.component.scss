@@ -1,6 +1,7 @@
 .product-create {
   display: flex;
   height: 100%;
+  width: 100%;
   border: 1px solid #34974d;
 }
 .product-list {
@@ -9,6 +10,9 @@
   width: 100%;
   height: 100%;
   border: 1px solid #34974d;
+}
+.product-create .mat-drawer{
+  width: 20%;
 }
 
 

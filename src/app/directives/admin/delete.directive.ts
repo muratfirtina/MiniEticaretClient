@@ -14,9 +14,10 @@ import { firstValueFrom } from 'rxjs';
 import { SpinnerType } from 'src/app/base/base.component';
 import {
   DeleteDialogComponent,
-  DeleteState,
+  DeleteDialogState,
 } from 'src/app/dialogs/delete-dialog/delete-dialog.component';
 import { AlertifyService, MessageType, Position } from 'src/app/services/admin/alertify.service';
+import { DialogService } from 'src/app/services/common/dialog.service';
 import { HttpClientService } from 'src/app/services/common/http-client.service';
 
 
@@ -32,7 +33,9 @@ export class DeleteDirective {
     private httpClientService: HttpClientService,
     private spinner: NgxSpinnerService,
     public dialog: MatDialog,
-    private alertifyService: AlertifyService
+    private alertifyService: AlertifyService,
+    private dialogService: DialogService
+    
   ) { 
     
     const button = this._renderer.createElement('button__text');
@@ -120,40 +123,69 @@ export class DeleteDirective {
 
   @HostListener('click')
   async onClick() {
-    this.openDialog(async () => {
-      this.spinner.show(SpinnerType.BallSpinClockwise);
-      const td: HTMLTableCellElement = this.element.nativeElement;
-      
-      try {
-        await firstValueFrom( this.httpClientService.delete({ controller: this.controller }, this.id));
+    this.dialogService.openDialog({
+      componentType: DeleteDialogComponent,
+      data: DeleteDialogState.Yes,
+      afterClosed: async () => {
+        this.spinner.show(SpinnerType.BallSpinClockwise);
+        const td: HTMLTableCellElement = this.element.nativeElement;
         
-        $(td.parentElement).fadeOut('animated fadeOut', () => {
-          this.refresh.emit();
-          this.alertifyService.message('Silindi', {
+        try {
+          await firstValueFrom( this.httpClientService.delete({ controller: this.controller }, this.id));
+          
+          $(td.parentElement).fadeOut('animated fadeOut', () => {
+            this.refresh.emit();
+            this.alertifyService.message('Deleted', {
+              dismissOthers: true,
+              messageType: MessageType.Success,
+              position: Position.TopRight
+            });
+          });
+        } catch (error) {
+          this.spinner.hide(SpinnerType.BallSpinClockwise);
+          this.alertifyService.message('An unexpected error was encountered when deleting', {
             dismissOthers: true,
-            messageType: MessageType.Success,
+            messageType: MessageType.Error,
             position: Position.TopRight
           });
-        });
-      } catch (error) {
-        this.spinner.hide(SpinnerType.BallSpinClockwise);
-        this.alertifyService.message('Silinemedi', {
-          dismissOthers: true,
-          messageType: MessageType.Error,
-          position: Position.TopRight
-        });
-      }; 
+        }; 
+      }
     });
   }
   
 
-  openDialog(afterYes: any): void {
-    const dialogRef = this.dialog.open(DeleteDialogComponent, {
-      data: DeleteState.Yes,
+  /* @HostListener("click")
+  async onclick() {
+    this.dialogService.openDialog({
+      componentType: DeleteDialogComponent,
+      data: DeleteDialogState.Yes,
+      afterClosed: async () => {
+        this.spinner.show(SpinnerType.BallSpinClockwise);
+        const td: HTMLTableCellElement = this.element.nativeElement;
+        this.httpClientService.delete({
+          controller: this.controller
+        }, this.id).subscribe({ next: (data) => {
+          $(td.parentElement).animate({
+            opacity: 0,
+            left: "+=50",
+            height: "toogle"
+          }, 700, () => {
+            this.refresh.emit();
+            this.alertifyService.message(`Deleted.`, {
+              dismissOthers: true,
+              messageType: MessageType.Success,
+              position: Position.TopRight
+            })
+          });
+        }, error: (errorResponse: HttpErrorResponse) => {
+          this.spinner.hide(SpinnerType.BallSpinClockwise);
+          this.alertifyService.message("An unexpected error was encountered when deleting.", {
+            dismissOthers: true,
+            messageType: MessageType.Error,
+            position: Position.TopRight
+          });
+        }});
+      }
     });
-
-    dialogRef.afterClosed().subscribe((result) => {
-      if (result == DeleteState.Yes) afterYes();
-    });
-  }
+  } */
 }
