@@ -17,7 +17,6 @@ width: 100%;
 margin-inline-start: 0;
 }
 
-
 .button {
   margin-inline-start: 0;
   position: relative;
@@ -26,8 +25,10 @@ margin-inline-start: 0;
   cursor: pointer;
   display: flex;
   align-items: center;
+  justify-content: center;
   border: 1px solid #34974d;
   background-color: #3aa856;
+  overflow: hidden;
 }
 
 .button, .button__icon, .button__text {
@@ -35,7 +36,6 @@ margin-inline-start: 0;
 }
 
 .button .button__text {
-  margin-left: 10px;
   position: relative;
   transform: translateX(5px);
   color: #fff;
@@ -44,7 +44,7 @@ margin-inline-start: 0;
 
 .button .button__icon {
   position: absolute;
-  transform: translateX(124px);
+  transform: translateX(290px);
   height: 100%;
   width: 38px;
   background-color: #34974d;
@@ -67,7 +67,7 @@ margin-inline-start: 0;
 }
 
 .button:hover .button__icon {
-  width: 148px;
+  width: 100%;
   transform: translateX(0);
 }
 

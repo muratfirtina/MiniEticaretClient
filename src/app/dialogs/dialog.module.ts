@@ -6,6 +6,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { ProductImageDialogComponent } from './product-image-dialog/product-image-dialog.component';
 import { FileUploadModule } from '../services/common/fileUpload/fileUpload.module';
+import {MatCardModule} from '@angular/material/card';
 
 
 
@@ -18,6 +19,7 @@ import { FileUploadModule } from '../services/common/fileUpload/fileUpload.modul
     CommonModule,
     MatDialogModule,
     MatButtonModule,
+    MatCardModule,
     FileUploadModule
   ]
 })

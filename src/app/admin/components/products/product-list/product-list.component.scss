@@ -1,3 +1,13 @@
+.mat-elevation-z8 {
+  width: auto;
+  height: auto;
+}
+.mat-mdc-paginator {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .mat-column-createdDate {
   text-align: center;
 }
@@ -18,14 +28,15 @@
 
 .button_edit {
     position: relative;
-    width: 45px;
+    width: 50px;
     height: 25px;
     cursor: pointer;
     display: flex;
-    justify-content: center;
     align-items: center;
+    justify-content: center;
     border: 1px solid #0418ae;
     background-color: #11bbefba;
+    overflow: hidden;
   }
   
   .button_edit, .button_edit__icon, .button_edit__text {
@@ -36,14 +47,14 @@
     position: relative;
     transform: translateX(0);
     color: #fff;
-    font-weight: 500;
+    font-weight: 600;
   }
   
   .button_edit .button_edit__icon {
     position: absolute;
     transform: translateX(124px);
     height: 100%;
-    width: 45px;
+    width: 19px;
     background-color: #0418ae;
     display: flex;
     align-items: center;
@@ -64,14 +75,79 @@
   }
   
   .button_edit:hover .button_edit__icon {
-    width: 25px;
+    width: 100%;
     transform: translateX(0);
   }
   
   .button_edit:active .button_edit__icon {
-    background-color: #0418ae;
+    background-color: #03117e;
   }
   
   .button_edit:active {
-    border: 1px solid #0418ae;
+    border: 1px solid #03117e;
+  }
+
+
+
+.button_photo {
+    position: relative;
+    width: 50px;
+    height: 25px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #ffc505;
+    background-color: #fad26ffd;
+    overflow: hidden;
+  }
+  
+  .button_photo, .button_photo__icon, .button_photo__text {
+    
+    transition: all 0.3s;
+  }
+  
+  .button_photo .button_photo__text {
+    position: relative;
+    transform: translateX(0);
+    color: #fff;
+    font-weight: 600;
+    
+  }
+  
+  .button_photo .button_photo__icon {
+    position: absolute;
+    transform: translateX(124px);
+    height: 100%;
+    width: 45px;
+    background-color: #ffc505;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .button_photo .svg {
+    width: 20px;
+    stroke: #fff;
+  }
+  
+  .button_photo:hover {
+    background: #ffc505;
+  }
+  
+  .button_photo:hover .button_photo__text {
+    color: transparent;
+  }
+  
+  .button_photo:hover .button_photo__icon {
+    width: 100%;
+    transform: translateX(0);
+  }
+  
+  .button_photo:active .button_photo__icon {
+    background-color: #ffac05;
+  }
+  
+  .button_photo:active {
+    border: 1px solid #ffac05;
   }

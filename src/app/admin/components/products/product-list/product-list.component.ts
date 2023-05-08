@@ -29,7 +29,6 @@ export class ProductListComponent extends BaseComponent implements OnInit{
      spinner: NgxSpinnerService) {
     super(spinner);
   }
-
   
   async getProducts() {
 

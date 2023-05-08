@@ -1,4 +1,4 @@
-<div class="mat-elevation-z8">
+  <div class="mat-elevation-z8">
     <table mat-table [dataSource]="dataSource">
   
       <ng-container matColumnDef="name">
@@ -28,7 +28,16 @@
 
       <ng-container matColumnDef="photos">
         <th mat-header-cell *matHeaderCellDef width="30">  </th>
-        <td mat-cell *matCellDef="let element"> <img style="cursor: pointer;" (click)="addProductImages(element.id)" src="../../../../../assets/icons/photo4.png" width="35" height="35" /> </td>
+        <td mat-cell *matCellDef="let element"> 
+            <button class="button_photo">
+              <span class="button_photo__text">Add</span><span class="button_photo__icon" (click)="addProductImages(element.id)"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 20" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M6.5 6.5H5c-.55 0-1 .45-1 1v8c0 .55.45 1 1 1h1.5"></path>
+                <path d="M18.5 6.5H19c.55 0 1 .45 1 1v8c0 .55-.45 1-1 1h-1.5"></path>
+                <path d="M17 7H7v10h10V7zM7 4.5A1.5 1.5 0 0 1 8.5 3h7A1.5 1.5 0 0 1 17 4.5v1.67A1.5 1.5 0 0 1 15.5 7H8.5A1.5 1.5 0 0 1 7 5.17V4.5zM12 15.5a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"></path>
+              </svg></span>
+            </button>    
+<!--           <img style="cursor: pointer;" (click)="addProductImages(element.id)" src="../../../../../assets/icons/photo4.png" width="35" height="35" />
+ -->    </td>
       </ng-container>
 
       <ng-container matColumnDef="edit">
