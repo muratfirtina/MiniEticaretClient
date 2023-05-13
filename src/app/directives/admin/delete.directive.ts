@@ -57,7 +57,6 @@ export class DeleteDirective {
       justify-content: center;
       border: 1px solid #cc0000;
       background-color: #f95757;
-      ;
       overflow: hidden;
     }
     

@@ -47,22 +47,25 @@ export class ProductImageDialogComponent extends BaseDialog<ProductImageDialogCo
   }
 
   async deleteImage(imageId: string, event: any) {
-
     this.dialogService.openDialog({
       componentType: DeleteDialogComponent,
       data: DeleteDialogState.Yes,
+      
       afterClosed: async () => {
-        this.spinner.show(SpinnerType.BallSpinClockwise)
-        await this.productService.deleteImage(this.data as string, imageId, () => {
-          this.spinner.hide(SpinnerType.BallSpinClockwise)
-          var card = $(event.srcElement).parent().parent()
-          card.fadeOut(400);
+        this.spinner.show(SpinnerType.BallSpinClockwise);
+        const card = $(event.target).closest('.product-image-card');
+        card.fadeOut(900, async () => {
+          await this.productService.deleteImage(this.data as string, imageId, () => {
+            card.remove();
+          this.spinner.hide(SpinnerType.BallSpinClockwise);
+          
+
         });
-      },
+      })
+    }
     });
   }
 
-  
 }
 export enum ProductImageDialogState {
   Close
