@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, AbstractControlDirective, FormBuilder, FormControl, FormGroup, FormGroupDirective, NgForm, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
+import { User } from 'src/app/entities/user';
 
 @Component({
   selector: 'app-register',
@@ -17,11 +18,11 @@ export class RegisterComponent implements OnInit{
       fullName: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(50)]],
       userName: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(50)]],
       email: ['', [Validators.required, Validators.email, Validators.minLength(3), Validators.maxLength(50)]],
-      password: ['',[Validators.required]],
-      confirmPassword: ['',[Validators.required, Validators.minLength(8)]]
-    }, { validator: (group: AbstractControl): ValidationErrors | null =>{
-          let pass = group.get('password').value;
-          let confirmPass = group.get('confirmPassword').value;
+      password: ['',[Validators.required, Validators.minLength(8)]],
+      confirmPassword: ['',[Validators.required,]]
+    }, { validator: (group: FormGroup): ValidationErrors | null =>{
+          const pass = group.get('password').value;
+          const confirmPass = group.get('confirmPassword').value;
           return pass === confirmPass ? null : { notSame: true }
 
           }
@@ -45,7 +46,7 @@ export class RegisterComponent implements OnInit{
   get component() { return this.frm.controls; }
 
   submitted: boolean = false;
-  onSubmit(data:any){
+  onSubmit(data:User){
     this.submitted = true;
     if(this.frm.invalid) return;
     

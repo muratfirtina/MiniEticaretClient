@@ -9,28 +9,28 @@
                 <h1 class="h3 mb-3 fw-normal">Please sign up</h1>
 
                 <div class="form-floating">
-                    <input type="fullname" formControlName="fullName" class="form-control"  id="floatingInput" placeholder="Full Name"
-                      [ngClass]="{'is-invalid': (component['fullName'].invalid && component['fullName'].dirty) || submitted}" 
-                      [ngClass]="{'is-valid': submitted && component['fullName'].valid}"/>
-                    <label for="fullname">Full Name</label>
-                    <div class="invalid-feedback">
-                      <div *ngIf="frm.get('fullName').hasError('required')">
-                        Full Name is required.
-                      </div>
-                      <div *ngIf="frm.get('fullName').hasError('minlength')">
-                        Full Name should be at least 3 characters long.
-                      </div>
-                      <div *ngIf="frm.get('fullName').hasError('maxlength')">
-                        Full Name should be at most 50 characters long.
-                      </div>
+                  <input type="fullname" formControlName="fullName" class="form-control" id="floatingInput" placeholder="Full Name"
+                    [ngClass]="{'is-invalid': (component['fullName'].invalid && component['fullName'].dirty) || (submitted && component['fullName'].invalid && frm.get('fullName').value),
+                                'is-valid': component['fullName'].valid && frm.get('fullName').value}" />
+                  <label for="fullname">Full Name</label>
+                  <div class="invalid-feedback">
+                    <div *ngIf="frm.get('fullName').hasError('required')">
+                      Full Name is required.
+                    </div>
+                    <div *ngIf="frm.get('fullName').hasError('minlength')">
+                      Full Name should be at least 3 characters long.
+                    </div>
+                    <div *ngIf="frm.get('fullName').hasError('maxlength')">
+                      Full Name should be at most 50 characters long.
                     </div>
                   </div>
-                  
+                </div>
+                
 
                 <div class="form-floating">
                     <input type="username" formControlName="userName" class="form-control" id="floatingInput" placeholder="User Name"
-                    [ngClass]="{'is-invalid': (frm.get('userName').invalid && frm.get('userName').dirty) || submitted}"
-                    [ngClass]="{'is-valid': submitted && component['userName'].valid}"/>
+                    [ngClass]="{'is-invalid': (component['userName'].invalid && component['userName'].dirty) || (submitted && component['userName'].invalid && frm.get('userName').value),
+                                'is-valid': component['userName'].valid && frm.get('userName').value}" />
                     <label for="username">User Name</label>
                     <div class="invalid-feedback">
                       <div *ngIf="frm.get('userName').hasError('required')">
@@ -45,10 +45,12 @@
                     </div>
                   </div>
 
+                  
+
                 <div class="form-floating">
                     <input type="email" formControlName="email" class="form-control" id="floatingInput" placeholder="name@example.com"
-                    [ngClass]="{'is-invalid': (frm.get('email').invalid && frm.get('email').dirty) || submitted}" 
-                    [ngClass]="{'is-valid': submitted && component['email'].valid}"/>
+                    [ngClass]="{'is-invalid': (component['email'].invalid && component['email'].dirty) || (submitted && component['email'].invalid && frm.get('email').value),
+                                'is-valid': component['email'].valid && frm.get('email').value}" />
                     <label for="email">Email</label>
                     <div class="invalid-feedback">
                       <div *ngIf="frm.get('email').hasError('required')">
@@ -68,8 +70,8 @@
                 
                 <div class="form-floating">
                     <input type="password" formControlName="password" class="form-control" id="floatingPassword" placeholder="Password"
-                    [ngClass]="{'is-invalid': (frm.get('password').invalid && frm.get('password').dirty) || (submitted && frm.get('password').invalid) ,
-                     'is-valid': submitted && component['password'].valid}"/>
+                    [ngClass]="{'is-invalid': (component['password'].invalid && component['password'].dirty) || (submitted && component['password'].invalid && frm.get('password').value),
+                                'is-valid': component['password'].valid && frm.get('password').value}" />
 
                     <label for="password">Password</label>
                     <div class="invalid-feedback">
@@ -83,18 +85,20 @@
                 </div>
 
                 <div class="form-floating">
-                    <input type="password" formControlName="confirmPassword" class="form-control" id="floatingPassword" placeholder="Confirm Password" 
-                    [ngClass]="{'is-invalid': (frm.hasError('notSame') && frm.get('confirmPassword').dirty) || submitted}"
-                    [ngClass]="{'is-valid': component['confirmPassword'].valid || submitted}"/>
-                    <label for="confirmPassword">Confirm Password</label>
-                    <div class="invalid-feedback">
-                      <div *ngIf="frm.get('confirmPassword').hasError('required')">
-                        Confirm Password is required.
-                      </div>
-                      <div *ngIf="frm.hasError('notSame')">
-                        Confirm Password should be at most match.
-                      </div>
+                  <input type="password" formControlName="confirmPassword" class="form-control" id="floatingPassword" placeholder="Confirm Password" 
+                  [ngClass]="{
+                    'is-invalid': (frm.get('confirmPassword').invalid && frm.get('confirmPassword').dirty) || (submitted && frm.get('confirmPassword').invalid),
+                    'is-valid': frm.get('confirmPassword').valid && frm.get('password').value === frm.get('confirmPassword').value
+                  }"/>
+                  <label for="confirmPassword">Confirm Password</label>
+                  <div class="invalid-feedback">
+                    <div *ngIf="frm.get('confirmPassword').hasError('required')">
+                      Confirm Password is required.
                     </div>
+                    <div *ngIf="frm.get('confirmPassword').hasError('notSame')">
+                      Confirm Password should match Password.
+                    </div>
+                  </div>
                 </div>
                 
 
