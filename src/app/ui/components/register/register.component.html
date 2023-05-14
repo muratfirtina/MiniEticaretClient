@@ -98,6 +98,9 @@
                     <div *ngIf="frm.get('confirmPassword').hasError('notSame')">
                       Confirm Password should match Password.
                     </div>
+                    <div *ngIf="frm.get('confirmPassword').hasError('minlength')">
+                      Password should be at least 8 characters long.
+                    </div>
                   </div>
                 </div>
                 

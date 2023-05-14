@@ -19,16 +19,8 @@ export class RegisterComponent implements OnInit{
       userName: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(50)]],
       email: ['', [Validators.required, Validators.email, Validators.minLength(3), Validators.maxLength(50)]],
       password: ['',[Validators.required, Validators.minLength(8)]],
-      confirmPassword: ['',[Validators.required,]]
-    }, { validator: (group: FormGroup): ValidationErrors | null =>{
-          const pass = group.get('password').value;
-          const confirmPass = group.get('confirmPassword').value;
-          return pass === confirmPass ? null : { notSame: true }
-
-          }
-      });
-
-      
+      confirmPassword: ['',[Validators.required,Validators.minLength(8), this.passwordsMatchValidator]]
+    });   
 
       this.frm.valueChanges.subscribe(() => {
         Object.keys(this.frm.controls).forEach(key => {
@@ -42,7 +34,10 @@ export class RegisterComponent implements OnInit{
       }); 
   }
 
-  
+  passwordsMatchValidator(control: AbstractControl): { [key: string]: any } | null {
+    const password = control.root.get('password');
+    return password && control.value !== password.value ? { 'notSame': true } : null;
+  }
   get component() { return this.frm.controls; }
 
   submitted: boolean = false;
