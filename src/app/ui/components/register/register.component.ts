@@ -1,37 +1,37 @@
 import { Component, OnInit } from '@angular/core';
-import { AbstractControl, AbstractControlDirective, FormBuilder, FormControl, FormGroup, FormGroupDirective, NgForm, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
-import { ErrorStateMatcher } from '@angular/material/core';
+import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, Validators } from '@angular/forms';
+import { NgxSpinnerService } from 'ngx-spinner';
+import { BaseComponent } from 'src/app/base/base.component';
+import { Create_User } from 'src/app/contracts/user/create_user';
 import { User } from 'src/app/entities/user';
+import { UserService } from 'src/app/services/common/models/user.service';
+import { CustomToastrService, ToastrMessageType, ToastrPosition } from 'src/app/services/ui/custom-toastr.service';
 
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss']
 })
-export class RegisterComponent implements OnInit{
+export class RegisterComponent extends BaseComponent implements OnInit{
 
-  constructor(private formBuilder:FormBuilder) { }
+  constructor(
+    private formBuilder:FormBuilder, 
+    private userService: UserService, 
+    private toastrService: CustomToastrService,
+    spinner: NgxSpinnerService ) { 
+    super(spinner);
+  }
 
   frm: FormGroup;
   ngOnInit(): void {
     this.frm = this.formBuilder.group({
-      fullName: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(50)]],
+      nameSurname: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(50)]],
       userName: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(50)]],
       email: ['', [Validators.required, Validators.email, Validators.minLength(3), Validators.maxLength(50)]],
-      password: ['',[Validators.required, Validators.minLength(8)]],
-      confirmPassword: ['',[Validators.required,Validators.minLength(8), this.passwordsMatchValidator]]
+      password: ['',[Validators.required, Validators.minLength(3)]],
+      confirmPassword: ['',[Validators.required,Validators.minLength(3), this.passwordsMatchValidator]]
     });   
 
-      this.frm.valueChanges.subscribe(() => {
-        Object.keys(this.frm.controls).forEach(key => {
-          const controlErrors: ValidationErrors = this.frm.get(key).errors;
-          if (controlErrors != null) {
-            Object.keys(controlErrors).forEach(keyError => {
-              console.log('Key control: ' + key + ', keyError: ' + keyError + ', err value: ', controlErrors[keyError]);
-            });
-          }
-        });
-      }); 
   }
 
   passwordsMatchValidator(control: AbstractControl): { [key: string]: any } | null {
@@ -41,15 +41,25 @@ export class RegisterComponent implements OnInit{
   get component() { return this.frm.controls; }
 
   submitted: boolean = false;
-  onSubmit(data:User){
+  async onSubmit(user:User){
     this.submitted = true;
     if(this.frm.invalid) return;
     
-    var f = this.frm;
-    var c = this.component;
+  const result : Create_User = await this.userService.create(user);
 
-    debugger;
+    if(result.isSuccess){
+      this.toastrService.message(result.message,"User Created Successfully",{
+        toasterMessageType: ToastrMessageType.Success,
+        position:ToastrPosition.TopRight
 
-  } 
-} 
+      });
+    }else{
+      this.toastrService.message(result.message,"User Creation Failed",{
+        toasterMessageType: ToastrMessageType.Error,
+        position:ToastrPosition.TopRight
+
+      });
+    } 
+  }
+}
 
