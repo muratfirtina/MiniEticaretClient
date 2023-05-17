@@ -11,6 +11,7 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 import { HttpClientModule } from '@angular/common/http';
 import { DeleteDirective } from './directives/admin/delete.directive';
 import { DeleteDialogComponent } from './dialogs/delete-dialog/delete-dialog.component';
+import { JwtModule } from '@auth0/angular-jwt';
 
 @NgModule({
   declarations: [	
@@ -23,7 +24,13 @@ import { DeleteDialogComponent } from './dialogs/delete-dialog/delete-dialog.com
     ToastrModule.forRoot(),
     AdminModule, UiModule,
     NgxSpinnerModule,
-    HttpClientModule
+    HttpClientModule,
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: () => localStorage.getItem("accessToken"),
+        allowedDomains: ["localhost:7284"],
+      }
+    })
   ],
   providers: [
     {provide: "baseUrl", useValue: "https://localhost:7284/api",multi: true}
