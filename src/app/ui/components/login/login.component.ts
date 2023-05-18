@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { BaseComponent, SpinnerType } from 'src/app/base/base.component';
+import { AuthService } from 'src/app/services/common/auth.service';
 import { UserService } from 'src/app/services/common/models/user.service';
 
 @Component({
@@ -10,12 +12,25 @@ import { UserService } from 'src/app/services/common/models/user.service';
 })
 export class LoginComponent extends BaseComponent{
   
-  constructor(private userService:UserService,spinner: NgxSpinnerService ) { 
+  constructor(
+    private userService:UserService,
+    spinner: NgxSpinnerService,
+    private authService: AuthService,
+    private activatedRoute: ActivatedRoute,
+    private router: Router ) { 
     super(spinner);
   }
 
   async login(userNameOrEmail: string, password: string){  
    this.showSpinner(SpinnerType.BallSpinClockwise);
-   await this.userService.login(userNameOrEmail, password, () => this.hideSpinner(SpinnerType.BallSpinClockwise));
+   await this.userService.login(userNameOrEmail, password, () => {
+    this.authService.identityCheck();
+    this.activatedRoute.queryParams.subscribe(params => {
+      const returnUrl: string = params['returnUrl'];
+      if(returnUrl){
+        this.router.navigateByUrl(returnUrl);
+      }
+    });
+    this.hideSpinner(SpinnerType.BallSpinClockwise)});
   }
 }
