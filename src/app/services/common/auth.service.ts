@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { ActivatedRoute, Route, Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
 
 @Injectable({
@@ -26,6 +27,8 @@ export class AuthService {
   get isAuthenticated(): boolean {
     return _isAuthenticated;
   }
+
+  
 }
 
 export let _isAuthenticated : boolean;

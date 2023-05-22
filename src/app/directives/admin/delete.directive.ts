@@ -49,7 +49,7 @@ export class DeleteDirective {
     buttonStyle.innerHTML = `
     .button_delete {
       position: relative;
-      width: 50px;
+      width: 60px;
       height: 25px;
       cursor: pointer;
       display: flex;

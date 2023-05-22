@@ -12,10 +12,16 @@ import { HttpClientModule } from '@angular/common/http';
 import { DeleteDirective } from './directives/admin/delete.directive';
 import { DeleteDialogComponent } from './dialogs/delete-dialog/delete-dialog.component';
 import { JwtModule } from '@auth0/angular-jwt';
+import { LoginComponent } from './ui/components/login/login.component';
+import { GoogleLoginProvider, SocialAuthServiceConfig, SocialLoginModule } from '@abacritt/angularx-social-login';
+import { RegisterComponent } from './ui/components/register/register.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [	
-    AppComponent
+    AppComponent,
+    LoginComponent,
+    RegisterComponent
    ],
   imports: [
     BrowserModule,
@@ -25,15 +31,30 @@ import { JwtModule } from '@auth0/angular-jwt';
     AdminModule, UiModule,
     NgxSpinnerModule,
     HttpClientModule,
+    ReactiveFormsModule,
     JwtModule.forRoot({
       config: {
         tokenGetter: () => localStorage.getItem("accessToken"),
         allowedDomains: ["localhost:7284"],
       }
-    })
+    }),
+    SocialLoginModule
   ],
   providers: [
-    {provide: "baseUrl", useValue: "https://localhost:7284/api",multi: true}
+    {provide: "baseUrl", useValue: "https://localhost:7284/api",multi: true},
+    {
+      provide: "SocialAuthServiceConfig",
+      useValue: {
+        autoLogin: false,
+        providers: [
+          {
+            id: GoogleLoginProvider.PROVIDER_ID,
+            provider: new GoogleLoginProvider("542377755542-uace25t7dirvb9rp86o9isajmvj4c2ml.apps.googleusercontent.com")
+          }
+        ],
+        onError: err => console.log(err)
+      } as SocialAuthServiceConfig
+    }
   ],
   bootstrap: [AppComponent]
 })

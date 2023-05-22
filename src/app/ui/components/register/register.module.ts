@@ -8,7 +8,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
-    RegisterComponent
+    //RegisterComponent
   ],
   imports: [
     CommonModule,
@@ -17,7 +17,7 @@ import { ReactiveFormsModule } from '@angular/forms';
         path: "", component:RegisterComponent
       }
     ]),
-    ReactiveFormsModule
+    
   ]
 })
   
