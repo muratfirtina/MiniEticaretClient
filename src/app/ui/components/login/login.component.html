@@ -24,7 +24,10 @@
     </svg>
     <input #txtPassword placeholder="Password" title="Inpit title" name="input-name" type="password" class="input_field" id="password_field">
   </div>
-  <button title="Sign In" type="submit" class="sign-in_btn" (click)="login(txtUsernameOrEmail.value,txtPassword.value)" >
+  <div>
+    <br>
+  </div>
+  <button title="Sign In" type="submit" class="sign-in_btn"  (click)="login(txtUsernameOrEmail.value,txtPassword.value)" >
     <span>Sign In</span>
   </button>
 
@@ -33,10 +36,28 @@
     <span>Or</span>
     <hr class="line">
   </div>
-  <asl-google-signin-button width="400" type='standard' size='large' shape="rectangular">
+  
+  <asl-google-signin-button width="400" type='standard' size='large' shape="rectangular" logo_alignment="center">
     
   </asl-google-signin-button>
-  <button title="Sign In" type="submit" class="sign-in_apl">
+
+  
+  <button class="fb-login-button2" kind="ghost" type="button" name="btn" id="btnFacebook" (click)="facebookLogin()">
+    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="24" viewBox="0 0 24 24">
+      <defs><linearGradient id="facebookCircle_svg__facebookCircle_svg__prefix__FacebookCircle" x1="50%" x2="50%" y1="99.999%" y2="0%">
+        <stop offset="0%" stop-color="#1569CB"></stop>
+        <stop offset="100%" stop-color="#29AEF3"></stop>
+      </linearGradient>
+    </defs>
+        <g fill="none">
+          <path fill="url(#facebookCircle_svg__facebookCircle_svg__prefix__FacebookCircle)" d="M24 12c0-6.627-5.373-12-12-12S0 5.373 0 12c0 5.99 4.388 10.954 10.125 11.855v-8.386H7.079V12h3.046V9.357c0-3.007 1.791-4.67 4.533-4.67 1.313 0 2.687.234 2.687.234v2.954H15.83c-1.491 0-1.956.925-1.956 1.873V12h3.328l-.532 3.47h-2.796v8.385C19.613 22.955 24 17.989 24 12"></path>
+          <path fill="#FFF" d="M17.203 12h-3.328V9.748c0-.949.465-1.873 1.956-1.873h1.514V4.921s-1.374-.234-2.687-.234c-2.742 0-4.533 1.662-4.533 4.67V12H7.079v3.47h3.046v8.385c.61.096 1.238.145 1.875.145s1.264-.05 1.875-.145v-8.386h2.796L17.203 12z"></path>
+        </g>
+      </svg>
+      <span>Sign In with Facebook</span>
+  </button>
+
+ <button title="Sign In" type="submit" class="sign-in_apl">
     <svg preserveAspectRatio="xMidYMid" version="1.1" viewBox="0 0 256 315" height="20px" width="16px" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg">
       <g>
         <path fill="#ffffff" d="M213.803394,167.030943 C214.2452,214.609646 255.542482,230.442639 256,230.644727 C255.650812,231.761357 249.401383,253.208293 234.24263,275.361446 C221.138555,294.513969 207.538253,313.596333 186.113759,313.991545 C165.062051,314.379442 158.292752,301.507828 134.22469,301.507828 C110.163898,301.507828 102.642899,313.596301 82.7151126,314.379442 C62.0350407,315.16201 46.2873831,293.668525 33.0744079,274.586162 C6.07529317,235.552544 -14.5576169,164.286328 13.147166,116.18047 C26.9103111,92.2909053 51.5060917,77.1630356 78.2026125,76.7751096 C98.5099145,76.3877456 117.677594,90.4371851 130.091705,90.4371851 C142.497945,90.4371851 165.790755,73.5415029 190.277627,76.0228474 C200.528668,76.4495055 229.303509,80.1636878 247.780625,107.209389 C246.291825,108.132333 213.44635,127.253405 213.803394,167.030988 M174.239142,50.1987033 C185.218331,36.9088319 192.607958,18.4081019 190.591988,0 C174.766312,0.636050225 155.629514,10.5457909 144.278109,23.8283506 C134.10507,35.5906758 125.195775,54.4170275 127.599657,72.4607932 C145.239231,73.8255433 163.259413,63.4970262 174.239142,50.1987249"></path>
@@ -47,3 +68,4 @@
   <p class="note">Terms of use &amp; Conditions</p>
   </div>
 </div>
+

@@ -16,16 +16,18 @@ export class AppComponent {
     public authService: AuthService,
     private toastrService: CustomToastrService,
     private router: Router,
-    private socialAuthService: SocialAuthService) {
+    private socialAuthService: SocialAuthService,
+    ) {
     authService.identityCheck();
   }
   
 
   signOut() {
     localStorage.removeItem("accessToken");
-    this.socialAuthService.signOut().then(() => {location.reload()});
     this.authService.identityCheck();
-    this.router.navigateByUrl("");
+    this.router.navigateByUrl("").then(() => {
+      location.reload();
+    }); // Ana sayfaya yönlendir;
     this.toastrService.message("Logged out successfully","Log Out ",{
       toasterMessageType: ToastrMessageType.Warning,
       position: ToastrPosition.TopRight

@@ -15,6 +15,7 @@ const routes: Routes = [
     ], canActivate: [authGuard]
   },
   {path: "", component:HomeComponent},
+  {path: "cart", loadChildren :()=> import("./ui/components/cart/cart.module").then(m=>m.CartModule)},
   {path: "basket", loadChildren :()=> import("./ui/components/baskets/baskets.module").then(m=>m.BasketsModule)},
   {path: "products", loadChildren :()=> import("./ui/components/products/products.module").then(m=>m.ProductsModule)},
   {path: "register", loadChildren :()=> import("./ui/components/register/register.module").then(m=>m.RegisterModule)},

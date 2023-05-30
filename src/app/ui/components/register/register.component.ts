@@ -1,4 +1,4 @@
-import { SocialAuthService, SocialUser } from '@abacritt/angularx-social-login';
+import { FacebookLoginProvider, SocialAuthService, SocialUser } from '@abacritt/angularx-social-login';
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -7,6 +7,7 @@ import { BaseComponent, SpinnerType } from 'src/app/base/base.component';
 import { Create_User } from 'src/app/contracts/user/create_user';
 import { User } from 'src/app/entities/user';
 import { AuthService } from 'src/app/services/common/auth.service';
+import { UserAuthService } from 'src/app/services/common/models/user-auth.service';
 import { UserService } from 'src/app/services/common/models/user.service';
 import { CustomToastrService, ToastrMessageType, ToastrPosition } from 'src/app/services/ui/custom-toastr.service';
 
@@ -19,6 +20,7 @@ export class RegisterComponent extends BaseComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
+    private userAuthService: UserAuthService,
     private userService: UserService,
     private toastrService: CustomToastrService,
     private authService: AuthService,
@@ -30,9 +32,21 @@ export class RegisterComponent extends BaseComponent implements OnInit {
     socialAuthService.authState.subscribe(async (user: SocialUser) => {
       console.log(user)
       this.showSpinner(SpinnerType.BallSpinClockwise);
-      await userService.googleLogin(user, () => {
-        this.authService.identityCheck();
-        const returnUrl: string = this.activatedRoute.snapshot.queryParams["returnUrl"];
+      switch(user.provider){
+        case "GOOGLE":
+          await userAuthService.googleLogin(user, () => {
+            
+            })
+          break;
+        case "FACEBOOK":
+          await userAuthService.facebookLogin(user, () => {
+            
+            
+            }
+          );
+          break;
+      }
+      const returnUrl: string = this.activatedRoute.snapshot.queryParams["returnUrl"];
         if (returnUrl) {
           this.router.navigateByUrl(returnUrl);
         } else {
@@ -40,10 +54,10 @@ export class RegisterComponent extends BaseComponent implements OnInit {
             location.reload();
           });; // Ana sayfaya yönlendir
         }
-        this.hideSpinner(SpinnerType.BallSpinClockwise)
-      })
-
     });
+    
+    this.authService.identityCheck();
+    this.hideSpinner(SpinnerType.BallSpinClockwise)
   }
   
 
@@ -88,7 +102,7 @@ export class RegisterComponent extends BaseComponent implements OnInit {
         }
        
       
-       this.userService.login(user.userName || user.email, user.password);
+       this.userAuthService.login(user.userName || user.email, user.password);
       
     
     }else{
@@ -98,5 +112,8 @@ export class RegisterComponent extends BaseComponent implements OnInit {
 
       });
     }
+  }
+  facebookLogin(){
+    this.socialAuthService.signIn(FacebookLoginProvider.PROVIDER_ID);
   }
 }

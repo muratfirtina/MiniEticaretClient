@@ -1,12 +1,10 @@
-import { SocialAuthService, SocialUser } from '@abacritt/angularx-social-login';
+import { FacebookLoginProvider, SocialAuthService, SocialUser } from '@abacritt/angularx-social-login';
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { BaseComponent, SpinnerType } from 'src/app/base/base.component';
-import { TokenResponse } from 'src/app/contracts/token/responseToken';
 import { AuthService } from 'src/app/services/common/auth.service';
-import { HttpClientService } from 'src/app/services/common/http-client.service';
-import { UserService } from 'src/app/services/common/models/user.service';
+import { UserAuthService } from 'src/app/services/common/models/user-auth.service';
 
 @Component({
   selector: 'app-login',
@@ -16,7 +14,7 @@ import { UserService } from 'src/app/services/common/models/user.service';
 export class LoginComponent extends BaseComponent{
   
   constructor(
-    private userService:UserService,
+    private userAuthService:UserAuthService,
     spinner: NgxSpinnerService,
     private authService: AuthService,
     private activatedRoute: ActivatedRoute,
@@ -26,25 +24,38 @@ export class LoginComponent extends BaseComponent{
     socialAuthService.authState.subscribe(async(user:SocialUser) => {
       console.log(user)
       this.showSpinner(SpinnerType.BallSpinClockwise);
-      await userService.googleLogin(user, () => {
-        this.authService.identityCheck();
-        const returnUrl: string = this.activatedRoute.snapshot.queryParams["returnUrl"];
+      switch(user.provider){
+        case "GOOGLE":
+          await userAuthService.googleLogin(user, () => {
+            this.authService.identityCheck();
+            this.hideSpinner(SpinnerType.BallSpinClockwise)
+            
+            })
+          break;
+        case "FACEBOOK":
+          await userAuthService.facebookLogin(user, () => {
+            this.authService.identityCheck();
+            sessionStorage.clear();
+            this.hideSpinner(SpinnerType.BallSpinClockwise)
+            });
+          break;
+      }
+      const returnUrl: string = this.activatedRoute.snapshot.queryParams["returnUrl"];
         if (returnUrl) {
           this.router.navigateByUrl(returnUrl);
         } else {
-          this.router.navigateByUrl("/").then(() => {
-            location.reload();
-          });; // Ana sayfaya yönlendir
+          this.router.navigateByUrl("/")
         }
-        this.hideSpinner(SpinnerType.BallSpinClockwise)})
-      
     });
+    
+    
   }
 
   async login(userNameOrEmail: string, password: string){  
    this.showSpinner(SpinnerType.BallSpinClockwise);
-   await this.userService.login(userNameOrEmail, password, () => {
+   await this.userAuthService.login(userNameOrEmail, password, () => {
     this.authService.identityCheck();
+    sessionStorage.clear();
     this.activatedRoute.queryParams.subscribe(params => {
       const returnUrl: string = params['returnUrl'];
       if(returnUrl){
@@ -57,5 +68,7 @@ export class LoginComponent extends BaseComponent{
     this.hideSpinner(SpinnerType.BallSpinClockwise)});
   }
 
-  
+  facebookLogin(){
+    this.socialAuthService.signIn(FacebookLoginProvider.PROVIDER_ID);
+  }
 }
