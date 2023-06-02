@@ -1,0 +1,46 @@
+.card{
+    width: 16rem;
+    height: 480px;
+    float: left;
+    margin: 10px;
+
+}
+
+.carousel-inner {
+    position: relative;
+    overflow: hidden;
+    height: 286px;
+    display: flex;
+    align-items: center;
+    justify-content: left center;
+    background-color: #e9ecef;
+}
+
+.btn.btn-addCart {
+    width: 100%;
+    background-color: rgb(255, 102, 0);
+    border-color: #f8f9fa;
+    color: #ffffff;
+    font-weight: 400;
+    border-radius: 10px;
+    padding: 0.5rem 1rem;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.15s ease-in-out;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+    margin-right: 0.5rem;
+}
+
+.btn.btn-addCart:hover {
+    background-color: #e4640f;
+}
+
+.btn.btn-addCart:active {
+    transform: scale(0.95); /* Küçültme efekti */
+    background-color: #f0ece9;
+    border-color: #ff6600;
+    color: #ff6600;
+}
