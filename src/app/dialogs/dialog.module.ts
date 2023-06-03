@@ -7,6 +7,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { ProductImageDialogComponent } from './product-image-dialog/product-image-dialog.component';
 import { FileUploadModule } from '../services/common/fileUpload/fileUpload.module';
 import {MatCardModule} from '@angular/material/card';
+import { FormsModule } from '@angular/forms';
 
 
 
@@ -20,7 +21,8 @@ import {MatCardModule} from '@angular/material/card';
     MatDialogModule,
     MatButtonModule,
     MatCardModule,
-    FileUploadModule
+    FileUploadModule,
+    FormsModule
   ]
 })
 export class DialogModule { }

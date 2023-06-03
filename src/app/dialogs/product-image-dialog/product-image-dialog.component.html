@@ -5,8 +5,7 @@
   <div class="image-wrapper">
     <mat-card class="product-image-card" *ngFor="let image of productImages">
       <mat-card-header>
-        
-        
+        <input type="radio" name="img" (click)="showCase(image.id)" />
       </mat-card-header>
       <img mat-card-image [src]="image.path">
       <mat-card-content>
@@ -18,11 +17,9 @@
       </mat-card-actions>
     </mat-card>
   </div>
-  
-
-
 
 </mat-dialog-content>
 <mat-dialog-actions align="end">
+  <button mat-button color="primary" mat-dialog-close>Save</button>
   <button mat-button mat-dialog-close>Cancel</button>
 </mat-dialog-actions>

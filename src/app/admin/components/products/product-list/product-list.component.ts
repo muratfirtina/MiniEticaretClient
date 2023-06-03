@@ -37,7 +37,7 @@ export class ProductListComponent extends BaseComponent implements OnInit{
     const pageIndex = this.paginator ? this.paginator.pageIndex : 0;
     const pageSize = this.paginator ? this.paginator.pageSize : 5;
   
-    const allProducts: {totalCount: number; products: List_Product[]} = await this.productService.list(pageIndex, pageSize, 
+    const allProducts: {totalProductCount: number; products: List_Product[]} = await this.productService.list(pageIndex, pageSize, 
       () => this.hideSpinner(SpinnerType.BallSpinClockwise), 
       errorMessage => this.alertifyService.message(errorMessage, {
         dismissOthers: true,
@@ -46,7 +46,7 @@ export class ProductListComponent extends BaseComponent implements OnInit{
     }));
   
     this.dataSource = new MatTableDataSource<List_Product>(allProducts.products);
-    this.paginator.length = allProducts.totalCount;
+    this.paginator.length = allProducts.totalProductCount;
   
     if (allProducts.products.length === 0 && pageIndex > 0) {
       this.paginator.pageIndex = pageIndex - 1;

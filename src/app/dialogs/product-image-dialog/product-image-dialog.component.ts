@@ -44,6 +44,8 @@ export class ProductImageDialogComponent extends BaseDialog<ProductImageDialogCo
   async ngOnInit() {
     this.spinner.show(SpinnerType.BallSpinClockwise);
     this.productImages = await this.productService.readImages(this.data as string,() =>this.spinner.hide(SpinnerType.BallSpinClockwise));
+    
+    
   }
 
   async deleteImage(imageId: string, event: any) {
@@ -64,6 +66,13 @@ export class ProductImageDialogComponent extends BaseDialog<ProductImageDialogCo
       })
     }
     });
+  }
+
+  showCase(imageId: string) {
+    this.spinner.show(SpinnerType.BallSpinClockwise);
+    this.productService.changeShowcaseImage(imageId, this.data as string ,() =>{
+      this.spinner.hide(SpinnerType.BallSpinClockwise);
+    })
   }
 
 }
