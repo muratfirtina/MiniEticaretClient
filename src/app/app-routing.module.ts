@@ -16,7 +16,6 @@ const routes: Routes = [
   },
   {path: "", component:HomeComponent},
   {path: "cart", loadChildren :()=> import("./ui/components/cart/cart.module").then(m=>m.CartModule)},
-  {path: "basket", loadChildren :()=> import("./ui/components/baskets/baskets.module").then(m=>m.BasketsModule)},
   {path: "register", loadChildren :()=> import("./ui/components/register/register.module").then(m=>m.RegisterModule)},
   {path: "products", loadChildren :()=> import("./ui/components/products/products.module").then(m=>m.ProductsModule)},
   {path: "products/:pageNo", loadChildren :()=> import("./ui/components/products/products.module").then(m=>m.ProductsModule)},

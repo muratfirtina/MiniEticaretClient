@@ -21,6 +21,9 @@ import { CartModule } from './cart/cart.module';
     
     //RegisterModule,
     //LoginModule
+  ],
+  exports: [
+    CartModule
   ]
 })
 export class ComponentsModule { }

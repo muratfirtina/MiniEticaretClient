@@ -5,6 +5,135 @@
 }
 .navbar{
     height: 100px;
-    border-bottom: 2px solid rgb(208, 204, 204);
+    //border-bottom: 2px solid rgb(208, 204, 204);
     background-color: #ffffff;
+    display: flex;
+    margin: auto;
+    margin-left: 100px;
+    margin-right: 10px;
+}
+.navbar-nav{
+    margin-right: 10px;
+}
+.d-flex{
+    display: flex;
+}
+.d-flex input{
+    width: 400px;
+    height: 40px;
+    border-radius: 7px;
+    border: 1px solid rgb(208, 204, 204);
+    padding-left: 20px;
+}
+.d-flex button{
+    height: 40px;
+}
+.nav-item #register{
+    padding-left: 5px;
+    padding-right: 5px;
+    margin-left: 40px;
+    height: 40px;
+    width: 105px;
+    --bs-btn-color: rgb(189, 188, 188);
+    --bs-btn-border-color: rgb(189, 188, 188);
+    --bs-btn-hover-bg: rgb(255, 102, 0);
+    --bs-btn-hover-color: #fff;
+    --bs-btn-hover-border-color: rgb(255, 102, 0);
+    --bs-btn-active-bg: rgb(255, 102, 0);
+    --bs-btn-active-border-color: rgb(255, 102, 0);
+    --bs-btn-disabled-color: rgb(255, 102, 0);
+    --bs-btn-disabled-border-color: rgb(255, 102, 0);
+    --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+    --bs-btn-disabled-bg:transparent;
+    --bs-gradient:none;
+    --bs-btn-focus-shadow-rgb: rgba(255, 102, 0, 0.25);
+
+}
+.registertext{
+    margin-left:5px;
+    font-size: 1rem;
+    font-weight: 400;
+}
+
+.nav-item #login{
+    margin-left: 20px;
+    height: 40px;
+    width: 105px;
+    --bs-btn-color: rgb(255, 102, 0);
+    --bs-btn-border-color: rgb(255, 102, 0);
+    --bs-btn-hover-bg: rgb(255, 102, 0);
+    --bs-btn-hover-color: #fff;
+    --bs-btn-hover-border-color: rgb(255, 102, 0);
+    --bs-btn-active-bg: rgb(255, 102, 0);
+    --bs-btn-active-border-color: rgb(255, 102, 0);
+    --bs-btn-disabled-color: rgb(255, 102, 0);
+    --bs-btn-disabled-border-color: rgb(255, 102, 0);
+    --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+    --bs-btn-disabled-bg:transparent;
+    --bs-gradient:none;
+    --bs-btn-focus-shadow-rgb: rgba(255, 102, 0, 0.25);
+
+}
+.logintext{
+    margin-left: 4px;
+    font-size: 1rem;
+    font-weight: 400;
+}
+
+.nav-item #signout{
+    display: flex;
+    padding-left: 2px;
+    padding-right: 2px;
+    margin-left: 150px;
+    height: 40px;
+    width: 85px;
+
+}
+.signouttext{
+    padding-top: 2px;
+    padding-bottom: 2px;
+    margin-left: 4px;
+    font-size: 13px;
+    font-weight: 400;
+}
+
+.nav-item #adminbutton{
+    padding-left: 2px;
+    padding-right: 2px;
+    margin-left: 20px;
+    height: 40px;
+    width: 150px;
+
+}
+.admintext{
+    margin-left: 4px;
+    font-size: 1rem;
+    font-weight: 400;
+}
+
+.nav-item #cartbutton{
+    padding-left: 5px;
+    padding-right: 5px;
+    margin-left: 80px;
+    height: 40px;
+    width: 105px;
+    --bs-btn-color: rgb(189, 188, 188);
+    --bs-btn-border-color: rgb(189, 188, 188);
+    --bs-btn-hover-bg: rgb(255, 102, 0);
+    --bs-btn-hover-color: #fff;
+    --bs-btn-hover-border-color: rgb(255, 102, 0);
+    --bs-btn-active-bg: rgb(255, 102, 0);
+    --bs-btn-active-border-color: rgb(255, 102, 0);
+    --bs-btn-disabled-color: rgb(255, 102, 0);
+    --bs-btn-disabled-border-color: rgb(255, 102, 0);
+    --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+    --bs-btn-disabled-bg:transparent;
+    --bs-gradient:none;
+    --bs-btn-focus-shadow-rgb: rgba(255, 102, 0, 0.25);
+
+}
+.carttext{
+    margin-left:5px;
+    font-size: 1rem;
+    font-weight: 400;
 }
