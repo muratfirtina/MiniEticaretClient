@@ -1,9 +1,12 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { CustomToastrService, ToastrMessageType, ToastrPosition } from './services/ui/custom-toastr.service';
 import { AuthService } from './services/common/auth.service';
 import { Router } from '@angular/router';
 import { SocialAuthService } from '@abacritt/angularx-social-login';
-import { HttpClientService } from './services/common/http-client.service';
+import { ComponentName, DynamicLoadComponentService } from './services/common/dynamic-load-component.service';
+import { DynamicLoadComponentDirective } from './directives/common/dynamic-load-component.directive';
+
+
 declare var $: any;
 
 @Component({
@@ -13,12 +16,15 @@ declare var $: any;
 })
 export class AppComponent {
 
+  @ViewChild(DynamicLoadComponentDirective, { static: true })
+  dynamicLoadComponentDirective: DynamicLoadComponentDirective;
+
   constructor(
     public authService: AuthService,
     private toastrService: CustomToastrService,
     private router: Router,
     private socialAuthService: SocialAuthService,
-    ) {
+    private dynamicLoadComponentService: DynamicLoadComponentService,) {
     authService.identityCheck();
   }
   
@@ -34,6 +40,10 @@ export class AppComponent {
       toasterMessageType: ToastrMessageType.Warning,
       position: ToastrPosition.TopRight
     })
+  }
+  loadComponent() {
+    this.dynamicLoadComponentService.loadComponent(ComponentName.CartComponent, this.dynamicLoadComponentDirective.viewContainerRef);
+
   }
 }
 

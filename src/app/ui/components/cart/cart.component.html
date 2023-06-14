@@ -1,50 +1,45 @@
-<div class="modal fade" id="cartModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-xl">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h1 class="modal-title fs-5" id="exampleModalLabel">Sepetiniz</h1>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-            <table class="table table-striped">
-                <thead>
-                  <tr>
-                    <th scope="col"style="width: 10px;">#</th>
-                    <th scope="col"style="width: 175px;">Ürün Adı</th>
-                    <th scope="col"style="width: 175px;">Fiyat</th>
-                    <th scope="col"style="width: 175px;">Adet</th>
+<div class="modal-content">
+    <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Sepetiniz</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    </div>
+    <div class="modal-body">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col" style="width: 10px">#</th>
+                    <th scope="col" style="width: 175px">Ürün Adı</th>
+                    <th scope="col" style="width: 175px">Fiyat</th>
+                    <th scope="col" style="width: 175px">Adet</th>
                     <th></th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr class="{{cartItem.cartItemId}}" *ngFor="let cartItem of cartItems; let i = index">
-                    <th scope="row">{{i+1}}</th>
-                    
-                    <td>{{cartItem.productName}}</td>
-                    <td>{{cartItem.unitPrice}}</td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="{{ cartItem.cartItemId }}" *ngFor="let cartItem of cartItems; let i = index">
+                    <th scope="row">{{ i + 1 }}</th>
+
+                    <td>{{ cartItem.productName }}</td>
+                    <td>{{ cartItem.unitPrice }}</td>
                     <td>
-                      <input type="number" [value]="cartItem.quantity" style="width: 60px; height: 45px;" data-id="{{ cartItem.cartItemId }}" (change)="changeQuantity($event)">
+                        <input type="number" [value]="cartItem.quantity" style="width: 60px; height: 45px"
+                            data-id="{{ cartItem.cartItemId }}" (change)="changeQuantity($event)" />
                     </td>
                     <td>
-                      <button class="btn btn-danger" (click)="removeCartItem(cartItem.cartItemId)">Sil</button>
-                      
-                  </tr>
-                  
-                </tbody>
-              </table>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Save changes</button>
-        </div>
-      </div>
+                        <button class="btn btn-danger" (click)="removeCartItem(cartItem.cartItemId)">
+                            Sil
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
     </div>
-  </div>
-
-
-
-
-
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+            Close
+        </button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+    </div>
+</div>
 
 
 <!-- <div class="modal fade" id="cartModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
