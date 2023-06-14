@@ -2,11 +2,129 @@
     <div class="modal-dialog modal-xl">
       <div class="modal-content">
         <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Sepetiniz</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th scope="col"style="width: 10px;">#</th>
+                    <th scope="col"style="width: 175px;">Ürün Adı</th>
+                    <th scope="col"style="width: 175px;">Fiyat</th>
+                    <th scope="col"style="width: 175px;">Adet</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr class="{{cartItem.cartItemId}}" *ngFor="let cartItem of cartItems; let i = index">
+                    <th scope="row">{{i+1}}</th>
+                    
+                    <td>{{cartItem.productName}}</td>
+                    <td>{{cartItem.unitPrice}}</td>
+                    <td>
+                      <input type="number" [value]="cartItem.quantity" style="width: 60px; height: 45px;" data-id="{{ cartItem.cartItemId }}" (change)="changeQuantity($event)">
+                    </td>
+                    <td>
+                      <button class="btn btn-danger" (click)="removeCartItem(cartItem.cartItemId)">Sil</button>
+                      
+                  </tr>
+                  
+                </tbody>
+              </table>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+
+
+<!-- <div class="modal fade" id="cartModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+      <div class="modal-content">
+        <div class="modal-header">
           <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          ...
+            <section class="cart-itemContent" id="item-list" >
+                <div class="product-cart">
+                    <div class="merchant-box">
+                        <div class="merchant-name">
+                            <span></span>
+                            <span class="merchant-link"></span>
+                        </div>
+                        <div class="merchant-shippingfree?"></div>
+                    </div>
+                    <ul class="item-list" >
+                        <li class="cart-items" *ngFor="let cartItem of cartItems">
+                            <div class="product-box">
+                                <div class="product-shippingDate">
+                                    <div class="product-shippingDate-wrapper">
+                                        <svg></svg>
+                                        <span class="product-shippingDate-text">Estimated delivery date:</span>
+                                    </div>
+                                </div>
+                                <div class="product-area">
+                                    <div class="product-img">
+                                        <div class="edit-radio">
+                                            <label class="edit-radio-btn">
+                                                <input type="checkbox" name="selection" id="selectedCheckBox">
+                                            </label>
+                                        </div>
+                                        <div class="product-image-area">
+                                            <figure class>
+                                                <a class>
+                                                    <img [src]="cartItemImage.path" alt="">
+                                                </a>
+                                            </figure>
+                                        </div>
+                                    </div>
+                                    <div class="product-details">
+                                        <div class="product-prop">
+                                            <div class="product-name">
+                                                <a class>{{cartItem.productName}}</a>
+                                                <div class="product-variant"></div>
+                                            </div>
+                                        </div>
+                                        <div class="product-priceBox">
+                                            <div class="product-counter">
+                                                <div class="product-quantities">
+                                                    <a class="delete-button">
+                                                        <svg></svg>
+                                                    </a>
+                                                    <input type="number" name="quantity" class="" [value]="cartItem.quantity">
+                                                    <a class="add-button">
+                                                        <svg></svg>
+                                                    </a>
+                                                </div>
+                                                <a class="trashbutton">//gizlenir yapılacak
+                                                    <svg></svg>
+                                                </a>
+                                            </div>
+                                            <div class="price-box">
+                                                <div class="price-box-container">
+                                                    <div class="prouct-price">
+                                                        {{cartItem.unitPrice}} TL
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </section>     
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Close</button>
@@ -14,4 +132,4 @@
         </div>
       </div>
     </div>
-  </div>
+  </div> -->

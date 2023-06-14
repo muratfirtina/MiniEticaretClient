@@ -1,3 +1,5 @@
+<div class="row">
+  <div class="col-md-1"></div>
 <div class="card" *ngFor="let product of products">
   <div [id]="'carouselExampleIndicators-' + product.id" class="carousel slide">
     <ol class="carousel-indicators">
@@ -8,7 +10,7 @@
         <div class="carousel-item" *ngFor="let image of product.productImageFiles; let i = index" [class.active]="i === 0">
           <img [src]="baseUrl.url + '/' + image.path" class="d-block w-100" [alt]="product.name">
         </div>
-      </ng-container>
+      </ng-container> 
       <ng-template #defaultImage>
         <div class="carousel-item active">
           <img src="../../../../../assets/default_product.png" class="d-block w-100" alt="Default Image">
@@ -28,8 +30,9 @@
     <h5 class="card-title">{{product.name}}</h5>
     <p class="card-text">Price: {{product.price | currency: "₺"}}</p>
     <p class="card-text">Stock: {{product.stock}}</p>
-    <a class="btn btn-addCart">Add to cart</a>
+    <a class="btn btn-addCart"(click)="addToCart(product)">Add to cart</a>
   </div>
+</div>
 </div>
 
 

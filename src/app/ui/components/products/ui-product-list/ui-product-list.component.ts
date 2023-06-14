@@ -1,22 +1,32 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { NgxSpinnerService } from 'ngx-spinner';
+import { BaseComponent, SpinnerType } from 'src/app/base/base.component';
 import { BaseUrl } from 'src/app/contracts/base_url';
+import { Create_Cart_Item } from 'src/app/contracts/cart/create_cart_item';
 import { List_Product } from 'src/app/contracts/list_product';
 import { List_Product_Image } from 'src/app/contracts/list_product_image';
+import { CartService } from 'src/app/services/common/models/cart.service';
 import { FileService } from 'src/app/services/common/models/file.service';
 import { ProductService } from 'src/app/services/common/models/product.service';
+import { CustomToastrService, ToastrMessageType, ToastrPosition } from 'src/app/services/ui/custom-toastr.service';
 
 @Component({
   selector: 'app-ui-product-list',
   templateUrl: './ui-product-list.component.html',
   styleUrls: ['./ui-product-list.component.scss'],
 })
-export class UiProductListComponent implements OnInit {
+export class UiProductListComponent extends BaseComponent implements OnInit {
   constructor(
     private productService: ProductService,
     private activatedRoute: ActivatedRoute,
-    private fileService: FileService
-  ) {}
+    private fileService: FileService,
+    private cartService: CartService,
+    spinner: NgxSpinnerService,
+    private customToasterService: CustomToastrService
+  ) {
+    super(spinner);
+  }
 
   currentPageNo: number;
   totalProductCount: number;
@@ -91,5 +101,18 @@ export class UiProductListComponent implements OnInit {
         }
       }
     });
+  }
+
+ async addToCart(product: List_Product) {
+    this.showSpinner(SpinnerType.BallSpinClockwise);
+    let _cartItem: Create_Cart_Item = new Create_Cart_Item();
+    _cartItem.productId = product.id;
+    _cartItem.quantity = 1;
+   await this.cartService.add(_cartItem);
+   this.hideSpinner(SpinnerType.BallSpinClockwise);
+   this.customToasterService.message("Product added to cart successfully","Success",{
+      toasterMessageType: ToastrMessageType.Success,
+      position: ToastrPosition.TopRight
+   });
   }
 }

@@ -25,6 +25,7 @@ export class AppComponent {
 
   signOut() {
     localStorage.removeItem("accessToken");
+    //localStorage.removeItem("refreshToken");
     this.authService.identityCheck();
     this.router.navigateByUrl("").then(() => {
       location.reload();

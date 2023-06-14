@@ -86,9 +86,9 @@
                     </button>
                 </li>
 
-                <li class="nav-item">
+                <div class="nav-item">
                     <button type="button" id="cartbutton" class="btn btn-outline-success " aria-current="page"
-                        data-bs-toggle="modal" data-bs-target="#cartModal">
+                        data-bs-toggle="modal" data-bs-target="#cartModal" *ngIf="authService.isAuthenticated">
                         <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor"
                             class="bi bi-cart4" viewBox="0 0 16 16">
                             <path
@@ -96,7 +96,7 @@
                         </svg>
                         <span class="carttext">Cart</span>
                     </button>
-                </li>
+                </div>
 
                 <li class="nav-item">
                     <button type="button" id="signout" class="btn btn-outline-danger " aria-current="page"
