@@ -45,5 +45,6 @@ export class AppComponent {
     this.dynamicLoadComponentService.loadComponent(ComponentName.CartComponent, this.dynamicLoadComponentDirective.viewContainerRef);
 
   }
+  
 }
 

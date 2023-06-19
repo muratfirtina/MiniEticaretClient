@@ -7,13 +7,18 @@ import { Update_Cart_Item } from 'src/app/contracts/cart/update_cart_item';
 import { AuthService } from '../auth.service';
 import { CustomToastrService, ToastrMessageType, ToastrPosition } from '../../ui/custom-toastr.service';
 import { Router } from '@angular/router';
+import { ProductService } from './product.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CartService {
 
-  constructor(private httpClientService: HttpClientService,private authService:AuthService, private customToastrService:CustomToastrService,private router:Router) { }
+  constructor(private httpClientService: HttpClientService,
+    private authService:AuthService,
+    private customToastrService:CustomToastrService,
+    private router:Router,
+    private productService: ProductService) { }
   async get(): Promise<List_Cart_Item[]>{
     const observable:Observable<List_Cart_Item[]> = this.httpClientService.get({
       controller: 'carts',
@@ -47,4 +52,22 @@ export class CartService {
 
     await firstValueFrom(observable);
   }
+
+  /* async addImageUrlToCartItems(cartItems: List_Cart_Item[]): Promise<List_Cart_Item[]> {
+    const updatedCartItems: List_Cart_Item[] = [];
+    for (const cartItem of cartItems) {
+      const imageUrl = await this.getImageUrlForProduct(cartItem.productId);
+      cartItem.productImageUrls = imageUrl;
+      updatedCartItems.push(cartItem);
+    }
+    return updatedCartItems;
+  }
+
+  async getImageUrlForProduct(productId: string): Promise<string> {
+    const productImages = await this.productService.readImages(productId);
+    if (productImages && productImages.length > 0) {
+      return productImages[0].path; // İlk fotoğrafın yolunu döndürün
+    }
+    return '../../../../../assets/default_product.png'; // Fotoğraf yoksa boş bir değer döndürün veya varsayılan bir URL tanımlayabilirsiniz
+  } */
 }

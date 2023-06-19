@@ -1,130 +1,217 @@
-<div class="modal-content">
-    <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">Sepetiniz</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-    </div>
-    <div class="modal-body">
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th scope="col" style="width: 10px">#</th>
-                    <th scope="col" style="width: 175px">Ürün Adı</th>
-                    <th scope="col" style="width: 175px">Fiyat</th>
-                    <th scope="col" style="width: 175px">Adet</th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr class="{{ cartItem.cartItemId }}" *ngFor="let cartItem of cartItems; let i = index">
-                    <th scope="row">{{ i + 1 }}</th>
+<div class="row">
+    <div class="col-md-10">
+        <div class="modal-content" id="cartModal" style="width: 950px;">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Sepetiniz</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <ng-container *ngIf="seletedItemCount === 0">
+                    <h2 class="modal-title">Sepetiniz boş</h2>
+                </ng-container>
+                <div class="card mb3 " *ngFor="let cartItem of cartItems" style="margin-bottom: 20px;">
+                    <div class="card-header bg-transparent"> Header</div>
+                    <div class="row g-0">
+                        <div class="col-md-3">
+                            <div class="card-img-container">
+                                <div class="form-check">
+                                    <input type="checkbox" class="form-check-input" id="checkbox{{cartItem.cartItemId}}"
+                                        [checked]="cartItem.isChecked" (change)="toggleItemChecked($event, cartItem)">
+                                    <label class="form-check-label" for="checkbox{{cartItem.cartItemId}}"></label>
+                                </div>
+                                <div *ngIf="cartItem.productImageUrls && cartItem.productImageUrls.length > 0;"
+                                    class="card-img-container">
+                                    <img [src]="baseUrl.url + '/' + cartItem.productImageUrls[0]"
+                                        class="img-fluid rounded-start" [alt]="cartItem.productName">
+                                </div>
+                                <div *ngIf="!(cartItem.productImageUrls && cartItem.productImageUrls.length > 0)">
+                                    <img src="../../../../../assets/default_product.png" class="img-fluid rounded-start"
+                                        alt="Default Image">
+                                </div>
+                            </div>
 
-                    <td>{{ cartItem.productName }}</td>
-                    <td>{{ cartItem.unitPrice }}</td>
-                    <td>
-                        <input type="number" [value]="cartItem.quantity" style="width: 60px; height: 45px"
-                            data-id="{{ cartItem.cartItemId }}" (change)="changeQuantity($event)" />
-                    </td>
-                    <td>
-                        <button class="btn btn-danger" (click)="removeCartItem(cartItem.cartItemId)">
-                            Sil
-                        </button>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-    <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-            Close
-        </button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="card-body">
+                                <h3 class="card-title">{{cartItem.productName}}</h3>
+                                <p class="card-text">This is a wider card with supporting text below as a natural
+                                    lead-in to
+                                    additional content. This content is a little bit longer.</p>
+                                <p class="card-text"><small class="text-body-secondary">Last updated 3 mins ago</small>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="card-footer ">
+                            <div class="quantity">
+                                <button (click)="changeQuantity(-1, cartItem)" *ngIf="cartItem.quantity > 1">
+                                  <svg fill="none" viewBox="0 0 24 24" height="14" width="14" xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linejoin="round" stroke-linecap="round" stroke-width="2.5" stroke="#47484b" d="M20 12L4 12"></path>
+                                  </svg>
+                                </button>
+                                <button *ngIf="cartItem.quantity === 1" (click)="removeCartItem(cartItem.cartItemId)">
+                                    <svg fill="none" viewBox="0 0 24 24" height="14" width="14" xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd" clip-rule="evenodd" d="M3 6V8H5V18C5 19.1046 5.89543 20 7 20H17C18.1046 20 19 19.1046 19 18V8H21V6H3ZM7 8H17V18H7V8ZM9 10H11V16H9V10ZM13 10H15V16H13V10ZM8 4V2H16V4H8Z" fill="currentColor" />
+                                      </svg>
+                                </button>
+                                <label>{{ cartItem.quantity }}</label>
+                                <button (click)="changeQuantity(1, cartItem)">
+                                  <svg fill="none" viewBox="0 0 24 24" height="14" width="14" xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linejoin="round" stroke-linecap="round" stroke-width="2.5" stroke="#47484b" d="M12 4V20M20 12H4"></path>
+                                  </svg>
+                                </button>
+                              </div>
+                            <!-- <input type="number" [value]="cartItem.quantity" style="width: 60px; height: 45px"
+                                [id]="'quantityInput_' + cartItem.cartItemId"
+                                (change)="changeQuantity($event, cartItem)" /> -->
+                            <button class="btn btn-danger" (click)="removeCartItem(cartItem.cartItemId)">
+                                Sil
+                            </button>
+                            <p>{{ cartItem.unitPrice }} TL
+                            <p>
+                            <p>Toplam: {{cartItem.quantityPrice}} TL</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                    Close
+                </button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
     </div>
 </div>
 
-
-<!-- <div class="modal fade" id="cartModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-xl">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+<div class="row">
+    <div class="col-md-2">
+        <div class="modal-content" id="cartPriceModal" [ngClass]="{ 'active': isCartPriceModalActive }"
+            style="width: 230px; overflow-y: auto; ">
+            
+            <div class="modal-header" id="selectedItemCount">
+                <ng-container *ngIf="seletedItemCount > 0">
+                    <p class="modal-title">SEÇİLEN ÜRÜNLER ({{ seletedItemCount }})</p>
+                </ng-container>
+                <ng-container *ngIf="seletedItemCount === 0">
+                    <h5 class="modal-title">Sepetiniz boş</h5>
+                </ng-container>
+            </div>
+            <div class="modal-body" id="totalSelectedCartPrice">
+                <p>{{ totalSelectedCartPrice }} TL</p>
+            </div>
+            <div class="modal-footer" id="totalItemCount">
+                <ng-container *ngIf="seletedItemCount > 0">
+                    <p class="modal-title">* Sepetinizdeki Ürün Sayısı ({{ totalItemCount }})</p>
+                </ng-container>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="continueButton">Alışverişi tamamla</button>
+            </div>
         </div>
-        <div class="modal-body">
-            <section class="cart-itemContent" id="item-list" >
-                <div class="product-cart">
-                    <div class="merchant-box">
-                        <div class="merchant-name">
-                            <span></span>
-                            <span class="merchant-link"></span>
-                        </div>
-                        <div class="merchant-shippingfree?"></div>
+
+    </div>
+</div>
+
+<script src="./src/bootstrap-input-spinner.js"></script>
+<script>
+    $("input[type='number']").inputSpinner()
+</script>
+
+
+
+
+
+
+
+
+<!-- <div class="modal-content">
+    <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    </div>
+    <div class="modal-body">
+        <section class="cart-itemContent" id="item-list">
+            <div class="product-cart">
+                <div class="merchant-box">
+                    <div class="merchant-name">
+                        <span></span>
+                        <span class="merchant-link"></span>
                     </div>
-                    <ul class="item-list" >
-                        <li class="cart-items" *ngFor="let cartItem of cartItems">
-                            <div class="product-box">
-                                <div class="product-shippingDate">
-                                    <div class="product-shippingDate-wrapper">
-                                        <svg></svg>
-                                        <span class="product-shippingDate-text">Estimated delivery date:</span>
+                    <div class="merchant-shippingfree?"></div>
+                </div>
+                <ul class="item-list">
+                    <li class="cart-items" *ngFor="let cartItem of cartItems">
+                        <div class="product-box">
+                            <div class="product-shippingDate">
+                                <div class="product-shippingDate-wrapper">
+                                    <svg></svg>
+                                    <span class="product-shippingDate-text">Estimated delivery date:</span>
+                                </div>
+                            </div>
+                            <div class="product-area">
+                                <div class="product-img">
+                                    <div class="edit-radio">
+                                        <label class="edit-radio-btn">
+                                            <input type="checkbox" name="selection" id="selectedCheckBox">
+                                        </label>
+                                    </div>
+                                    <div class="product-image-area">
+                                        <figure class>
+                                            <ng-container
+                                                *ngIf="cartItem.productImageUrls && cartItem.productImageUrls.length > 0">
+                                                <img [src]="baseUrl.url + '/' + cartItem.productImageUrls[0]"
+                                                    class="d-block w-100" [alt]="cartItem.productName">
+                                            </ng-container>
+                                            <ng-container
+                                                *ngIf="!(cartItem.productImageUrls && cartItem.productImageUrls.length > 0)">
+                                                <img src="../../../../../assets/default_product.png"
+                                                    class="d-block w-100" alt="Default Image">
+                                            </ng-container>
+                                        </figure>
                                     </div>
                                 </div>
-                                <div class="product-area">
-                                    <div class="product-img">
-                                        <div class="edit-radio">
-                                            <label class="edit-radio-btn">
-                                                <input type="checkbox" name="selection" id="selectedCheckBox">
-                                            </label>
-                                        </div>
-                                        <div class="product-image-area">
-                                            <figure class>
-                                                <a class>
-                                                    <img [src]="cartItemImage.path" alt="">
-                                                </a>
-                                            </figure>
+                                <div class="product-details">
+                                    <div class="product-prop">
+                                        <div class="product-name">
+                                            <a class>{{cartItem.productName}}</a>
+                                            <div class="product-variant"></div>
                                         </div>
                                     </div>
-                                    <div class="product-details">
-                                        <div class="product-prop">
-                                            <div class="product-name">
-                                                <a class>{{cartItem.productName}}</a>
-                                                <div class="product-variant"></div>
-                                            </div>
-                                        </div>
-                                        <div class="product-priceBox">
-                                            <div class="product-counter">
-                                                <div class="product-quantities">
-                                                    <a class="delete-button">
-                                                        <svg></svg>
-                                                    </a>
-                                                    <input type="number" name="quantity" class="" [value]="cartItem.quantity">
-                                                    <a class="add-button">
-                                                        <svg></svg>
-                                                    </a>
-                                                </div>
-                                                <a class="trashbutton">//gizlenir yapılacak
+                                    <div class="product-priceBox">
+                                        <div class="product-counter">
+                                            <div class="product-quantities">
+                                                <a class="delete-button">
+                                                    <svg></svg>
+                                                </a>
+                                                <input type="number" name="quantity" class=""
+                                                    [value]="cartItem.quantity">
+                                                <a class="add-button">
                                                     <svg></svg>
                                                 </a>
                                             </div>
-                                            <div class="price-box">
-                                                <div class="price-box-container">
-                                                    <div class="prouct-price">
-                                                        {{cartItem.unitPrice}} TL
-                                                    </div>
+                                            <a class="trashbutton">//gizlenir yapılacak
+                                                <svg></svg>
+                                            </a>
+                                        </div>
+                                        <div class="price-box">
+                                            <div class="price-box-container">
+                                                <div class="prouct-price">
+                                                    {{cartItem.unitPrice}} TL
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </li>
-                    </ul>
-                </div>
-            </section>     
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Save changes</button>
-        </div>
-      </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </section>
     </div>
-  </div> -->
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+    </div>
+</div> -->
