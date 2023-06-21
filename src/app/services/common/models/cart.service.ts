@@ -8,6 +8,7 @@ import { AuthService } from '../auth.service';
 import { CustomToastrService, ToastrMessageType, ToastrPosition } from '../../ui/custom-toastr.service';
 import { Router } from '@angular/router';
 import { ProductService } from './product.service';
+import { IsChecked_Cart_Item } from 'src/app/contracts/cart/isChecked_cart_item';
 
 @Injectable({
   providedIn: 'root'
@@ -49,6 +50,15 @@ export class CartService {
     const observable: Observable<any> = this.httpClientService.delete({
       controller: 'carts',
     },cartItemId);
+
+    await firstValueFrom(observable);
+  }
+
+  async updateCartItem(cartItem: IsChecked_Cart_Item): Promise<void> {
+    const observable: Observable<any> = this.httpClientService.put({
+      controller: 'carts',
+      action: 'updateCartItem'
+    }, cartItem);
 
     await firstValueFrom(observable);
   }

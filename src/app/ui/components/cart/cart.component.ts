@@ -1,8 +1,9 @@
-import { Component, HostListener, OnInit } from '@angular/core';
+import { Component, EventEmitter, HostListener, OnInit, Output } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { BaseComponent, SpinnerType } from 'src/app/base/base.component';
 import { BaseUrl } from 'src/app/contracts/base_url';
+import { IsChecked_Cart_Item } from 'src/app/contracts/cart/isChecked_cart_item';
 import { List_Cart_Item } from 'src/app/contracts/cart/list_cart_item';
 import { Update_Cart_Item } from 'src/app/contracts/cart/update_cart_item';
 import { CartService } from 'src/app/services/common/models/cart.service';
@@ -16,6 +17,7 @@ declare var $: any;
   styleUrls: ['./cart.component.scss'],
 })
 export class CartComponent extends BaseComponent implements OnInit {
+  
   constructor(
     spinner: NgxSpinnerService,
     private cartService: CartService,
@@ -29,50 +31,41 @@ export class CartComponent extends BaseComponent implements OnInit {
   baseUrl: BaseUrl;
   cartItems: List_Cart_Item[];
   isCartPriceModalActive = false;
-  seletedItemCount: number = 0;
+  selectedItemCount: number = 0;
+  cartIsEmptyMessage: string;
 
   async ngOnInit(): Promise<void> {
     this.showSpinner(SpinnerType.BallSpinClockwise);
     this.baseUrl = await this.fileService.getBaseStorageUrl();
     await this.getCartItems();
-    this.updateSeletedItemCount();
+    this.updateSelectedItemCount();
     this.hideSpinner(SpinnerType.BallSpinClockwise);
   }
 
   async getCartItems(): Promise<void> {
     this.cartItems = await this.cartService.get();
     this.totalItemCount = this.cartItems.length;
-
+  
     this.cartItems.forEach((cartItem) => {
       cartItem.quantityPrice = cartItem.unitPrice * cartItem.quantity;
-      cartItem.isChecked = true;
     });
-    this.totalSelectedCartPrice = this.cartItems.reduce(
-      (sum, cartItem) => sum + cartItem.quantityPrice,
-      0
-    );
+  
+    this.totalSelectedCartPrice = this.cartItems
+      .filter((cartItem) => cartItem.isChecked)
+      .reduce((sum, cartItem) => sum + cartItem.quantityPrice, 0);
   }
+  
   toggleItemChecked(event: any, cartItem: List_Cart_Item) {
     cartItem.isChecked = event.target.checked;
     this.updateTotalCartPrice();
-    this.updateSeletedItemCount()
+    this.updateSelectedItemCount()
+
+    const isCheckedCartItem: IsChecked_Cart_Item = new IsChecked_Cart_Item();
+    isCheckedCartItem.cartItemId = cartItem.cartItemId;
+    isCheckedCartItem.isChecked = cartItem.isChecked;
+    this.cartService.updateCartItem(isCheckedCartItem);
   }
 
-  /* async changeQuantity(event: any, cartItem: List_Cart_Item) {
-    this.showSpinner(SpinnerType.BallSpinClockwise);
-    const quantity: number = event.target.value;
-
-    const updateCartItem: Update_Cart_Item = new Update_Cart_Item();
-    updateCartItem.cartItemId = cartItem.cartItemId;
-    updateCartItem.quantity = quantity;
-
-    await this.cartService.updateQuantity(updateCartItem);
-    cartItem.quantityPrice = cartItem.unitPrice * quantity;
-
-    this.updateTotalCartPrice();
-
-    this.hideSpinner(SpinnerType.BallSpinClockwise);
-  } */
 
   async changeQuantity(change: number, cartItem: List_Cart_Item) {
     this.showSpinner(SpinnerType.BallSpinClockwise);
@@ -99,7 +92,7 @@ export class CartComponent extends BaseComponent implements OnInit {
     try {
       await this.cartService.remove(cartItemId);
       this.cartItems = this.cartItems.filter(item => item.cartItemId !== cartItemId);
-      this.updateSeletedItemCount();
+      this.updateSelectedItemCount();
       this.updateTotalCartPrice();
       this.totalItemCount = this.cartItems.length;
     } catch (error) {
@@ -116,32 +109,14 @@ export class CartComponent extends BaseComponent implements OnInit {
       .reduce((sum, cartItem) => sum + cartItem.quantityPrice, 0);
   }
 
-  updateSeletedItemCount() {
-    this.seletedItemCount = this.cartItems.filter(cartItem => cartItem.isChecked).length;
+  updateSelectedItemCount() {
+    this.selectedItemCount = this.cartItems.filter(cartItem => cartItem.isChecked).length;
+
+    if (this.selectedItemCount === 0) {
+      const cartIsEmpty = this.cartItems.length === 0;
+      this.cartIsEmptyMessage = cartIsEmpty ? 'Sepetiniz boş' : 'Seçili ürün bulunmamaktadır.';
+    }
   }
-
-  /* async changeQuantity(event: any, cartItem: List_Cart_Item) {
-  this.showSpinner(SpinnerType.BallSpinClockwise);
-  const quantity: number = event.target.value;
-  const updateCartItem: Update_Cart_Item = new Update_Cart_Item();
-  updateCartItem.cartItemId = cartItem.cartItemId;
-  updateCartItem.quantity = quantity;
-  await this.cartService.updateQuantity(updateCartItem);
-  cartItem.quantityPrice = cartItem.unitPrice * quantity;
-  this.hideSpinner(SpinnerType.BallSpinClockwise);
-} */
-
-  /* async removeCartItem(cartItemId: string) {
-  this.showSpinner(SpinnerType.BallSpinClockwise);
-  await this.cartService.remove(cartItemId);
-  $('.' + cartItemId).fadeOut(200, () => {
-    this.cartItems = this.cartItems.filter(cartItem => cartItem.cartItemId !== cartItemId);
-    this.updateTotalCartPrice();
-    this.updateSeletedItemCount();
-    this.hideSpinner(SpinnerType.BallSpinClockwise);
-  });
-} */
-
 
   @HostListener('window:mousemove', ['$event'])
   onMouseMove(event: MouseEvent) {
