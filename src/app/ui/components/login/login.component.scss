@@ -1,3 +1,21 @@
+/* @media (prefers-color-scheme: dark) {
+  body:not(.light) {
+    background: #232223;
+    color: white;
+  }
+}
+@media (prefers-color-scheme: dark) {
+  .loginform:not(.light) {
+    background: #232223;
+    color: white;
+  }
+}
+@media (prefers-color-scheme: dark) {
+  .title:not(.light) {
+    background: #232223;
+    color: rgb(255, 255, 255);
+  }
+} */
 .text-center {
   background-color: #f5f5f5;
 }

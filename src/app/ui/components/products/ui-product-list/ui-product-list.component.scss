@@ -49,3 +49,12 @@ li { list-style: none }
     border-color: #ff6600;
     color: #ff6600;
 }
+.pagination {
+    --bs-pagination-active-bg: #ff6600;
+    --bs-pagination-active-border-color: #ff6600;
+    --bs-pagination-color: #ff6600;
+    --bs-pagination-hover-color: #c24e01;
+    --bs-pagination-focus-color: #c24e01;
+    --bs-pagination-disabled-color: #9fa1a6;
+    --bs-pagination-focus-box-shadow: 0 0 0 0.25rem #9e9b9a40;
+}
