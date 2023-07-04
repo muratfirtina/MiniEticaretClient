@@ -8,13 +8,17 @@ import { ProductImageDialogComponent } from './product-image-dialog/product-imag
 import { FileUploadModule } from '../services/common/fileUpload/fileUpload.module';
 import {MatCardModule} from '@angular/material/card';
 import { FormsModule } from '@angular/forms';
+import { CartItemRemoveDialogComponent } from './cart-item-remove-dialog/cart-item-remove-dialog.component';
+import { ShoppingCompleteDialogComponent } from './shopping-complete-dialog/shopping-complete-dialog.component';
 
 
 
 @NgModule({
   declarations: [
     DeleteDialogComponent,
-    ProductImageDialogComponent
+    ProductImageDialogComponent,
+    CartItemRemoveDialogComponent,
+    ShoppingCompleteDialogComponent
   ],
   imports: [
     CommonModule,

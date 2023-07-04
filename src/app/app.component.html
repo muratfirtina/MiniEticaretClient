@@ -99,7 +99,7 @@
                         <div class="dropdown-overlay" [ngClass]="{ 'active': isDropdownOverlayActive }"
                             (click)="closeDropdown()"></div>
                         <ul class="dropdown-menu" [ngClass]="{ 'show': isDropdownOverlayActive }"
-                            (mouseleave)="closeDropdown()">
+                            (mouseleave)="closeDropdown()" style=" width: 200px;">
                             <li>
                                 <a class="nav-link" id="register" aria-current="page" routerLink="register"
                                     *ngIf="!authService.isAuthenticated" (click)="closeDropdown()">
@@ -205,110 +205,10 @@
             </div>
         </div>
     </div>
-    <div class="overlay"></div>
+    <!-- <div class="overlay"></div> -->
 
-
-    <!--  <div class="ctg-tablist-div" id="ctg-tablist-div">
-            <div class="ctg-container">
-            <ul class="ctg-tablist" id="ctg-tablist">
-                <li class="ctg-tablist-tablistItem" *ngFor="let category of categories" style="margin: 0;padding: 0;">
-                    <span class="ctg-tablist-tablistItem-nameText" aria-expanded="false">
-                        <span class="categoryButton">{{ category.name }}</span>
-                    </span>
-                    <div class="submenu-container">
-                        <div class="sub-list-item-box" *ngFor="let subcategory of category.subcategories">
-                            <a class="deneme-item" id="sub-list-item-nameText">{{ subcategory.name }}</a>
-                            <div class="grandchild-list"
-                                *ngIf="subcategory.subcategories && subcategory.subcategories.length > 0">
-                                <div class="grandchild-list-item"
-                                    *ngFor="let subsubcategory of subcategory.subcategories">
-                                    <span class="grandchild-list-item-nameText">
-                                        <span>{{ subsubcategory.name }}</span>
-                                    </span>
-                                    <div class="grandgrandchild-list"
-                                        *ngIf="subsubcategory.subcategories && subsubcategory.subcategories.length > 0">
-                                        <div class="grandgrandchild-list-item"
-                                            *ngFor="let subsubsubcategory of subsubcategory.subcategories">
-                                            <span class="grandgrandchild-list-item-nameText">
-                                                <span>{{ subsubsubcategory.name }}</span>
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </li>
-            </ul>
-        </div>
-        </div> -->
 </div>
 
-
-
-<!-- <li class="ctg-list-item">
-    <span class="ctg-categorytext">
-        <span>
-            Moda
-        </span>
-    </span>
-</li>
-<li class="ctg-list-item">
-    <span class="ctg-categorytext">
-        <span>
-            Spor
-        </span>
-    </span>
-</li>
-<li class="ctg-list-item">
-    <span class="ctg-categorytext">
-        <span>
-            Anne, Bebek, Oyuncak
-        </span>
-    </span>
-</li>
-<li class="ctg-list-item">
-    <span class="ctg-categorytext">
-        <span>
-            Oto, Bahçe, Yapı Market
-        </span>
-    </span>
-</li>
-<li class="ctg-list-item">
-    <span class="ctg-categorytext">
-        <span>
-            Spor, Outdoor
-        </span>
-    </span>
-</li>
-<li class="ctg-list-item">
-    <span class="ctg-categorytext">
-        <span>
-            Kozmetik, Kişisel Bakım
-        </span>
-    </span>
-</li>
-<li class="ctg-list-item">
-    <span class="ctg-categorytext">
-        <span>
-            Ev, Yaşam, Kırtasiye, Ofis
-        </span>
-    </span>
-</li>
-<li class="ctg-list-item">
-    <span class="ctg-categorytext">
-        <span>
-            Kitap, Müzik, Film, Hobi
-        </span>
-    </span>
-</li>
-<li class="ctg-list-item">
-    <span class="ctg-categorytext">
-        <span>
-            Süpermarket, Pet Shop
-        </span>
-    </span>
-</li> -->
 
 <div class="row">
     <router-outlet></router-outlet>

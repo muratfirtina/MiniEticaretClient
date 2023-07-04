@@ -6,36 +6,35 @@ import { HubConnection, HubConnectionBuilder, HubConnectionState } from '@micros
 })
 export class SignalRService {
 
-  private _connection: HubConnection;
+  
 
   constructor(@Inject('baseSignalRUrl') private baseSignalRUrl:string) { }
 
-  get connection(): HubConnection {
-    return this._connection;
-  }
-
   start(hubUrl: string) {
     hubUrl = this.baseSignalRUrl + hubUrl;
-
+    
     const builder: HubConnectionBuilder = new HubConnectionBuilder();
-    this._connection = builder.withUrl(hubUrl).withAutomaticReconnect().build();
 
-    this._connection.start()
+    const hubConnection: HubConnection = builder.withUrl(hubUrl).withAutomaticReconnect().build();
+
+    hubConnection.start()
       .then(() => console.log('Connection started'))
       .catch(err => setTimeout(() => this.start(hubUrl), 2000));
 
-    this._connection.onreconnected(connectionId => console.log('Reconnected with ' + connectionId));
-    this._connection.onreconnecting(error => console.log('Reconnecting' + error));
-    this._connection.onclose(error => console.log('Connection closed' + error));
+    hubConnection.onreconnected(connectionId => console.log('Reconnected with ' + connectionId));
+    hubConnection.onreconnecting(error => console.log('Reconnecting' + error));
+    hubConnection.onclose(error => console.log('Connection closed' + error));
+
+    return hubConnection;
   }
 
-  invoke(procedureName: string, message: any, successCallback?: (value) => void, errorCallback?: (error) => void) {
-    this.connection.invoke(procedureName, message)
+  invoke(hubUrl: string,procedureName: string, message: any, successCallback?: (value) => void, errorCallback?: (error) => void) {
+    this.start(hubUrl).invoke(procedureName, message)
       .then(successCallback)
       .catch(errorCallback);
   }
 
-  on(procedureName: string, callBack: (...message: any) => void) {
-    this.connection.on(procedureName, callBack);
+  on(hubUrl: string,procedureName: string, callBack: (...message: any) => void) {
+    this.start(hubUrl).on(procedureName, callBack);
   }
 }

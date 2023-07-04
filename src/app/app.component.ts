@@ -33,7 +33,7 @@ $(document).ready(function() {
   );
 });
 
-$(document).ready(function() {
+/* $(document).ready(function() {
   $('.menuItems-Wul').hover(
     function() {
       $('.overlay').addClass('show');
@@ -42,7 +42,7 @@ $(document).ready(function() {
       $('.overlay').removeClass('show');
     }
   );
-});
+}); */
 
 
 @Component({
