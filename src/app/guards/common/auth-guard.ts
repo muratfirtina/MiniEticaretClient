@@ -31,7 +31,7 @@ export const authGuard: CanActivateFn = (route: ActivatedRouteSnapshot,state: Ro
       if (!_isAuthenticated){
         router.navigate(["login"], {queryParams: {returnUrl: state.url}});
         toastrService.message("You are not authorized to access this page.", "Error",{
-          toasterMessageType:ToastrMessageType.Warning,
+          toastrMessageType:ToastrMessageType.Warning,
           position: ToastrPosition.TopRight
         });
       }

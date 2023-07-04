@@ -1,13 +1,16 @@
 import { Component, EventEmitter, HostListener, OnInit, Output } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { BaseComponent, SpinnerType } from 'src/app/base/base.component';
 import { BaseUrl } from 'src/app/contracts/base_url';
 import { IsChecked_Cart_Item } from 'src/app/contracts/cart/isChecked_cart_item';
 import { List_Cart_Item } from 'src/app/contracts/cart/list_cart_item';
 import { Update_Cart_Item } from 'src/app/contracts/cart/update_cart_item';
+import { Create_Order } from 'src/app/contracts/order/create_order';
 import { CartService } from 'src/app/services/common/models/cart.service';
 import { FileService } from 'src/app/services/common/models/file.service';
+import { OrderService } from 'src/app/services/common/models/order.service';
+import { CustomToastrService, ToastrMessageType, ToastrPosition } from 'src/app/services/ui/custom-toastr.service';
 
 declare var $: any;
 
@@ -21,7 +24,10 @@ export class CartComponent extends BaseComponent implements OnInit {
   constructor(
     spinner: NgxSpinnerService,
     private cartService: CartService,
-    private fileService: FileService
+    private fileService: FileService,
+    private orderService: OrderService,
+    private toastrService: CustomToastrService,
+    private router: Router
   ) {
     super(spinner);
   }
@@ -116,6 +122,20 @@ export class CartComponent extends BaseComponent implements OnInit {
       const cartIsEmpty = this.cartItems.length === 0;
       this.cartIsEmptyMessage = cartIsEmpty ? 'Sepetiniz boş' : 'Seçili ürün bulunmamaktadır.';
     }
+  }
+
+  shoppingCompleting() {
+    this.showSpinner(SpinnerType.BallSpinClockwise);
+    const order: Create_Order = new Create_Order();
+    order.address = "Altıntepe Mahallesi, 34760 Maltepe/İstanbul, Türkiye"
+    order.description = "Acil teslim edilmesi gereken sipariş"
+    this.orderService.create(order);
+    this.hideSpinner(SpinnerType.BallSpinClockwise);
+    this.toastrService.message('Siparişiniz başarıyla oluşturuldu.', 'Siparişiniz alındı', {
+      toastrMessageType: ToastrMessageType.Info,
+      position: ToastrPosition.TopRight
+    });
+    this.router.navigate(['/']);
   }
 
   @HostListener('window:mousemove', ['$event'])

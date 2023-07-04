@@ -25,13 +25,13 @@ export class HttpErrorHandlerInterceptorService implements HttpInterceptor {
               const url = this.router.url;
               if(url == "/products"){
                 this.toastrService.message("Sepete ürün eklemek için oturum açınız.", "Oturum açınız!",{
-                  toasterMessageType: ToastrMessageType.Warning,
+                  toastrMessageType: ToastrMessageType.Warning,
                   position: ToastrPosition.TopRight
                 });
     
               }else
               this.toastrService.message("Bu işlemi yapmaya yetkiniz yok.", "Yetkisiz işlem!",{
-                toasterMessageType: ToastrMessageType.Warning,
+                toastrMessageType: ToastrMessageType.Warning,
                 position: ToastrPosition.BottomFullWidth
               });
             }
@@ -41,25 +41,25 @@ export class HttpErrorHandlerInterceptorService implements HttpInterceptor {
           break;
         case HttpStatusCode.InternalServerError:
           this.toastrService.message("The server is unreachable","Server Error",{
-            toasterMessageType: ToastrMessageType.Warning,
+            toastrMessageType: ToastrMessageType.Warning,
             position: ToastrPosition.BottomFullWidth
           });
           break;
         case HttpStatusCode.BadRequest:
           this.toastrService.message("Geçersiz istek.", "Unauthorized operation!",{
-            toasterMessageType: ToastrMessageType.Warning,
+            toastrMessageType: ToastrMessageType.Warning,
             position: ToastrPosition.BottomFullWidth
           });
           break;
         case HttpStatusCode.NotFound:
           this.toastrService.message("Page not found.", "Page not found!",{
-            toasterMessageType: ToastrMessageType.Warning,
+            toastrMessageType: ToastrMessageType.Warning,
             position: ToastrPosition.TopCenter
           });
           break;
           default:
             this.toastrService.message("An unexpected error occurred.", "Error!",{
-              toasterMessageType: ToastrMessageType.Warning,
+              toastrMessageType: ToastrMessageType.Warning,
               position: ToastrPosition.BottomFullWidth
             });
             break;

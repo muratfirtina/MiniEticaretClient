@@ -88,7 +88,7 @@ export class RegisterComponent extends BaseComponent implements OnInit {
 
     if (result.isSuccess) {
       this.toastrService.message(result.message, "User Created Successfully", {
-        toasterMessageType: ToastrMessageType.Success,
+        toastrMessageType: ToastrMessageType.Success,
         position: ToastrPosition.TopRight
       });
       this.authService.identityCheck();
@@ -107,7 +107,7 @@ export class RegisterComponent extends BaseComponent implements OnInit {
     
     }else{
       this.toastrService.message(result.message,"User Creation Failed",{
-        toasterMessageType: ToastrMessageType.Error,
+        toastrMessageType: ToastrMessageType.Error,
         position:ToastrPosition.TopRight
 
       });

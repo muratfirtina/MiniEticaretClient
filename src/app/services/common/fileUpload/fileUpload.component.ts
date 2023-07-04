@@ -68,7 +68,7 @@ export class FileUploadComponent {
                 
               } else{
                 this.customToastrService.message(message, "Success" ,{
-                  toasterMessageType: ToastrMessageType.Success,
+                  toastrMessageType: ToastrMessageType.Success,
                   position:ToastrPosition.TopRight
                 })
                 
@@ -89,7 +89,7 @@ export class FileUploadComponent {
               } else{
       
                 this.customToastrService.message(message, "Failed" ,{
-                  toasterMessageType: ToastrMessageType.Error,
+                  toastrMessageType: ToastrMessageType.Error,
                   position:ToastrPosition.TopRight
                 })
                 

@@ -211,7 +211,6 @@
   border-left: none;
 }
 
-
 .containerFullWidth {
   width: 100%;
 }
@@ -297,6 +296,16 @@
 .overlay.show {
   opacity: 1;
   pointer-events: auto;
+}
+.childMenuItems-Kdz {
+  text-decoration: none;
+  color: #ff6600 ;
+  cursor: pointer;
+}
+.childMenuItems-OIX {
+  text-decoration: none;
+  color: #646464 ;
+  cursor: pointer;
 }
 
 

@@ -27,7 +27,7 @@ export class UserAuthService {
       localStorage.setItem("refreshToken", tokenResponse.token.refreshToken);
 
       this.toastrService.message("Login successful", "Success",{
-        toasterMessageType: ToastrMessageType.Success,
+        toastrMessageType: ToastrMessageType.Success,
         position: ToastrPosition.TopRight
       })
       
@@ -65,7 +65,7 @@ export class UserAuthService {
       localStorage.setItem("accessToken", tokenResponse.token.accessToken);
       localStorage.setItem("refreshToken", tokenResponse.token.refreshToken);
       this.toastrService.message("Login successful with Google", "Success",{
-        toasterMessageType: ToastrMessageType.Success,
+        toastrMessageType: ToastrMessageType.Success,
         position: ToastrPosition.TopRight
       });
     }
@@ -83,7 +83,7 @@ export class UserAuthService {
       localStorage.setItem("accessToken", tokenResponse.token.accessToken);
       localStorage.setItem("refreshToken", tokenResponse.token.refreshToken);
       this.toastrService.message("Login successful with Facebook", "Success",{
-        toasterMessageType: ToastrMessageType.Success,
+        toastrMessageType: ToastrMessageType.Success,
         position: ToastrPosition.TopRight
       });
     }

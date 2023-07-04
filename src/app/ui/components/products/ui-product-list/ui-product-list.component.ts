@@ -111,7 +111,7 @@ export class UiProductListComponent extends BaseComponent implements OnInit {
    await this.cartService.add(_cartItem);
    this.hideSpinner(SpinnerType.BallSpinClockwise);
    this.customToasterService.message("Product added to cart successfully","Success",{
-      toasterMessageType: ToastrMessageType.Success,
+      toastrMessageType: ToastrMessageType.Success,
       position: ToastrPosition.TopRight
    });
   }

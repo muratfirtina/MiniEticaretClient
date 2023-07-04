@@ -9,27 +9,6 @@ import { DynamicLoadComponentDirective } from './directives/common/dynamic-load-
 declare var $: any;
 declare var bootstrap: any;
 
-/* $(document).ready(function() {
-  $('.ctg-tablist-tablistItem').hover(
-    function() {
-      $(this).find('.submenu-container').slideDown(); // Menüyü açmak için slideDown() kullanılır
-    },
-    function() {
-      $(this).find('.submenu-container').slideUp(); // Menüyü kapatmak için slideUp() kullanılır
-    }
-  );
-}); */
-
-/* $(document).ready(function() {
-  $('.menuItems-Wul').hover(
-    function() {
-      $(this).find('.menuItems-Lui').css('visibility', 'visible');
-    },
-    function() {
-      $(this).find('.menuItems-Lui').css('visibility', 'hidden');
-    }
-  );
-}); */
 
 $(document).ready(function() {
   $('.menuItems-Wul').hover(
@@ -39,13 +18,13 @@ $(document).ready(function() {
       var containerWidth = $('.containerFullWidth').outerWidth();
       var containerHeight = $('.containerFullWidth').outerHeight();
       var menuLeft = (containerWidth - menuWidth) / 2;
-      var menuTop = 146;
+      var menuTop = 145;
 
       $(this).find('.menuItems-Lui').css({
         'visibility': 'visible',
         'width': '1300px',
         'left': menuLeft,
-        'top': menuTop
+        'top': menuTop,
       });
     },
     function() {
@@ -236,7 +215,7 @@ export class AppComponent {
       location.reload();
     }); // Ana sayfaya yönlendir;
     this.toastrService.message("Logged out successfully","Log Out ",{
-      toasterMessageType: ToastrMessageType.Warning,
+      toastrMessageType: ToastrMessageType.Warning,
       position: ToastrPosition.TopRight
     })
   }

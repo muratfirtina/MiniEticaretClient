@@ -119,11 +119,11 @@
             </div>
             <div class="modal-footer" id="totalItemCount">
                 <ng-container *ngIf="totalItemCount >=1">
-                    <p class="modal-title">* Sepetinizdeki Ürün Sayısı ({{ totalItemCount }})</p>
+                    <p class="modal-title" id="totalItemCountText">* Sepetinizdeki Ürün Sayısı ({{ totalItemCount }})</p>
                 </ng-container>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary" id="continueButton">Alışverişi tamamla</button>
+                <button type="button" class="btn btn-primary" id="continueButton" (click)="shoppingCompleting()" >Alışverişi tamamla</button>
             </div>
         </div>
 
