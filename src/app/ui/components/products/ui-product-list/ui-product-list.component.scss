@@ -1,15 +1,41 @@
 .row {
     --bs-gutter-x: 0rem;
 }
-.card{
-    width: 16rem;
+#card-products{
+    width: 228px;
     height: 480px;
     float: left;
-    margin: 10px;
-
+    margin: 20px;
+    margin-left: 5px;
+    margin-right: 15px;
+}
+.card-body{
+    text-align: left;
+    padding-bottom: 0;
+}
+#filter{
+    width: 100%;
+    height: 1000px;
+    background-color: #fff;
+    border: 1px solid #ddd; ;
+    color: #fff;
+    margin-top: 20px;
+    margin-left: 0;
+    margin-right: 5px;
+}
+.filterContainer{
+    width: 100%;
+    height: 100%;
+    color: #fff;
 }
 
 li { list-style: none }
+
+.productsContainer{
+    width: 1200px;
+    margin: 0 auto;
+    padding: 0;
+}
 
 .carousel-inner {
     position: relative;
@@ -57,4 +83,123 @@ li { list-style: none }
     --bs-pagination-focus-color: #c24e01;
     --bs-pagination-disabled-color: #9fa1a6;
     --bs-pagination-focus-box-shadow: 0 0 0 0.25rem #9e9b9a40;
+}
+.totalFilteredProductCount{
+    color: #696969;
+    border-bottom: #ddd 1px solid;
+    margin-top: 8px;
+}
+
+.selectedfilters{
+    color: #ff6600;
+    border-bottom: #ddd 1px solid;
+    margin-top: 8px;
+}
+.btn-removeFilter{
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    width: auto;
+    height: 30px;
+    color: #696969;
+    border: #ddd 1px solid;
+    margin: auto;
+    margin-bottom: 8px;
+}
+.bg-danger {
+    margin-left: 8px;
+    color: #ff6600;
+    background-color: #fff!important;
+    border: 0;
+}
+.bg-danger:hover {
+    color: #fff;
+    background-color: #ff6600!important;
+}
+#searchbox {
+    position: relative;
+    border-right: none;
+    --bs-border-width: 1px;
+  }
+  
+  #searchbox input.form-control:focus,
+  #searchbox button.btn:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(253, 106, 13, 0.316);
+    border-color: #ff6600;
+  }
+  
+  #searchbox input.form-control:focus + button.btn {
+    box-shadow: 0 0 0 3px #fd6a0d51;
+  }
+  
+  #searchbox input.form-control,
+  #searchbox button.btn {
+    height: 30px;
+    transition: box-shadow 0.3s ease;
+    border-right: none;
+  }
+  
+  #searchbox button.btn {
+    background-color: #ff6600;
+    border-color: #ff6600;
+    color: white;
+    border-left: none;
+  }
+
+.brandsSelectionContainer{
+    margin-top: 8px;
+    color: #696969;
+    border-bottom: #ddd 1px solid;
+}
+.form-check {
+    display: flex;
+    align-items: flex-end;
+    margin-bottom: 8px;
+    margin-left: 16px;
+}
+.form-check-input {
+    width: 16px;
+    height: 16px;
+    
+}
+.form-check .form-check-label{
+    font-size: 13px;
+}
+
+.form-check-input:checked {
+    background-color: rgb(255, 102, 0);
+    border-color: rgb(255, 102, 0);
+}
+
+.form-check-input:focus {
+    
+    border-color: rgb(255, 102, 0 ,75%);
+    box-shadow: 0 0 0 0.25rem rgba(253, 106, 13, 0.316);
+}
+
+.priceContainer{    
+    margin-top: 8px;
+    color: #696969;
+    border-bottom: #ddd 1px solid;
+}
+.priceContainer .form-control{
+    width: 50px;
+    height: 30px;
+    margin-left: 16px;
+    margin-bottom: 8px;
+    font-size: 13px;
+}
+.priceContainer .input-group{
+    width: 180px;
+    margin: auto;
+    margin-bottom: 8px;
+    font-size: 13px;
+    display: flex;
+}
+.priceContainer .input-group-text{
+    height: 30px;
+    width: 18px;
+    padding: 4px;
+    font-size: 13px;
 }

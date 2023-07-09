@@ -5,6 +5,25 @@
 .carousel-inner{
   display: flex;
   align-items: center;
-    height: 500px;
+    height: 400px;
 }
 
+
+#btnbigcard{
+  background-color: #ff6600;
+  border: 0;
+  color: #fff;
+  width: 100%;
+  justify-content: center;
+ 
+}
+.card-body{
+  padding: 10px;
+  background-color: #ff6600;
+}
+.d-flex{
+  justify-content: center;
+}
+.container{
+  width: 1200px;
+}

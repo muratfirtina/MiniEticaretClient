@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { BaseComponent, SpinnerType } from 'src/app/base/base.component';
@@ -31,9 +31,10 @@ export class UiProductListComponent extends BaseComponent implements OnInit {
   currentPageNo: number;
   totalProductCount: number;
   totalPageCount: number;
-  pageSize: number = 5;
+  pageSize: number = 24;
   pageList: number[] = [];
   baseUrl: BaseUrl;
+  isFilterActive= false;
 
   products: List_Product[];
 
@@ -115,4 +116,5 @@ export class UiProductListComponent extends BaseComponent implements OnInit {
       position: ToastrPosition.TopRight
    });
   }
+
 }

@@ -21,6 +21,16 @@
   line-height: 1.2;
   font-weight: 500;
 }
+#header-div{
+  padding-left: 0;
+  padding-right: 0;
+}
+.container{
+  margin: 0 auto;
+  width: 1200px;
+  padding: 0;
+}
+
 #header-bottom-border {
   background: linear-gradient(45deg, #ffb41d, #ff490c);
   background-size: 400%;
@@ -223,7 +233,7 @@
 }
 
 .menuItems-ic {
-  width: 1300px;
+  width: 1200px;
   display: flex;
   justify-content: center;
 }
@@ -307,7 +317,4 @@
   color: #646464 ;
   cursor: pointer;
 }
-
-
-
 
