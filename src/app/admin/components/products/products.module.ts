@@ -15,6 +15,7 @@ import {MatDialogModule} from '@angular/material/dialog';
 import { DeleteDialogComponent } from 'src/app/dialogs/delete-dialog/delete-dialog.component';
 import { FileUploadModule } from 'src/app/services/common/fileUpload/fileUpload.module';
 import { DialogModule } from 'src/app/dialogs/dialog.module';
+import { DeleteDirectiveModule } from 'src/app/directives/admin/delete.directive.module';
 
 
 
@@ -23,7 +24,6 @@ import { DialogModule } from 'src/app/dialogs/dialog.module';
     ProductsComponent,
     ProductCreateComponent,
     ProductListComponent,
-    DeleteDirective
   ],
   imports: [
     CommonModule,
@@ -38,6 +38,7 @@ import { DialogModule } from 'src/app/dialogs/dialog.module';
     MatPaginatorModule,
     DialogModule,
     FileUploadModule,
+    DeleteDirectiveModule
 
   ]
 })

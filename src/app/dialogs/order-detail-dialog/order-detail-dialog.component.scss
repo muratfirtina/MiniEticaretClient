@@ -1,0 +1,21 @@
+.order-detail-table {
+  width: 700px;
+}
+
+.mat-row .mat-cell {
+  border-bottom: 1px solid transparent;
+  border-top: 1px solid transparent;
+  cursor: pointer;
+}
+
+.mat-row:hover .mat-cell {
+  border-color: currentColor;
+}
+
+.order-detail-row-is-clicked {
+  font-weight: bold;
+}
+
+.example-spacer {
+  flex: 1 1 auto;
+}
