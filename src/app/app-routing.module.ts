@@ -20,6 +20,8 @@ const routes: Routes = [
   {path: "products", loadChildren :()=> import("./ui/components/products/products.module").then(m=>m.ProductsModule)},
   {path: "products/:pageNo", loadChildren :()=> import("./ui/components/products/products.module").then(m=>m.ProductsModule)},
   {path: "login", loadChildren :()=> import("./ui/components/login/login.module").then(m=>m.LoginModule)},
+  {path: "password-reset", loadChildren :()=> import("./ui/components/password-reset/password-reset.module").then(m=>m.PasswordResetModule)},
+  {path: "password-update/:userId/:resetToken", loadChildren :()=> import("./ui/components/password-update/password-update.module").then(m=>m.PasswordUpdateModule)},
 
 ];
 

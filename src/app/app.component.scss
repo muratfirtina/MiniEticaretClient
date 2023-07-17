@@ -318,3 +318,13 @@
   cursor: pointer;
 }
 
+.translate-middle{
+  transform: translate(50%, -50%) !important;
+}
+.bg-danger{
+  background-color: #ff6600 !important;
+}
+.badge{
+  font-size: 11px !important;
+  font-weight: 500;
+}

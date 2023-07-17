@@ -1,10 +1,12 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { CustomToastrService, ToastrMessageType, ToastrPosition } from './services/ui/custom-toastr.service';
 import { AuthService } from './services/common/auth.service';
 import { Router } from '@angular/router';
 import { SocialAuthService } from '@abacritt/angularx-social-login';
 import { ComponentName, DynamicLoadComponentService } from './services/common/dynamic-load-component.service';
 import { DynamicLoadComponentDirective } from './directives/common/dynamic-load-component.directive';
+import { List_Cart_Item } from './contracts/cart/list_cart_item';
+import { CartService } from './services/common/models/cart.service';
 
 declare var $: any;
 declare var bootstrap: any;
@@ -50,12 +52,15 @@ $(document).ready(function() {
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
+export class AppComponent implements OnInit{
 
   /* @ViewChild('popoverButton') popoverButton: ElementRef; */
 
   @ViewChild(DynamicLoadComponentDirective, { static: true })
   dynamicLoadComponentDirective: DynamicLoadComponentDirective;
+
+  cartItemCount: number = 0;
+  cartItems: List_Cart_Item[];
 
   isDropdownOverlayActive: boolean = false;
   categories = [
@@ -197,8 +202,14 @@ export class AppComponent {
     private toastrService: CustomToastrService,
     private router: Router,
     private socialAuthService: SocialAuthService,
-    private dynamicLoadComponentService: DynamicLoadComponentService,) {
+    private dynamicLoadComponentService: DynamicLoadComponentService,
+    private cartService: CartService) {
     authService.identityCheck();
+  }
+  async ngOnInit(){
+    if (this.authService.isAuthenticated) {
+      this.cartItemCount = await this.cartService.getCartItemCount();
+    }
   }
 
 
@@ -238,7 +249,7 @@ export class AppComponent {
     this.isDropdownOverlayActive = false;
   }
   
-
+  
   /* initializePopover(): void {
     const popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'));
     popoverTriggerList.map((popoverTriggerEl: any) => {

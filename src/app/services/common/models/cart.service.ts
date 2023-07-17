@@ -9,6 +9,7 @@ import { CustomToastrService, ToastrMessageType, ToastrPosition } from '../../ui
 import { Router } from '@angular/router';
 import { ProductService } from './product.service';
 import { IsChecked_Cart_Item } from 'src/app/contracts/cart/isChecked_cart_item';
+import { async } from '@angular/core/testing';
 
 @Injectable({
   providedIn: 'root'
@@ -61,6 +62,11 @@ export class CartService {
     }, cartItem);
 
     await firstValueFrom(observable);
+  }
+
+  async getCartItemCount(): Promise<number> {
+    const cartItems: List_Cart_Item[] = await this.get();
+    return cartItems.length;
   }
 
   /* async addImageUrlToCartItems(cartItems: List_Cart_Item[]): Promise<List_Cart_Item[]> {
