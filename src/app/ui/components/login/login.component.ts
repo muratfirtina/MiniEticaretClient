@@ -42,9 +42,13 @@ export class LoginComponent extends BaseComponent{
       }
       const returnUrl: string = this.activatedRoute.snapshot.queryParams["returnUrl"];
         if (returnUrl) {
-          this.router.navigateByUrl(returnUrl);
+          this.router.navigateByUrl(returnUrl).then(() => {
+            window.location.reload();
+          });
         } else {
-          this.router.navigateByUrl("/")
+          this.router.navigateByUrl("/").then(() => {
+            window.location.reload();
+          });
         }
     });
     
@@ -59,10 +63,14 @@ export class LoginComponent extends BaseComponent{
     this.activatedRoute.queryParams.subscribe(params => {
       const returnUrl: string = params['returnUrl'];
       if(returnUrl){
-        this.router.navigateByUrl(returnUrl);
+        this.router.navigateByUrl(returnUrl).then(() => {
+          window.location.reload();
+        });
       }
       else{
-        this.router.navigateByUrl("");
+        this.router.navigateByUrl("").then(() => {
+          window.location.reload();
+        });
       }
     });
     this.hideSpinner(SpinnerType.BallSpinClockwise)});

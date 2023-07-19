@@ -7,6 +7,7 @@ import { ComponentName, DynamicLoadComponentService } from './services/common/dy
 import { DynamicLoadComponentDirective } from './directives/common/dynamic-load-component.directive';
 import { List_Cart_Item } from './contracts/cart/list_cart_item';
 import { CartService } from './services/common/models/cart.service';
+import { Observable } from 'rxjs';
 
 declare var $: any;
 declare var bootstrap: any;
@@ -59,8 +60,8 @@ export class AppComponent implements OnInit{
   @ViewChild(DynamicLoadComponentDirective, { static: true })
   dynamicLoadComponentDirective: DynamicLoadComponentDirective;
 
-  cartItemCount: number = 0;
   cartItems: List_Cart_Item[];
+  cartItemsObservable: Observable<List_Cart_Item[]>; // Observable'ı tanımla
 
   isDropdownOverlayActive: boolean = false;
   categories = [
@@ -203,19 +204,24 @@ export class AppComponent implements OnInit{
     private router: Router,
     private socialAuthService: SocialAuthService,
     private dynamicLoadComponentService: DynamicLoadComponentService,
-    private cartService: CartService) {
+    private cartService: CartService,
+    ) {
     authService.identityCheck();
+    this.cartItemsObservable = cartService.getCartItemsObservable();
   }
-  async ngOnInit(){
+  async ngOnInit() {
     if (this.authService.isAuthenticated) {
-      this.cartItemCount = await this.cartService.getCartItemCount();
+      await this.getCartItems();
+      this.loadComponent();
     }
+    this.cartItemsObservable.subscribe(cartItems => {
+      this.cartItems = cartItems; // Yeni sepet öğelerini güncelle
+    });
   }
-
-
-  /* ngAfterViewInit(): void {
-    this.initializePopover(); // Call initializePopover after view initialization
-  } */
+  
+  async getCartItems() {
+    this.cartItems = await this.cartService.get();
+  }
   
 
   signOut() {
@@ -249,13 +255,5 @@ export class AppComponent implements OnInit{
     this.isDropdownOverlayActive = false;
   }
   
-  
-  /* initializePopover(): void {
-    const popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'));
-    popoverTriggerList.map((popoverTriggerEl: any) => {
-      return new bootstrap.Popover(popoverTriggerEl); // Initialize popover
-    });
-  } */
-
 }
 

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClientService } from '../http-client.service';
-import { Observable, firstValueFrom } from 'rxjs';
+import { Observable, Subject, firstValueFrom } from 'rxjs';
 import { List_Cart_Item } from 'src/app/contracts/cart/list_cart_item';
 import { Create_Cart_Item } from 'src/app/contracts/cart/create_cart_item';
 import { Update_Cart_Item } from 'src/app/contracts/cart/update_cart_item';
@@ -15,18 +15,26 @@ import { async } from '@angular/core/testing';
   providedIn: 'root'
 })
 export class CartService {
+  private cartItemsSubject: Subject<List_Cart_Item[]> = new Subject<List_Cart_Item[]>();
 
   constructor(private httpClientService: HttpClientService,
     private authService:AuthService,
     private customToastrService:CustomToastrService,
     private router:Router,
     private productService: ProductService) { }
+
+  getCartItemsObservable(): Observable<List_Cart_Item[]> {
+      return this.cartItemsSubject.asObservable();
+    }
   async get(): Promise<List_Cart_Item[]>{
     const observable:Observable<List_Cart_Item[]> = this.httpClientService.get({
       controller: 'carts',
     });
 
-    return await firstValueFrom(observable);
+    const cartItems = await firstValueFrom(observable);
+    this.cartItemsSubject.next(cartItems); // Güncel sepet öğelerini yayımla
+
+    return cartItems;
   }
 
   async add(cartItem: Create_Cart_Item): Promise<void>{
@@ -37,6 +45,7 @@ export class CartService {
     }, cartItem);
 
     await firstValueFrom(observable);
+    this.get(); // Sepeti yeniden almak için get() metodunu çağır
   }
 
   async updateQuantity(cartItem:Update_Cart_Item): Promise<void>{
@@ -45,6 +54,7 @@ export class CartService {
     }, cartItem);
 
     await firstValueFrom(observable);
+    this.get(); // Sepeti yeniden almak için get() metodunu çağır
   } 
   
   async remove(cartItemId: string): Promise<void>{
@@ -53,6 +63,7 @@ export class CartService {
     },cartItemId);
 
     await firstValueFrom(observable);
+    this.get(); // Sepeti yeniden almak için get() metodunu çağır
   }
 
   async updateCartItem(cartItem: IsChecked_Cart_Item): Promise<void> {
@@ -62,12 +73,9 @@ export class CartService {
     }, cartItem);
 
     await firstValueFrom(observable);
+    this.get(); // Sepeti yeniden almak için get() metodunu çağır
   }
 
-  async getCartItemCount(): Promise<number> {
-    const cartItems: List_Cart_Item[] = await this.get();
-    return cartItems.length;
-  }
 
   /* async addImageUrlToCartItems(cartItems: List_Cart_Item[]): Promise<List_Cart_Item[]> {
     const updatedCartItems: List_Cart_Item[] = [];

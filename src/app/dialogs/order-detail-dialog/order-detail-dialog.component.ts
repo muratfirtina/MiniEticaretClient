@@ -5,6 +5,9 @@ import { OrderService } from 'src/app/services/common/models/order.service';
 import { SingleOrder } from 'src/app/contracts/order/single_order';
 import { AlertifyService, MessageType, Position } from 'src/app/services/admin/alertify.service';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { DialogService } from 'src/app/services/common/dialog.service';
+import { CompleteOrderDialogComponent, CompleteOrderDialogState } from '../complete-order-dialog/complete-order-dialog.component';
+import { SpinnerType } from 'src/app/base/base.component';
 
 @Component({
   selector: 'app-order-detail-dialog',
@@ -17,6 +20,7 @@ export class OrderDetailDialogComponent extends BaseDialog<OrderDetailDialogComp
     private alertifyService: AlertifyService,
     private orderService: OrderService,
     private spinner: NgxSpinnerService,
+    private dialogService: DialogService,
     dialogRef: MatDialogRef<OrderDetailDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: OrderDetailDialogState | string
     ) {
@@ -42,6 +46,22 @@ export class OrderDetailDialogComponent extends BaseDialog<OrderDetailDialogComp
    this.totalPrice = this.singleOrder.cartItems.map((cartIrems,index) => cartIrems.price * cartIrems.quantity).reduce((a,b) => a + b);
   }
 
+  completeOrder(){
+    this.dialogService.openDialog({
+      componentType: CompleteOrderDialogComponent,
+      data: CompleteOrderDialogState.Yes,
+      afterClosed: async () => {
+      this.spinner.show(SpinnerType.BallSpinClockwise);
+      await this.orderService.completeOrder( this.data as string);
+      this.spinner.hide(SpinnerType.BallSpinClockwise);
+      this.alertifyService.message('Sipariş başarıyla tamamlanmıştır.', {
+        messageType: MessageType.Success,
+        position: Position.TopRight
+      });
+      }
+          
+    })
+  }
 }
 export enum OrderDetailDialogState {
   Close,

@@ -188,7 +188,9 @@ export class CartComponent extends BaseComponent implements OnInit {
         $('#cartModal').modal('hide');
         $('body').removeClass('modal-open');
         $('.modal-backdrop').remove();
-        this.router.navigate(['/']);
+        this.router.navigate(['/']).then(() => {
+          window.location.reload();
+        });
       },
     });
   }

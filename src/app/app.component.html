@@ -77,7 +77,7 @@
                     <li>
                         <a class="nav-link" id="cartbutton" aria-current="page" data-bs-toggle="modal" type="button"
                             data-bs-target="#cartModal" *ngIf="authService.isAuthenticated" (click)="loadComponent()">
-                            <span class="position-absolute translate-middle badge rounded-pill bg-danger" >{{ cartItemCount }}</span>
+                            <span class="position-absolute translate-middle badge rounded-pill bg-danger" >{{ cartItems?.length || 0 }}</span>
                             <svg id="cartsvg" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                 fill="currentColor" class="bi bi-cart4" viewBox="0 0 16 16">
                                 <path
