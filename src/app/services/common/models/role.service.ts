@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClientService } from '../http-client.service';
 import { Observable, firstValueFrom } from 'rxjs';
-import { List_Role } from 'src/app/contracts/role/list_role';
+import { RoleDto } from 'src/app/contracts/role/roleDto';
 
 @Injectable({
   providedIn: 'root'
@@ -22,8 +22,8 @@ export class RoleService {
     return await promiseData as { succeeded: boolean };
   }
 
-  async getRoles(page: number = 0, size: number = 5, successCallBack?: () => void, errorCallBack?: (error) => void):Promise<{totalCount:number, roles:List_Role[]}> {
-    const observable: Observable<{totalCount:number, roles:List_Role[]}> = this.httpClientService.get({
+  async getRoles(page: number = 0, size: number = 5, successCallBack?: () => void, errorCallBack?: (error) => void):Promise<{totalCount:number, roles:RoleDto[]}> {
+    const observable: Observable<{totalCount:number, roles:RoleDto[]}> = this.httpClientService.get({
       controller: "roles",
       queryString: `page=${page}&size=${size}`
     });

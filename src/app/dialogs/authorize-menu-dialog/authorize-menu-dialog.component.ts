@@ -2,11 +2,12 @@ import { Component, Inject, OnInit, ViewChild } from '@angular/core';
 import { BaseDialog } from '../base/base-dialog';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { RoleService } from 'src/app/services/common/models/role.service';
-import { List_Role } from 'src/app/contracts/role/list_role';
+import { RoleDto } from 'src/app/contracts/role/roleDto';
 import { MatSelectionList } from '@angular/material/list';
 import { AuthorizationEndpointService } from 'src/app/services/common/models/authorization-endpoint.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { SpinnerType } from 'src/app/base/base.component';
+import { AlertifyService, MessageType, Position } from 'src/app/services/admin/alertify.service';
 
 @Component({
   selector: 'app-authorize-menu-dialog',
@@ -18,6 +19,7 @@ export class AuthorizeMenuDialogComponent extends BaseDialog<AuthorizeMenuDialog
   constructor(private roleService:RoleService,
     private authorizationEndpointService:AuthorizationEndpointService,
     private spinner:NgxSpinnerService,
+    private alertfyService:AlertifyService,
     dialogRef: MatDialogRef<AuthorizeMenuDialogComponent>,
     @Inject (MAT_DIALOG_DATA) public data: any ) {
     super(dialogRef);
@@ -25,10 +27,10 @@ export class AuthorizeMenuDialogComponent extends BaseDialog<AuthorizeMenuDialog
   @ViewChild(MatSelectionList)
   roleComponent!: MatSelectionList
 
-  roleList: { roles: List_Role[], totalCount: number } = { roles: [], totalCount: 0 };
-  roles: List_Role[] = [];
+  roleList: { roles: RoleDto[], totalCount: number } = { roles: [], totalCount: 0 };
+  roles: RoleDto[] = [];
   totalCount: number = 0;
-  assignedRoles:List_Role[]=[]
+  assignedRoles:RoleDto[]=[]
 
   async ngOnInit() {
     this.assignedRoles = await this.authorizationEndpointService.getRolesToEndpoint(this.data.code, this.data.menuName);
@@ -37,9 +39,14 @@ export class AuthorizeMenuDialogComponent extends BaseDialog<AuthorizeMenuDialog
   }
 
   assignRoles(roleComponent){
-   const roles: List_Role = roleComponent.selectedOptions.selected.map(r => r.value);
+   const roles: RoleDto[] = roleComponent.selectedOptions.selected.map(r => r.value);
    this.spinner.show(SpinnerType.BallSpinClockwise)
    this.authorizationEndpointService.assignRoleEndpoint(roles, this.data.code,this.data.menuName, ()=>{
+    this.alertfyService.message("Yenkilendirme başarılı", {
+      dismissOthers: true,
+      messageType: MessageType.Success,
+      position: Position.TopRight
+    });
     this.spinner.hide(SpinnerType.BallSpinClockwise);
 
    }, error => {
@@ -47,7 +54,7 @@ export class AuthorizeMenuDialogComponent extends BaseDialog<AuthorizeMenuDialog
    })
   }
 
-  isRoleAssigned(role: List_Role): boolean {
+  isRoleAssigned(role: RoleDto): boolean {
     return this.assignedRoles.some(assignedRole => assignedRole.roleId === role.roleId);
   }
 

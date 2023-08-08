@@ -1,4 +1,4 @@
-export class List_Role{
+export class RoleDto{
     roleId?: string;
     roleName?: string;
 }

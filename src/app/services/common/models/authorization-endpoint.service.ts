@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { List_Role } from 'src/app/contracts/role/list_role';
+import { RoleDto } from 'src/app/contracts/role/roleDto';
 import { HttpClientService } from '../http-client.service';
 import { Observable, firstValueFrom } from 'rxjs';
 
@@ -10,7 +10,7 @@ export class AuthorizationEndpointService {
 
   constructor(private httpClientService: HttpClientService) { }
 
-  async assignRoleEndpoint(roles:List_Role, code:string, menu:string, successCallBack?: () => void, errorCallBack?: (error) =>void){
+  async assignRoleEndpoint(roles:RoleDto[], code:string, menu:string, successCallBack?: () => void, errorCallBack?: (error) =>void){
     const observable: Observable<any> = this.httpClientService.post({
       controller:"authorizationendpoints",
     },
@@ -29,7 +29,7 @@ export class AuthorizationEndpointService {
 
   }
 
-  async getRolesToEndpoint(code: string, menu: string, successCallBack?: () => void, errorCallBack?: (error) => void): Promise<List_Role[]> {
+  async getRolesToEndpoint(code: string, menu: string, successCallBack?: () => void, errorCallBack?: (error) => void): Promise<RoleDto[]> {
     const observable: Observable<any> = this.httpClientService.post({
       controller: "AuthorizationEndpoints",
       action: "get-roles-to-endpoint"
