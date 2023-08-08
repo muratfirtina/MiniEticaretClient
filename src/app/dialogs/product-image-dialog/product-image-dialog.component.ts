@@ -32,7 +32,7 @@ export class ProductImageDialogComponent extends BaseDialog<ProductImageDialogCo
   
 
  @Output() options: Partial<FileUploadOptions> = {
-    acceptedFileTypes: ".png, .jpg, .jpeg. gif",
+    acceptedFileTypes: ".png, .jpg, .jpeg, .gif, .webp",
     action: "upload",
     controller: "products",
     explanation: "Drag and drop your images here or click here to select images",

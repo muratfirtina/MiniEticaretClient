@@ -29,7 +29,7 @@ export class OrderListComponent extends BaseComponent implements OnInit {
      spinner: NgxSpinnerService) {
     super(spinner);
   }
-  
+
   async getAllOrders() {
 
     this.showSpinner(SpinnerType.BallSpinClockwise);
@@ -52,7 +52,6 @@ export class OrderListComponent extends BaseComponent implements OnInit {
       this.paginator.pageIndex = pageIndex - 1;
       await this.getAllOrders();
     }
-
   }
   
   

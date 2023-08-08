@@ -328,3 +328,30 @@
   font-size: 11px !important;
   font-weight: 500;
 }
+
+.card-body {
+  display: none; // Tüm card-body'leri başlangıçta gizle
+  position: absolute; // Bağımsız bir katman olarak ayarla
+  z-index: -1; // Diğer öğelerin altında açılacak
+
+  h5,
+  p,
+  a {
+    visibility: hidden; // Diğer içeriği gizle
+  }
+}
+
+.card-body.show {
+  display: block; // Sadece aktif kategoriye ait card-body'yi göster
+  z-index: 1; // Diğer öğelerin üzerinde açılacak
+  background-color: #fff;
+  right: 0px !important;
+  left: 0px !important;
+  top: 46px !important;
+
+  h5,
+  p,
+  a {
+    visibility: visible; // Sadece aktif içeriği göster
+  }
+}

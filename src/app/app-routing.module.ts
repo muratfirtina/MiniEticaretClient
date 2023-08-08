@@ -13,6 +13,7 @@ const routes: Routes = [
       { path: "products", loadChildren :()=> import("./admin/components/products/products.module").then(m=>m.ProductsModule), canActivate: [authGuard]},
       { path: "orders", loadChildren :()=> import("./admin/components/orders/orders.module").then(m=>m.OrdersModule), canActivate: [authGuard]},
       { path: "authorize-menu", loadChildren :()=> import("./admin/components/authorize-menu/authorize-menu.module").then(m=>m.AuthorizeMenuModule), canActivate: [authGuard]},
+      { path: "roles", loadChildren :()=> import("./admin/components/role/role.module").then(m=>m.RoleModule), canActivate: [authGuard]},
     ], canActivate: [authGuard]
   },
   {path: "", component:HomeComponent},

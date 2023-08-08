@@ -1,8 +1,18 @@
-<h1 mat-dialog-title>Rol Atama !</h1>
+<h1 mat-dialog-title>{{data.menuName}}'e Rol Atama !</h1>
 <div mat-dialog-content>
-  <p>{{data.name}}</p>
+  <p>İlgili endpointe aşağıdan rol atayabilirsiniz.</p>
 </div>
+
+<mat-selection-list #roleComponent>
+  <mat-list-option *ngFor="let role of roleList.roles" [value]="role" [selected]="isRoleAssigned(role)">
+    {{role.roleName}}
+  </mat-list-option>
+</mat-selection-list>
+
+<p>
+  Options selected: {{roleComponent.selectedOptions.selected.length}}/{{roleList.totalCount}}
+</p>
 <div mat-dialog-actions>
   <button mat-button (click)="close()">İptal</button>
-  <button mat-button color="warn" [mat-dialog-close]="data" cdkFocusInitial>Evet</button>
+  <button mat-button color="warn" [mat-dialog-close]="data" cdkFocusInitial (click)="assignRoles(roleComponent)">Rolleri ata</button>
 </div>

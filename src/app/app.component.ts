@@ -16,16 +16,16 @@ declare var bootstrap: any;
 $(document).ready(function() {
   $('.menuItems-Wul').hover(
     function() {
-      var menuWidth = 1300;
+      var menuWidth = 1200;
       var menuHeight = 56;
       var containerWidth = $('.containerFullWidth').outerWidth();
       var containerHeight = $('.containerFullWidth').outerHeight();
       var menuLeft = (containerWidth - menuWidth) / 2;
-      var menuTop = 145;
+      var menuTop = 150;
 
       $(this).find('.menuItems-Lui').css({
         'visibility': 'visible',
-        'width': '1300px',
+        'width': '1200px',
         'left': menuLeft,
         'top': menuTop,
       });
@@ -196,6 +196,18 @@ export class AppComponent implements OnInit{
       ]
     },
   ];
+  
+  activeCategoryIndex: number | null = null;
+  isMouseInsideCategory: boolean = false;
+
+  toggleCategory(index: number) {
+    this.activeCategoryIndex = this.activeCategoryIndex === index ? null : index
+
+  }
+  mouseleaveCategory() {
+    
+  }
+
 
 
   constructor(

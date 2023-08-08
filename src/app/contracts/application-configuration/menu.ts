@@ -1,9 +1,9 @@
-export class Menu {
+export class MenuDto {
     name: string;
-    actions:Action[];
+    actions:ActionDto[];
 }
 
-export class Action {
+export class ActionDto {
     actionTyoe: string;
     httpType: string;
     definition: string;
