@@ -1,0 +1,67 @@
+<div class="mat-elevation-z8">
+    <table mat-table [dataSource]="dataSource">
+  
+      <ng-container matColumnDef="userName">
+        <th mat-header-cell *matHeaderCellDef> Kullanıcı Adı </th>
+        <td mat-cell *matCellDef="let element"> {{element.userName}} </td>
+      </ng-container>
+  
+      <ng-container matColumnDef="email">
+        <th mat-header-cell *matHeaderCellDef> Email </th>
+        <td mat-cell *matCellDef="let element"> {{element.email}} </td>
+      </ng-container>
+  
+      <ng-container matColumnDef="nameSurname">
+        <th mat-header-cell *matHeaderCellDef> Adı Soyadı </th>
+        <td mat-cell *matCellDef="let element"> {{element.nameSurname}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="twoFactorEnabled">
+        <th mat-header-cell *matHeaderCellDef> Doğrulama </th>
+        <td mat-cell *matCellDef="let element">
+            <span *ngIf="element.twoFactorEnabled"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="green" class="bi bi-check-circle-fill" viewBox="0 0 16 16">
+                <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
+              </svg></span>
+              <span *ngIf="!element.twoFactorEnabled"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="grey" class="bi bi-exclamation-circle" viewBox="0 0 16 16">
+                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                <path d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995z"/>
+              </svg></span>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="role">
+        <th mat-header-cell *matHeaderCellDef width="45">Yetkilendirme</th>
+        <td mat-cell *matCellDef="let element"><button class="button_edit" (click)="assingRole(element.id)">
+          <span class="button_edit__text">Roles</span><span class="button_edit__icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" viewBox="0 0 24 24" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" stroke="#a649da" height="24" fill="none" class="svg"><path d="m20 20h-16"></path><path clip-rule="evenodd" d="m14.5858 4.41422c.781-.78105 2.0474-.78105 2.8284 0 .7811.78105.7811 2.04738 0 2.82843l-8.28322 8.28325-3.03046.202.20203-3.0304z" fill-rule="evenodd"></path></svg></span>
+        </button> </td>
+      </ng-container>
+
+      <!-- <ng-container matColumnDef="viewDetail">
+        <th mat-header-cell *matHeaderCellDef width="45"></th>
+        <td mat-cell *matCellDef="let element"><button class="button_edit" (click)="showDetail(element.id)">
+          <span class="button_edit__text">Detail</span><span class="button_edit__icon"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="white" class="bi bi-list-ul" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M5 11.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zm-3 1a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm0 4a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm0 4a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
+          </svg></span>
+        </button> </td>
+      </ng-container> -->
+
+      <ng-container matColumnDef="delete">
+        <th mat-header-cell *matHeaderCellDef width="45"></th>
+        <td mat-cell *matCellDef="let element" 
+          appDelete 
+          [id]="element.id" 
+          (refresh)="getAllUsers()"
+          controller="users"> <!-- <img src="../../../../../assets/icons/delete.png" width="25" height="25" 
+          (click)="delete(element.id, $event)"/> --> </td>
+      </ng-container>
+  
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  
+    <mat-paginator (page)="pageChanged()"
+                   [pageSizeOptions]="[5, 10, 20]"
+                   showFirstLastButtons
+                   aria-label="Select page of periodic elements">
+    </mat-paginator>
+  </div>
