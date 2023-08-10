@@ -15,9 +15,11 @@ import { RoleService } from 'src/app/services/common/models/role.service';
 })
 export class RoleListComponent extends BaseComponent implements OnInit {
 
-  displayedColumns: string[] = ['name', 'edit', 'delete'];
+  displayedColumns: string[] = ['select', 'name', 'edit', 'delete'];
   dataSource:MatTableDataSource<RoleDto> = null;
   @ViewChild(MatPaginator) paginator: MatPaginator;
+
+  selectedRoles: RoleDto[] = []
 
   constructor(
     private roleService: RoleService,
@@ -26,10 +28,7 @@ export class RoleListComponent extends BaseComponent implements OnInit {
      spinner: NgxSpinnerService) {
     super(spinner);
   }
-  
-
-
-  
+ 
   async getRoles() {
 
     this.showSpinner(SpinnerType.BallSpinClockwise);
@@ -52,7 +51,57 @@ export class RoleListComponent extends BaseComponent implements OnInit {
       this.paginator.pageIndex = pageIndex - 1;
       await this.getRoles();
     }
+    
   }
+
+  selectRole(role: RoleDto) {
+    const index = this.selectedRoles.findIndex(r => r.roleId === role.roleId);
+    if (index !== -1) {
+      this.selectedRoles.splice(index, 1);
+    } else {
+      this.selectedRoles.push(role);
+    }
+  }
+
+  selectAllRoles() {
+    if (this.selectedRoles.length === this.dataSource.data.length) {
+      this.selectedRoles = [];
+    } else {
+      this.selectedRoles = [...this.dataSource.data];
+    }
+  }
+
+  async deleteSelectedRoles() {
+    if (this.selectedRoles.length === 0) {
+        return;
+    }
+
+    this.showSpinner(SpinnerType.BallSpinClockwise);
+
+    try {
+        for (const role of this.selectedRoles) {
+            await this.roleService.deleteRole(role.roleId);
+        }
+
+        this.alertifyService.message('Selected roles deleted', {
+            dismissOthers: true,
+            messageType: MessageType.Success,
+            position: Position.TopRight
+        });
+
+        this.selectedRoles = [];
+        await this.getRoles();
+    } catch (error) {
+        this.alertifyService.message('An unexpected error occurred while deleting roles', {
+            dismissOthers: true,
+            messageType: MessageType.Error,
+            position: Position.TopRight
+        });
+    }
+
+    this.hideSpinner(SpinnerType.BallSpinClockwise);
+}
+  
   
   
   async pageChanged(){

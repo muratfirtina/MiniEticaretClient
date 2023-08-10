@@ -35,5 +35,17 @@ export class RoleService {
     return await promiseData;
   }
 
+  async deleteRole(roleId: string, successCallBack?: () => void, errorCallBack?: (error) => void) {
+    const observable: Observable<any> = this.httpClientService.delete({
+        controller: "roles"
+    }, roleId);
+
+    const promiseData = firstValueFrom(observable);
+    promiseData.then(successCallBack)
+        .catch(errorCallBack);
+
+    return await promiseData as { succeeded: boolean };
+}
+
 }
 

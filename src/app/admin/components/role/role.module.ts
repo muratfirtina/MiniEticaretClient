@@ -12,6 +12,8 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatTableModule } from '@angular/material/table';
 import { DeleteDirectiveModule } from 'src/app/directives/admin/delete.directive.module';
+import {MatCheckboxModule} from '@angular/material/checkbox';
+import {MatRadioModule} from '@angular/material/radio';
 
 
 
@@ -32,6 +34,8 @@ import { DeleteDirectiveModule } from 'src/app/directives/admin/delete.directive
     MatButtonModule,
     MatTableModule,
     MatPaginatorModule,
+    MatCheckboxModule,
+    MatRadioModule,
     DialogModule,
     DeleteDirectiveModule
   ]
