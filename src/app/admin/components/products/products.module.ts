@@ -13,6 +13,7 @@ import {MatPaginatorModule} from '@angular/material/paginator';
 import { FileUploadModule } from 'src/app/services/common/fileUpload/fileUpload.module';
 import { DialogModule } from 'src/app/dialogs/dialog.module';
 import { DeleteDirectiveModule } from 'src/app/directives/admin/delete.directive.module';
+import {MatCheckboxModule} from '@angular/material/checkbox';
 
 
 
@@ -33,6 +34,7 @@ import { DeleteDirectiveModule } from 'src/app/directives/admin/delete.directive
     MatButtonModule,
     MatTableModule,
     MatPaginatorModule,
+    MatCheckboxModule,
     DialogModule,
     FileUploadModule,
     DeleteDirectiveModule

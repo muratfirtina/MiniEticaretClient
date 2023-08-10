@@ -4,6 +4,7 @@ import { MatTableDataSource, _MatTableDataSource} from '@angular/material/table'
 import { NgxSpinnerService } from 'ngx-spinner';
 import { BaseComponent, SpinnerType } from 'src/app/base/base.component';
 import { List_Product } from "src/app/contracts/list_product";
+import { DeleteDialogComponent, DeleteDialogState } from 'src/app/dialogs/delete-dialog/delete-dialog.component';
 import { ProductImageDialogComponent } from 'src/app/dialogs/product-image-dialog/product-image-dialog.component';
 import { AlertifyService, MessageType, Position } from 'src/app/services/admin/alertify.service';
 import { DialogService } from 'src/app/services/common/dialog.service';
@@ -18,7 +19,7 @@ declare var $: any;
 })
 export class ProductListComponent extends BaseComponent implements OnInit{
 
-  displayedColumns: string[] = ['name', 'stock', 'price', 'createdDate', 'updatedDate','photos' , 'edit' ,'delete'];
+  displayedColumns: string[] = [ 'select','name', 'stock', 'price', 'createdDate', 'updatedDate','photos' , 'edit' ,'delete'];
   dataSource:MatTableDataSource<List_Product> = null;
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
@@ -29,6 +30,8 @@ export class ProductListComponent extends BaseComponent implements OnInit{
      spinner: NgxSpinnerService) {
     super(spinner);
   }
+
+  selectedProducts: List_Product[] = []
   
   async getProducts() {
 
@@ -64,6 +67,63 @@ export class ProductListComponent extends BaseComponent implements OnInit{
       }
     });
 
+  }
+
+  selectProduct(product: List_Product) {
+    const index = this.selectedProducts.findIndex(r => r.id === product.id);
+    if (index !== -1) {
+      this.selectedProducts.splice(index, 1);
+    } else {
+      this.selectedProducts.push(product);
+    }
+  }
+
+  selectAllProducts() {
+    if (this.selectedProducts.length === this.dataSource.data.length) {
+      this.selectedProducts = [];
+    } else {
+      this.selectedProducts = [...this.dataSource.data];
+    }
+  }
+
+  async deleteSelectedProducts() {
+    if (this.selectedProducts.length === 0) {
+      return;
+    }
+    
+    const dialogRef = this.dialogService.openDialog({
+      componentType: DeleteDialogComponent,
+      data: DeleteDialogState.Yes,
+      afterClosed: async (result: DeleteDialogState) => {
+        if (result === DeleteDialogState.Yes) {
+          this.showSpinner(SpinnerType.BallSpinClockwise);
+          try {
+            for (const role of this.selectedProducts) {
+              await this.productService.delete(role.id);
+            }
+  
+            this.alertifyService.message('Selected roles deleted', {
+              dismissOthers: true,
+              messageType: MessageType.Success,
+              position: Position.TopRight
+            });
+  
+            this.selectedProducts = [];
+            await this.getProducts();
+          } catch (error) {
+            this.alertifyService.message('An unexpected error occurred while deleting roles', {
+              dismissOthers: true,
+              messageType: MessageType.Error,
+              position: Position.TopRight
+            });
+          }
+        }
+      }
+    });
+  
+    // Burada dialog kapatılmasını bekliyoruz
+    
+    this.hideSpinner(SpinnerType.BallSpinClockwise);
   }
   
   async pageChanged(){

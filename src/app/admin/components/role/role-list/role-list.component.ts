@@ -4,6 +4,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { BaseComponent, SpinnerType } from 'src/app/base/base.component';
 import { RoleDto } from 'src/app/contracts/role/roleDto';
+import { DeleteDialogComponent, DeleteDialogState } from 'src/app/dialogs/delete-dialog/delete-dialog.component';
 import { AlertifyService, MessageType, Position } from 'src/app/services/admin/alertify.service';
 import { DialogService } from 'src/app/services/common/dialog.service';
 import { RoleService } from 'src/app/services/common/models/role.service';
@@ -73,34 +74,44 @@ export class RoleListComponent extends BaseComponent implements OnInit {
 
   async deleteSelectedRoles() {
     if (this.selectedRoles.length === 0) {
-        return;
+      return;
     }
-
-    this.showSpinner(SpinnerType.BallSpinClockwise);
-
-    try {
-        for (const role of this.selectedRoles) {
-            await this.roleService.deleteRole(role.roleId);
+    
+    const dialogRef = this.dialogService.openDialog({
+      componentType: DeleteDialogComponent,
+      data: DeleteDialogState.Yes,
+      afterClosed: async (result: DeleteDialogState) => {
+        if (result === DeleteDialogState.Yes) {
+          this.showSpinner(SpinnerType.BallSpinClockwise);
+          try {
+            for (const role of this.selectedRoles) {
+              await this.roleService.deleteRole(role.roleId);
+            }
+  
+            this.alertifyService.message('Selected roles deleted', {
+              dismissOthers: true,
+              messageType: MessageType.Success,
+              position: Position.TopRight
+            });
+  
+            this.selectedRoles = [];
+            await this.getRoles();
+          } catch (error) {
+            this.alertifyService.message('An unexpected error occurred while deleting roles', {
+              dismissOthers: true,
+              messageType: MessageType.Error,
+              position: Position.TopRight
+            });
+          }
         }
-
-        this.alertifyService.message('Selected roles deleted', {
-            dismissOthers: true,
-            messageType: MessageType.Success,
-            position: Position.TopRight
-        });
-
-        this.selectedRoles = [];
-        await this.getRoles();
-    } catch (error) {
-        this.alertifyService.message('An unexpected error occurred while deleting roles', {
-            dismissOthers: true,
-            messageType: MessageType.Error,
-            position: Position.TopRight
-        });
-    }
-
+      }
+    });
+  
+    // Burada dialog kapatılmasını bekliyoruz
+    
     this.hideSpinner(SpinnerType.BallSpinClockwise);
-}
+  }
+  
   
   
   

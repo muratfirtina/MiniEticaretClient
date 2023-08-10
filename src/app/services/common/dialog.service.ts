@@ -1,6 +1,7 @@
 import { ComponentType } from '@angular/cdk/portal';
 import { Injectable } from '@angular/core';
 import { DialogPosition, MatDialog } from '@angular/material/dialog';
+import { DeleteDialogState } from 'src/app/dialogs/delete-dialog/delete-dialog.component';
 
 @Injectable({
   providedIn: 'root'
@@ -20,7 +21,7 @@ export class DialogService {
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result == dialogParameters.data) 
-        dialogParameters.afterClosed();
+        dialogParameters.afterClosed(DeleteDialogState.Yes);
       
     });
   }
@@ -29,7 +30,7 @@ export class DialogService {
 export class DialogParameters {
   componentType: ComponentType<any>;
   data: any;
-  afterClosed: () => void;
+  afterClosed: (result: DeleteDialogState) => void;
   options?: Partial<DialogOptions> = new DialogOptions();
  
 }

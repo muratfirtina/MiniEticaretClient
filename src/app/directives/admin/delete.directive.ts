@@ -127,7 +127,7 @@ export class DeleteDirective {
     this.dialogService.openDialog({
       componentType: DeleteDialogComponent,
       data: DeleteDialogState.Yes,
-      afterClosed: async () => {
+      afterClosed: async (result: DeleteDialogState) => {
         this.spinner.show(SpinnerType.BallSpinClockwise);
         const td: HTMLTableCellElement = this.element.nativeElement;
         
@@ -155,38 +155,4 @@ export class DeleteDirective {
   }
   
 
-  /* @HostListener("click")
-  async onclick() {
-    this.dialogService.openDialog({
-      componentType: DeleteDialogComponent,
-      data: DeleteDialogState.Yes,
-      afterClosed: async () => {
-        this.spinner.show(SpinnerType.BallSpinClockwise);
-        const td: HTMLTableCellElement = this.element.nativeElement;
-        this.httpClientService.delete({
-          controller: this.controller
-        }, this.id).subscribe({ next: (data) => {
-          $(td.parentElement).animate({
-            opacity: 0,
-            left: "+=50",
-            height: "toogle"
-          }, 700, () => {
-            this.refresh.emit();
-            this.alertifyService.message(`Deleted.`, {
-              dismissOthers: true,
-              messageType: MessageType.Success,
-              position: Position.TopRight
-            })
-          });
-        }, error: (errorResponse: HttpErrorResponse) => {
-          this.spinner.hide(SpinnerType.BallSpinClockwise);
-          this.alertifyService.message("An unexpected error was encountered when deleting.", {
-            dismissOthers: true,
-            messageType: MessageType.Error,
-            position: Position.TopRight
-          });
-        }});
-      }
-    });
-  } */
 }
