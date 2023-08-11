@@ -79,4 +79,5 @@ export class LoginComponent extends BaseComponent{
   facebookLogin(){
     this.socialAuthService.signIn(FacebookLoginProvider.PROVIDER_ID);
   }
+  
 }

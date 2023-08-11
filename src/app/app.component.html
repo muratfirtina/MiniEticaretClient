@@ -98,10 +98,10 @@
                         </svg>
                         <span class="sign-in-text">Giriş Yap</span>
                     </a>
-                    <div class="dropdown-overlay" [ngClass]="{ 'active': isDropdownOverlayActive }"
+                    <div class="dropdown-overlay" 
                         (click)="closeDropdown()"></div>
                     <ul class="dropdown-menu" [ngClass]="{ 'show': isDropdownOverlayActive }"
-                        (mouseleave)="closeDropdown()" style=" width: 200px;">
+                        (mouseleave)="closeDropdown()">
                         <li>
                             <a class="nav-link" id="register" aria-current="page" routerLink="register"
                                 *ngIf="!authService.isAuthenticated" (click)="closeDropdown()">

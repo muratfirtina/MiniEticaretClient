@@ -3,8 +3,8 @@
   <form [formGroup]="frm" (ngSubmit)="onSubmit(frm.value)">
 
     <div class="title_container">
-      <p class="title">Please Sign Up</p>
-      <span class="subtitle">Get started with our app, just create an account and enjoy the experience.</span>
+      <p class="title">Lütfen Kayıt Olunuz.</p>
+      <a class="subtitle" routerLink="/login">Zaten üye iseniz, giriş yapmak için tıklayınız.</a>
     </div>
     <br>
     <!-- <img class="mb-4" src="/docs/5.3/assets/brand/bootstrap-logo.svg" alt="" width="72" height="57" /> -->
@@ -13,17 +13,17 @@
       <input type="nameSurname" formControlName="nameSurname" class="form-control" id="nameSurname"
         placeholder="Name Surname" [ngClass]="{'is-invalid': (component['nameSurname'].invalid && component['nameSurname'].dirty) || (submitted && component['nameSurname'].invalid ),
                                 'is-valid': component['nameSurname'].valid && frm.get('nameSurname').value}" />
-      <label for="nameSurname">Name Surname</label>
+      <label for="nameSurname">Ad Soyad</label>
 
       <div class="invalid-feedback">
         <div *ngIf="frm.get('nameSurname').hasError('required')">
-          Full Name is required.
+          Ad Soyad girmeniz gerkemektedir.
         </div>
         <div *ngIf="frm.get('nameSurname').hasError('minlength')">
-          Full Name should be at least 3 characters long.
+          Ad Soyad en az 3 karakter uzunluğunda olmalıdır.
         </div>
         <div *ngIf="frm.get('nameSurname').hasError('maxlength')">
-          Full Name should be at most 50 characters long.
+          Ad Soyad en fazla 50 karakter uzunluğunda olmalıdır.
         </div>
       </div>
     </div>
@@ -33,17 +33,17 @@
       <input type="username" formControlName="userName" class="form-control" id="userName" placeholder="User Name"
         [ngClass]="{'is-invalid': (component['userName'].invalid && component['userName'].dirty) || (submitted && component['userName'].invalid),
                               'is-valid': component['userName'].valid && frm.get('userName').value}" />
-      <label for="username">User Name</label>
+      <label for="username">Kullanıcı Adı</label>
 
       <div class="invalid-feedback">
         <div *ngIf="frm.get('userName').hasError('required')">
-          User Name is required.
+          Kullanıcı Adı girmeniz gerkemektedir.
         </div>
         <div *ngIf="frm.get('userName').hasError('minlength')">
-          User Name should be at least 3 characters long.
+          Kullanıcı Adı en az 3 karakter uzunluğunda olmalıdır.
         </div>
         <div *ngIf="frm.get('userName').hasError('maxlength')">
-          User Name should be at most 50 characters long.
+          Kullanıcı Adı en fazla 50 karakter uzunluğunda olmalıdır.
         </div>
       </div>
     </div>
@@ -57,16 +57,16 @@
 
       <div class="invalid-feedback">
         <div *ngIf="frm.get('email').hasError('required')">
-          Email is required.
+          Email adresi gerkemektedir
         </div>
         <div *ngIf="frm.get('email').hasError('minlength')">
-          Email should be at least 3 characters long.
+          Email adresi en az 3 karakter uzunluğunda olmalıdır.
         </div>
         <div *ngIf="frm.get('email').hasError('maxlength')">
-          Email should be at most 50 characters long.
+          Email adresi en fazla 50 karakter uzunluğunda olmalıdır.
         </div>
         <div *ngIf="frm.get('email').hasError('email')">
-          Email should be at most email.
+          Email adresi geçersizdir.
         </div>
       </div>
     </div>
@@ -75,15 +75,15 @@
       <input type="password" formControlName="password" class="form-control" id="password" placeholder="Password"
         [ngClass]="{'is-invalid': (component['password'].invalid && component['password'].dirty) || (submitted && component['password'].invalid ),
                               'is-valid': component['password'].valid && frm.get('password').value}" />
-      <label for="password">Password</label>
+      <label for="password">Şifre</label>
 
 
       <div class="invalid-feedback">
         <div *ngIf="frm.get('password').hasError('required')">
-          Password is required.
+          Şifre gerkemektedir.
         </div>
         <div *ngIf="frm.get('password').hasError('minlength')">
-          Password should be at least 8 characters long.
+          Şifre en az 8 karakter uzunluğunda olmalıdır.
         </div>
       </div>
     </div>
@@ -94,17 +94,17 @@
         [ngClass]="{
                     'is-invalid': (frm.get('confirmPassword').invalid && frm.get('confirmPassword').dirty) || (submitted && frm.get('confirmPassword').invalid),
                     'is-valid': frm.get('confirmPassword').valid && frm.get('password').value === frm.get('confirmPassword').value}" />
-      <label for="confirmPassword">Confirm Password</label>
+      <label for="confirmPassword">Şifre doğrula </label>
 
       <div class="invalid-feedback">
         <div *ngIf="frm.get('confirmPassword').hasError('required')">
-          Confirm Password is required.
+          Şifre doğrulama gerkemektedir.
         </div>
         <div *ngIf="frm.get('confirmPassword').hasError('notSame')">
-          Confirm Password should match Password.
+          Doğrulama şifresi ile şifre aynı olmalıdır.
         </div>
         <div *ngIf="frm.get('confirmPassword').hasError('minlength')">
-          Password should be at least 8 characters long.
+          Şifre doğrulama en az 8 karakter uzunluğunda olmalıdır.
         </div>
       </div>
     </div>
@@ -116,12 +116,12 @@
                     </label>
                 </div> -->
     <button title="Sign Up" type="submit" class="sign-in_btn" style="background-color: rgb(255, 102, 0);">
-      <span>Register Now</span>
+      <span>Kayıt Ol</span>
     </button>
 
     <div class="separator">
       <hr class="line">
-      <span>Or</span>
+      <span>Veya</span>
       <hr class="line">
     </div>
     <asl-google-signin-button width="400" type='standard' size='large' shape="rectangular" logo_alignment="center"
