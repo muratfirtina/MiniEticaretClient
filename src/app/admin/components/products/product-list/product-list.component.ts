@@ -6,6 +6,7 @@ import { BaseComponent, SpinnerType } from 'src/app/base/base.component';
 import { List_Product } from "src/app/contracts/list_product";
 import { DeleteDialogComponent, DeleteDialogState } from 'src/app/dialogs/delete-dialog/delete-dialog.component';
 import { ProductImageDialogComponent } from 'src/app/dialogs/product-image-dialog/product-image-dialog.component';
+import { QrcodeDialogComponent } from 'src/app/dialogs/qrcode-dialog/qrcode-dialog.component';
 import { AlertifyService, MessageType, Position } from 'src/app/services/admin/alertify.service';
 import { DialogService } from 'src/app/services/common/dialog.service';
 import { ProductService } from 'src/app/services/common/models/product.service';
@@ -19,7 +20,7 @@ declare var $: any;
 })
 export class ProductListComponent extends BaseComponent implements OnInit{
 
-  displayedColumns: string[] = [ 'select','name', 'stock', 'price', 'createdDate', 'updatedDate','photos' , 'edit' ,'delete'];
+  displayedColumns: string[] = [ 'select','name', 'stock', 'price', 'createdDate', 'updatedDate','photos', 'qrcode' , 'edit' ,'delete'];
   dataSource:MatTableDataSource<List_Product> = null;
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
@@ -134,6 +135,14 @@ export class ProductListComponent extends BaseComponent implements OnInit{
     await this.getProducts();
   }
 
+  showQrCode(productId:string){
+    this.dialogService.openDialog({
+      componentType: QrcodeDialogComponent,
+      data: productId,
+      afterClosed:() => {},
+      
+    });
+  }
    /* async getProducts(){
 
     this.showSpinner(SpinnerType.BallSpinClockwise);

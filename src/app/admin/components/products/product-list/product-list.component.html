@@ -1,89 +1,112 @@
-  <div class="mat-elevation-z8">
-    <table mat-table [dataSource]="dataSource">
+<div class="mat-elevation-z8">
+  <table mat-table [dataSource]="dataSource">
 
-      <ng-container matColumnDef="select">
-        <th mat-header-cell *matHeaderCellDef>
-          <mat-checkbox  (click)="selectAllProducts()"
-            [disabled]="selectedProducts.length === selectProduct.length">
-          </mat-checkbox >
-          <button class="btn" style="margin-left: 10px; padding: 0px 5px !important;" (click)="deleteSelectedProducts()"
-            [disabled]="selectedProducts.length === 0" [ngClass]="{
+    <ng-container matColumnDef="select">
+      <th mat-header-cell *matHeaderCellDef>
+        <mat-checkbox (click)="selectAllProducts()" [disabled]="selectedProducts.length === selectProduct.length">
+        </mat-checkbox>
+        <button class="btn" style="margin-left: 10px; padding: 0px 5px !important;" (click)="deleteSelectedProducts()"
+          [disabled]="selectedProducts.length === 0" [ngClass]="{
                     'disabled-button': selectedProducts.length === 0
                 }"><svg viewBox="0 0 15 17.5" height="17.5" width="15" xmlns="http://www.w3.org/2000/svg" class="icon">
-              <path transform="translate(-2.5 -1.25)"
-                d="M15,18.75H5A1.251,1.251,0,0,1,3.75,17.5V5H2.5V3.75h15V5H16.25V17.5A1.251,1.251,0,0,1,15,18.75ZM5,5V17.5H15V5Zm7.5,10H11.25V7.5H12.5V15ZM8.75,15H7.5V7.5H8.75V15ZM12.5,2.5h-5V1.25h5V2.5Z"
-                id="Fill"></path>
-            </svg>
-          </button>
-        </th>
-        <td mat-cell *matCellDef="let element">
-          <mat-checkbox (change)="selectProduct(element)" [checked]="selectedProducts.includes(element)"></mat-checkbox>
-        </td>
-      </ng-container>
-  
-      <ng-container matColumnDef="name">
-        <th mat-header-cell *matHeaderCellDef> Name </th>
-        <td mat-cell *matCellDef="let element"> {{element.name}} </td>
-      </ng-container>
-  
-      <ng-container matColumnDef="price">
-        <th mat-header-cell *matHeaderCellDef> Price </th>
-        <td mat-cell *matCellDef="let element"> {{element.price}} </td>
-      </ng-container>
-  
-      <ng-container matColumnDef="stock">
-        <th mat-header-cell *matHeaderCellDef> Stock </th>
-        <td mat-cell *matCellDef="let element"> {{element.stock}} </td>
-      </ng-container>
-  
-      <ng-container matColumnDef="createdDate">
-        <th mat-header-cell *matHeaderCellDef> Created Date </th>
-        <td mat-cell *matCellDef="let element"> {{element.createdDate}} </td>
-      </ng-container>
+            <path transform="translate(-2.5 -1.25)"
+              d="M15,18.75H5A1.251,1.251,0,0,1,3.75,17.5V5H2.5V3.75h15V5H16.25V17.5A1.251,1.251,0,0,1,15,18.75ZM5,5V17.5H15V5Zm7.5,10H11.25V7.5H12.5V15ZM8.75,15H7.5V7.5H8.75V15ZM12.5,2.5h-5V1.25h5V2.5Z"
+              id="Fill"></path>
+          </svg>
+        </button>
+      </th>
+      <td mat-cell *matCellDef="let element">
+        <mat-checkbox (change)="selectProduct(element)" [checked]="selectedProducts.includes(element)"></mat-checkbox>
+      </td>
+    </ng-container>
 
-      <ng-container matColumnDef="updatedDate">
-        <th mat-header-cell *matHeaderCellDef> Updated Date  </th>
-        <td mat-cell *matCellDef="let element"> {{element.updatedDate}} </td>
-      </ng-container>
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef> Name </th>
+      <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+    </ng-container>
 
-      <ng-container matColumnDef="photos">
-        <th mat-header-cell *matHeaderCellDef width="30">  </th>
-        <td mat-cell *matCellDef="let element"> 
-            <button class="button_photo" (click)="addProductImages(element.id)">
-              <span class="button_photo__text">Photo</span><span class="button_photo__icon" ><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 20" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M6.5 6.5H5c-.55 0-1 .45-1 1v8c0 .55.45 1 1 1h1.5"></path>
-                <path d="M18.5 6.5H19c.55 0 1 .45 1 1v8c0 .55-.45 1-1 1h-1.5"></path>
-                <path d="M17 7H7v10h10V7zM7 4.5A1.5 1.5 0 0 1 8.5 3h7A1.5 1.5 0 0 1 17 4.5v1.67A1.5 1.5 0 0 1 15.5 7H8.5A1.5 1.5 0 0 1 7 5.17V4.5zM12 15.5a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"></path>
-              </svg></span>
-            </button>    
-<!--           <img style="cursor: pointer;" (click)="addProductImages(element.id)" src="../../../../../assets/icons/photo4.png" width="35" height="35" />
- -->    </td>
-      </ng-container>
+    <ng-container matColumnDef="price">
+      <th mat-header-cell *matHeaderCellDef> Price </th>
+      <td mat-cell *matCellDef="let element"> {{element.price}} </td>
+    </ng-container>
 
-      <ng-container matColumnDef="edit">
-        <th mat-header-cell *matHeaderCellDef width="45"></th>
-        <td mat-cell *matCellDef="let element"> <button class="button_edit">
-          <span class="button_edit__text">Edit</span><span class="button_edit__icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" viewBox="0 0 24 24" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" stroke="#a649da" height="24" fill="none" class="svg"><path d="m20 20h-16"></path><path clip-rule="evenodd" d="m14.5858 4.41422c.781-.78105 2.0474-.78105 2.8284 0 .7811.78105.7811 2.04738 0 2.82843l-8.28322 8.28325-3.03046.202.20203-3.0304z" fill-rule="evenodd"></path></svg></span>
+    <ng-container matColumnDef="stock">
+      <th mat-header-cell *matHeaderCellDef> Stock </th>
+      <td mat-cell *matCellDef="let element"> {{element.stock}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="createdDate">
+      <th mat-header-cell *matHeaderCellDef> Created Date </th>
+      <td mat-cell *matCellDef="let element"> {{element.createdDate}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="updatedDate">
+      <th mat-header-cell *matHeaderCellDef> Updated Date </th>
+      <td mat-cell *matCellDef="let element"> {{element.updatedDate}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="photos">
+      <th mat-header-cell *matHeaderCellDef width="30"> </th>
+      <td mat-cell *matCellDef="let element">
+        <button class="button_photo" (click)="addProductImages(element.id)">
+          <span class="button_photo__text">Photo</span><span class="button_photo__icon"><svg
+              xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 20" fill="none" stroke="#fff"
+              stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M6.5 6.5H5c-.55 0-1 .45-1 1v8c0 .55.45 1 1 1h1.5"></path>
+              <path d="M18.5 6.5H19c.55 0 1 .45 1 1v8c0 .55-.45 1-1 1h-1.5"></path>
+              <path
+                d="M17 7H7v10h10V7zM7 4.5A1.5 1.5 0 0 1 8.5 3h7A1.5 1.5 0 0 1 17 4.5v1.67A1.5 1.5 0 0 1 15.5 7H8.5A1.5 1.5 0 0 1 7 5.17V4.5zM12 15.5a3 3 0 1 0 0-6 3 3 0 0 0 0 6z">
+              </path>
+            </svg></span>
+        </button>
+        <!--           <img style="cursor: pointer;" (click)="addProductImages(element.id)" src="../../../../../assets/icons/photo4.png" width="35" height="35" />
+ -->
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="qrcode">
+      <th mat-header-cell *matHeaderCellDef width="30"> </th>
+      <td mat-cell *matCellDef="let element">
+        <span style="cursor: pointer;" (click)="showQrCode(element.id)">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-qr-code"
+            viewBox="0 0 16 16">
+            <path d="M2 2h2v2H2V2Z" />
+            <path d="M6 0v6H0V0h6ZM5 1H1v4h4V1ZM4 12H2v2h2v-2Z" />
+            <path d="M6 10v6H0v-6h6Zm-5 1v4h4v-4H1Zm11-9h2v2h-2V2Z" />
+            <path
+              d="M10 0v6h6V0h-6Zm5 1v4h-4V1h4ZM8 1V0h1v2H8v2H7V1h1Zm0 5V4h1v2H8ZM6 8V7h1V6h1v2h1V7h5v1h-4v1H7V8H6Zm0 0v1H2V8H1v1H0V7h3v1h3Zm10 1h-1V7h1v2Zm-1 0h-1v2h2v-1h-1V9Zm-4 0h2v1h-1v1h-1V9Zm2 3v-1h-1v1h-1v1H9v1h3v-2h1Zm0 0h3v1h-2v1h-1v-2Zm-4-1v1h1v-2H7v1h2Z" />
+            <path d="M7 12h1v3h4v1H7v-4Zm9 2v2h-3v-1h2v-1h1Z" />
+          </svg>
+        </span>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="edit">
+      <th mat-header-cell *matHeaderCellDef width="45"></th>
+      <td mat-cell *matCellDef="let element"> <button class="button_edit">
+          <span class="button_edit__text">Edit</span><span class="button_edit__icon"><svg
+              xmlns="http://www.w3.org/2000/svg" width="24" viewBox="0 0 24 24" stroke-width="2" stroke-linejoin="round"
+              stroke-linecap="round" stroke="#a649da" height="24" fill="none" class="svg">
+              <path d="m20 20h-16"></path>
+              <path clip-rule="evenodd"
+                d="m14.5858 4.41422c.781-.78105 2.0474-.78105 2.8284 0 .7811.78105.7811 2.04738 0 2.82843l-8.28322 8.28325-3.03046.202.20203-3.0304z"
+                fill-rule="evenodd"></path>
+            </svg></span>
         </button> </td>
-      </ng-container>
+    </ng-container>
 
-      <ng-container matColumnDef="delete">
-        <th mat-header-cell *matHeaderCellDef width="45"></th>
-        <td mat-cell *matCellDef="let element" 
-          appDelete 
-          [id]="element.id" 
-          (refresh)="getProducts()"
-          controller="products"> <!-- <img src="../../../../../assets/icons/delete.png" width="25" height="25" 
+    <ng-container matColumnDef="delete">
+      <th mat-header-cell *matHeaderCellDef width="45"></th>
+      <td mat-cell *matCellDef="let element" appDelete [id]="element.id" (refresh)="getProducts()"
+        controller="products"> <!-- <img src="../../../../../assets/icons/delete.png" width="25" height="25" 
           (click)="delete(element.id, $event)"/> --> </td>
-      </ng-container>
-  
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-    </table>
-  
-    <mat-paginator (page)="pageChanged()"
-                   [pageSizeOptions]="[5, 10, 20]"
-                   showFirstLastButtons
-                   aria-label="Select page of periodic elements">
-    </mat-paginator>
-  </div>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+
+  <mat-paginator (page)="pageChanged()" [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons
+    aria-label="Select page of periodic elements">
+  </mat-paginator>
+</div>

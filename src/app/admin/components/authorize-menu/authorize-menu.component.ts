@@ -80,7 +80,8 @@ export class AuthorizeMenuComponent extends BaseComponent implements OnInit {
       componentType: AuthorizeMenuDialogComponent,
       data: { code: code, name: name, menuName: menuName },
       options: {
-        width: "750px"
+        width: "500px",
+        height: "750px"
       },
       afterClosed: () => {
 
