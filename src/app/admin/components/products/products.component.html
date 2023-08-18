@@ -1,3 +1,9 @@
+<button type="button" class="button" (click)="showProductQrCodeReading()">
+    <span class="button__text">Product QrCode Reading</span>
+    <span class="button__icon">
+    </span>
+</button>
+
 <mat-drawer-container class="product-create">
     <mat-drawer mode="side" opened>
         <app-product-create (createdProduct)="createdProduct($event)"></app-product-create>

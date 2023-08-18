@@ -19,6 +19,12 @@ import {MatBadgeModule} from '@angular/material/badge';
 import {MatListModule} from '@angular/material/list';
 import { AuthorizeUserDialogComponent } from './authorize-user-dialog/authorize-user-dialog.component';
 import { QrcodeDialogComponent } from './qrcode-dialog/qrcode-dialog.component';
+import { QrcodeReadingDialogComponent } from './qrcode-reading-dialog/qrcode-reading-dialog.component';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { NgxScannerQrcodeModule, LOAD_WASM } from 'ngx-scanner-qrcode';
+
+LOAD_WASM().subscribe((res: any) => console.log('LOAD_WASM', res));
 
 
 
@@ -32,7 +38,8 @@ import { QrcodeDialogComponent } from './qrcode-dialog/qrcode-dialog.component';
     CompleteOrderDialogComponent,
     AuthorizeMenuDialogComponent,
     AuthorizeUserDialogComponent,
-    QrcodeDialogComponent
+    QrcodeDialogComponent,
+    QrcodeReadingDialogComponent
   ],
   imports: [
     CommonModule,
@@ -41,10 +48,13 @@ import { QrcodeDialogComponent } from './qrcode-dialog/qrcode-dialog.component';
     MatCardModule,
     MatTableModule,
     MatToolbarModule,
+    MatFormFieldModule,
+    MatInputModule,
     FileUploadModule,
     FormsModule,
     MatBadgeModule,
-    MatListModule
+    MatListModule,
+    NgxScannerQrcodeModule
     
   ]
 })

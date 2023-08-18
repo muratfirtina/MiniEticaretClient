@@ -1,0 +1,24 @@
+<h4 style="margin-left: 25px; margin-top: 25px;">Product QrCode Reading</h4>
+
+<mat-form-field appearance="fill" class="product-create" style="margin-left: 25px;">
+    <mat-label>Stock</mat-label>
+    <input matInput type="number" min="0" value="0" #txtStock>
+</mat-form-field>
+
+<div>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <td></td>
+      </tr>
+    </thead>
+    <tbody #resultTableBody></tbody>
+  </table>
+</div>
+
+<ngx-scanner-qrcode #scanner="scanner" (event)="onEvent($event)"></ngx-scanner-qrcode>
+
+<mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close id="btnClose">Kapat</button>
+</mat-dialog-actions>

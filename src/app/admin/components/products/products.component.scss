@@ -15,4 +15,27 @@
   width: 20%;
 }
 
+.button {
+  margin-inline-start: 0;
+  position: static;
+  width: 290px;
+  height: 40px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #34974d;
+  background-color: #3aa856;
+  overflow: hidden;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  color: aliceblue;
+}
+.button:hover {
+  background: #34974d;
+}
+.button:active {
+  border: 1px solid #aad8b5;
+}
+
 

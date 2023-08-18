@@ -1,5 +1,15 @@
 .mat-elevation-z8 {
-  width: max-content;
+  width: fit-content;
+}
+#selectColumn{
+  display: flex;
+  margin-top: 15px;
+  border-top: 1px solid #2e8644;
+  border-left: 1px solid #2e8644;
+  border-right: 1px solid #2e8644;
+  border-bottom: 1px solid #ccc;
+
+
 }
 .mat-mdc-paginator {
   display: flex;
@@ -160,7 +170,6 @@
   }
   
   .btn::after {
-   
     width: fit-content;
     height: fit-content;
     background-color: rgb(168, 7, 7);

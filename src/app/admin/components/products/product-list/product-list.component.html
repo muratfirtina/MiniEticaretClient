@@ -2,7 +2,7 @@
   <table mat-table [dataSource]="dataSource">
 
     <ng-container matColumnDef="select">
-      <th mat-header-cell *matHeaderCellDef>
+      <th mat-header-cell *matHeaderCellDef id="selectColumn">
         <mat-checkbox (click)="selectAllProducts()" [disabled]="selectedProducts.length === selectProduct.length">
         </mat-checkbox>
         <button class="btn" style="margin-left: 10px; padding: 0px 5px !important;" (click)="deleteSelectedProducts()"
