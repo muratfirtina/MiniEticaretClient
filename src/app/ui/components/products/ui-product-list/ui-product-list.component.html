@@ -1,4 +1,58 @@
 <div class="row">
+  <!-- <div class="searchContainer">
+    <input
+      type="text"
+      class="form-control"
+      placeholder="Search products..."
+      [(ngModel)]="searchKeyword"
+      (input)="searchProducts()"
+    />
+  </div>
+  <div class="col-md-10">
+    <div
+      class="card"
+      id="card-products"
+      *ngFor="let product of filteredProducts">
+      <div [id]="'carouselExampleIndicators-' + product.id" class="carousel slide">
+            <ol class="carousel-indicators">
+              <li *ngFor="let image of product.productImageFiles; let i = index"
+                [attr.data-bs-target]="'#carouselExampleIndicators-' + product.id" [attr.data-bs-slide-to]="i"
+                [class.active]="i === 0"></li>
+            </ol>
+            <div class="carousel-inner">
+              <ng-container
+                *ngIf="product.productImageFiles && product.productImageFiles.length > 0; else defaultImage">
+                <div class="carousel-item" *ngFor="let image of product.productImageFiles; let i = index"
+                  [class.active]="i === 0">
+                  <img [src]="baseUrl.url + '/' + image.path" class="d-block w-100" [alt]="product.name">
+                </div>
+              </ng-container>
+              <ng-template #defaultImage>
+                <div class="carousel-item active">
+                  <img src="../../../../../assets/default_product.png" class="d-block w-100" alt="Default Image">
+                </div>
+              </ng-template>
+            </div>
+            <button class="carousel-control-prev" type="button"
+              [attr.data-bs-target]="'#carouselExampleIndicators-' + product.id" data-bs-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button"
+              [attr.data-bs-target]="'#carouselExampleIndicators-' + product.id" data-bs-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Next</span>
+            </button>
+          </div>
+          <div class="card-body">
+            <h5 class="card-title">{{product.name}}</h5>
+            <p class="card-text">Price: {{product.price | currency: "₺"}}</p>
+            <p class="card-text">Stock: {{product.stock}}</p>
+            <a class="btn btn-addCart" (click)="addToCart(product)">Add to cart</a>
+          </div>
+      
+    </div>
+  </div> -->
   <div class="productsContainer">
     <div class="row">
       

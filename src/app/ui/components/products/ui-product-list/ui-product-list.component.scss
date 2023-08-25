@@ -203,3 +203,9 @@ li { list-style: none }
     padding: 4px;
     font-size: 13px;
 }
+.disabled-btn {
+    opacity: 0.5;
+    background-color: #ccc;
+    pointer-events: none;
+    cursor: not-allowed;
+  }

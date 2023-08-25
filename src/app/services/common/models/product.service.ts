@@ -47,15 +47,14 @@ export class ProductService {
   
   async list(page:number = 0, size: number = 5, successCallBack?:() => void, errorCallBack?: (errorMessage: string) => void): Promise<{totalProductCount: number; products: List_Product[]}> {
     
-    const promiseData: Promise<{totalProductCount: number; products: List_Product[]}> = this.httpClientService.get<{totalProductCount: number; products: List_Product[]}>({
+    const observable: Observable<{totalProductCount: number; products: List_Product[]}> = this.httpClientService.get<{totalProductCount: number; products: List_Product[]}>({
       controller: "products",
       queryString: `page=${page}&size=${size}`
-    }).toPromise();
-
-    promiseData.then(d => successCallBack()).catch((errorResponse: HttpErrorResponse) => errorCallBack(errorResponse.message));
-
+    })
+    const promiseData = firstValueFrom(observable);
+    promiseData.then(successCallBack)
+      .catch(errorCallBack);
     return await promiseData;
-    
   } 
 
   async delete(id:string){

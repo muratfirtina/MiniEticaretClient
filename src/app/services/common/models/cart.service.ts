@@ -37,15 +37,20 @@ export class CartService {
     return cartItems;
   }
 
-  async add(cartItem: Create_Cart_Item): Promise<void>{
+  async add(cartItem: Create_Cart_Item,successCallBack?: () => void, errorCallBack?: (errorMessage: string) => void): Promise<void>{
    
     const observable: Observable<any> = this.httpClientService.post({
       controller: 'carts',
 
     }, cartItem);
 
-    await firstValueFrom(observable);
-    this.get(); // Sepeti yeniden almak için get() metodunu çağır
+    const promiseData = firstValueFrom(observable);
+    promiseData.then(value => successCallBack())
+      .catch(error => errorCallBack(error));
+    
+    await promiseData;
+    this.get();
+    
   }
 
   async updateQuantity(cartItem:Update_Cart_Item): Promise<void>{

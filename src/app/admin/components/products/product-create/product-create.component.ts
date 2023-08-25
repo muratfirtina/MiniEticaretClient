@@ -40,7 +40,7 @@ export class ProductCreateComponent extends BaseComponent implements OnInit{
 
     this.productService.create(create_product, () => {
       this.hideSpinner(SpinnerType.BallSpinClockwise);
-      this.alertify.message("Product created successfully", {
+      this.alertify.message( create_product.name + " Başarıyla oluşturuldu.", {
         dismissOthers: true,
         messageType: MessageType.Success,
         position: Position.TopRight
@@ -50,7 +50,7 @@ export class ProductCreateComponent extends BaseComponent implements OnInit{
       this.createdProduct.emit(create_product);
 
     }, errorMessage => {
-      this.alertify.message(errorMessage, {
+      this.alertify.message("Ürün oluşturulamadı", {
         dismissOthers: true,
         messageType: MessageType.Error,
         position: Position.TopRight

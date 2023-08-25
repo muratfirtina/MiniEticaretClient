@@ -47,5 +47,16 @@ export class RoleService {
     return await promiseData as { succeeded: boolean };
 }
 
-}
+async updateRole(roleId: string, name: string, successCallBack?: () => void, errorCallBack?: (error) => void) {
+  const observable: Observable<any> = this.httpClientService.put({
+      controller: "roles"
+  }, { roleId: roleId, roleName: name });
 
+  const promiseData = firstValueFrom(observable);
+  promiseData.then(successCallBack)
+      .catch(errorCallBack);
+
+  return await promiseData as { succeeded: boolean };
+
+}
+}
