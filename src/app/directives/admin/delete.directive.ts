@@ -120,6 +120,8 @@ export class DeleteDirective {
 
   @Input() id: string;
   @Input() controller: string;
+  @Input() action: string;
+  @Input() itemName: string;
   @Output() refresh: EventEmitter<any> = new EventEmitter();
 
   @HostListener('click')
@@ -132,11 +134,11 @@ export class DeleteDirective {
         const td: HTMLTableCellElement = this.element.nativeElement;
         
         try {
-          await firstValueFrom( this.httpClientService.delete({ controller: this.controller }, this.id));
+          await firstValueFrom( this.httpClientService.delete({ controller: this.controller, action: this.action}, this.id));
           
           $(td.parentElement).fadeOut('animated fadeOut', () => {
             this.refresh.emit();
-            this.alertifyService.message('Deleted', {
+            this.alertifyService.message(`${this.itemName}` + ' Deleted' , {
               dismissOthers: true,
               messageType: MessageType.Success,
               position: Position.TopRight
@@ -150,6 +152,7 @@ export class DeleteDirective {
             position: Position.TopRight
           });
         }; 
+        this.spinner.hide(SpinnerType.BallSpinClockwise);
       }
     });
   }

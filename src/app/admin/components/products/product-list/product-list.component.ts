@@ -103,7 +103,7 @@ export class ProductListComponent extends BaseComponent implements OnInit{
               await this.productService.delete(role.id);
             }
   
-            this.alertifyService.message('Selected roles deleted', {
+            this.alertifyService.message('Selected product deleted', {
               dismissOthers: true,
               messageType: MessageType.Success,
               position: Position.TopRight
@@ -112,7 +112,7 @@ export class ProductListComponent extends BaseComponent implements OnInit{
             this.selectedProducts = [];
             await this.getProducts();
           } catch (error) {
-            this.alertifyService.message('An unexpected error occurred while deleting roles', {
+            this.alertifyService.message('An unexpected error occurred while deleting product', {
               dismissOthers: true,
               messageType: MessageType.Error,
               position: Position.TopRight

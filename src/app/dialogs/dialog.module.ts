@@ -23,6 +23,8 @@ import { QrcodeReadingDialogComponent } from './qrcode-reading-dialog/qrcode-rea
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { NgxScannerQrcodeModule, LOAD_WASM } from 'ngx-scanner-qrcode';
+import { OrderItemRemoveDialogComponent } from './order-item-remove-dialog/order-item-remove-dialog.component';
+import { DeleteDirectiveModule } from '../directives/admin/delete.directive.module';
 
 LOAD_WASM().subscribe((res: any) => console.log('LOAD_WASM', res));
 
@@ -39,7 +41,8 @@ LOAD_WASM().subscribe((res: any) => console.log('LOAD_WASM', res));
     AuthorizeMenuDialogComponent,
     AuthorizeUserDialogComponent,
     QrcodeDialogComponent,
-    QrcodeReadingDialogComponent
+    QrcodeReadingDialogComponent,
+    OrderItemRemoveDialogComponent
   ],
   imports: [
     CommonModule,
@@ -54,7 +57,8 @@ LOAD_WASM().subscribe((res: any) => console.log('LOAD_WASM', res));
     FormsModule,
     MatBadgeModule,
     MatListModule,
-    NgxScannerQrcodeModule
+    NgxScannerQrcodeModule,
+    DeleteDirectiveModule
     
   ]
 })

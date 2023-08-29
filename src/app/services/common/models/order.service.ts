@@ -4,6 +4,7 @@ import { Create_Order } from 'src/app/contracts/order/create_order';
 import { Observable, first, firstValueFrom } from 'rxjs';
 import { List_Order } from 'src/app/contracts/order/list_order';
 import { SingleOrder } from 'src/app/contracts/order/single_order';
+import { query } from '@angular/animations';
 
 @Injectable({
   providedIn: 'root'
@@ -51,6 +52,31 @@ export class OrderService {
       action: "complete-order"
     }, id);
 
+    const promiseData = firstValueFrom(observable);
+    promiseData.then(value => successCallBack())
+      .catch(error => errorCallBack(error));
+
+    await promiseData;
+  }
+
+  async removeOrder(id: string, successCallBack?: () => void, errorCallBack?: (errorMessage: string) => void): Promise<void> {
+    const observable: Observable<any> = this.httpClientService.delete({
+      controller: "orders",
+    }, id);
+
+    const promiseData = firstValueFrom(observable);
+    promiseData.then(value => successCallBack())
+      .catch(error => errorCallBack(error));
+
+    await promiseData;
+  }
+
+  async removeOrderItem(cartItemId: string ,successCallBack?: () => void, errorCallBack?: (errorMessage: string)=> void): Promise<void> {
+    const observable: Observable<any> = this.httpClientService.delete({
+      controller: "orders",
+      action: "remove-order-item",
+    }, cartItemId);
+    
     const promiseData = firstValueFrom(observable);
     promiseData.then(value => successCallBack())
       .catch(error => errorCallBack(error));
