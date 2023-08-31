@@ -99,8 +99,8 @@ export class ProductListComponent extends BaseComponent implements OnInit{
         if (result === DeleteDialogState.Yes) {
           this.showSpinner(SpinnerType.BallSpinClockwise);
           try {
-            for (const role of this.selectedProducts) {
-              await this.productService.delete(role.id);
+            for (const product of this.selectedProducts) {
+              await this.productService.delete(product.id);
             }
   
             this.alertifyService.message('Selected product deleted', {

@@ -170,7 +170,7 @@ export class AppComponent implements OnInit{
       ]
     },
     {
-      name: 'Oto, Bahçe, Yapı Marke',
+      name: 'Oto, Bahçe, Yapı Market',
       subcategories: [
         {
           name: 'Araba',

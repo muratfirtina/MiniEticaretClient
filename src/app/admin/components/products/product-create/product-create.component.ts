@@ -31,12 +31,14 @@ export class ProductCreateComponent extends BaseComponent implements OnInit{
     
   };
 
-  create(name: HTMLInputElement, stock: HTMLInputElement, price: HTMLInputElement){
+  create(name: HTMLInputElement, stock: HTMLInputElement, price: HTMLInputElement, categoryName: HTMLInputElement){
     this.showSpinner(SpinnerType.BallSpinClockwise);
     const create_product : Create_Product = new Create_Product();
     create_product.name = name.value;
     create_product.stock = parseInt(stock.value);
     create_product.price = parseFloat(price.value);
+    create_product.categoryName = categoryName.value;
+
 
     this.productService.create(create_product, () => {
       this.hideSpinner(SpinnerType.BallSpinClockwise);

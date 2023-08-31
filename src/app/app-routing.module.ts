@@ -15,6 +15,7 @@ const routes: Routes = [
       { path: "authorize-menu", loadChildren :()=> import("./admin/components/authorize-menu/authorize-menu.module").then(m=>m.AuthorizeMenuModule), canActivate: [authGuard]},
       { path: "roles", loadChildren :()=> import("./admin/components/role/role.module").then(m=>m.RoleModule), canActivate: [authGuard]},
       { path: "users", loadChildren :()=> import("./admin/components/users/users.module").then(m=>m.UsersModule), canActivate: [authGuard]},
+      { path: "categories", loadChildren :()=> import("./admin/components/categories/categories.module").then(m=>m.CategoriesModule), canActivate: [authGuard]},
     ], canActivate: [authGuard]
   },
   {path: "", component:HomeComponent},

@@ -1,0 +1,8 @@
+<mat-drawer-container class="category-create">
+    <mat-drawer mode="side" opened>
+        <app-category-create (createdCategory)="createdCategory($event)"></app-category-create>
+    </mat-drawer>
+    <mat-drawer-content style="margin-left: 296px;">
+        <app-category-list></app-category-list>
+    </mat-drawer-content>
+</mat-drawer-container>
