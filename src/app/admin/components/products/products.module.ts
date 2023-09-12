@@ -14,6 +14,9 @@ import { FileUploadModule } from 'src/app/services/common/fileUpload/fileUpload.
 import { DialogModule } from 'src/app/dialogs/dialog.module';
 import { DeleteDirectiveModule } from 'src/app/directives/admin/delete.directive.module';
 import {MatCheckboxModule} from '@angular/material/checkbox';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatOptionModule } from '@angular/material/core';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 
@@ -37,7 +40,10 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
     MatCheckboxModule,
     DialogModule,
     FileUploadModule,
-    DeleteDirectiveModule
+    DeleteDirectiveModule,
+    MatOptionModule,
+    MatAutocompleteModule,
+    ReactiveFormsModule
 
   ]
 })

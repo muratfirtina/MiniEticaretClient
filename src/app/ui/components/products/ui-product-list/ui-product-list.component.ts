@@ -36,10 +36,16 @@ export class UiProductListComponent extends BaseComponent implements OnInit {
   pageList: number[] = [];
   baseUrl: BaseUrl;
   isFilterActive= false;
+  filterText = '';
+
+  filteredProducts: List_Product[] = [];
 
   products: List_Product[];
+  productList: { products: List_Product[]; totalProductCount: number } = { products: [], totalProductCount: 0 };
 
    async ngOnInit() {
+    this.productList = await this.productService.list(-1, -1, () => {}, error => {});
+
 
     this.baseUrl = await this.fileService.getBaseStorageUrl();
     
@@ -124,6 +130,16 @@ export class UiProductListComponent extends BaseComponent implements OnInit {
 
    });
   });
+  }
+
+  filterProducts() {
+    if (this.filterText.length >= 3) {
+      this.filteredProducts = this.productList.products.filter((product) =>
+        product.name.toLowerCase().includes(this.filterText.toLowerCase())
+      );
+    } else {
+      this.filteredProducts = this.productList.products;
+    }
   }
 
 }

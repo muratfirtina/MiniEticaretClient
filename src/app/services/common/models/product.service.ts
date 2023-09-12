@@ -108,5 +108,17 @@ export class ProductService {
     
     await firstValueFrom(observable);
     successCallBack();
-    }
   }
+
+  async getProduct(productId: string, successCallBack?: () => void): Promise<List_Product>{
+    const observable: Observable<List_Product> = this.httpClientService.get<List_Product>({
+      controller: "products"
+    }, productId);
+
+    const product: List_Product = await firstValueFrom(observable);
+    successCallBack();
+    return product;
+  }
+
+
+}

@@ -14,8 +14,13 @@
 </mat-form-field>
 
 <mat-form-field appearance="fill" class="product-create">
-    <mat-label>CategoryName</mat-label>
-    <input matInput #txtCategoryName>
+    <mat-label>Category Name</mat-label>
+    <input matInput [matAutocomplete]="auto" #txtCategoryName (input)="onCategoryNameInput(txtCategoryName.value)">
+    <mat-autocomplete #auto="matAutocomplete">
+        <mat-option *ngFor="let category of filteredCategories" [value]="category.name">
+            {{ category.name }}
+        </mat-option>
+    </mat-autocomplete>
 </mat-form-field>
 
 <button type="button" class="button">

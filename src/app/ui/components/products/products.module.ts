@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import { ProductsComponent } from './products.component';
 import { RouterModule } from '@angular/router';
 import { UiProductListComponent } from './ui-product-list/ui-product-list.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 
@@ -13,6 +15,9 @@ import { UiProductListComponent } from './ui-product-list/ui-product-list.compon
   ],
   imports: [
     CommonModule,
+    FormsModule,
+    
+    ReactiveFormsModule,
     RouterModule.forChild([
       {path: "", component:ProductsComponent}
     ])

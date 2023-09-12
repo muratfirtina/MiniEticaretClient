@@ -42,11 +42,11 @@ export class CategoryCreateComponent extends BaseComponent implements OnInit{
       this.filteredCategories = this.categories;
     });
   }
-  
-  
 
   onParentCategoryInput(inputValue: string) {
-    this.filteredCategories = this.categories.filter(category => category.name.toLowerCase().includes(inputValue.toLowerCase()));
+    this.filteredCategories = this.categories.filter(category => 
+      category.name.toLowerCase().includes(inputValue.toLowerCase())
+    ).slice(0, 5);
   }
 
   create(name: HTMLInputElement, description: HTMLInputElement, parentCategoryName: HTMLInputElement){

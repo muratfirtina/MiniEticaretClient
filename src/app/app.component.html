@@ -14,7 +14,7 @@
 
             <form class="col-12 col-lg-auto mb-2 mb-lg-0 me-lg-auto" role="search" id="searchbox">
                 <div class="input-group">
-                    <input type="search" class="form-control" placeholder="Search..." aria-label="Search">
+                    <input type="search" class="form-control" placeholder="Ürün, kategori veya marka arayınız..." aria-label="Search">
                     <button class="btn btn-outline-secondary" type="button">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                             class="bi bi-search" viewBox="0 0 16 16">
@@ -186,33 +186,33 @@
         </div> -->
         <div id="navigation" style="pointer-events: auto;" class="navigation-body">
             <div>
-                <div class="navigation-g9">
+                <div class="navigation-1">
                     <div class="navigation-bar">
-                        <div class="menuItems-ic">
-                            <ul class="menuItems-MX">
-                                <li class="menuItems-Wul menuItems-y_hY" *ngFor="let category of categories">
-                                    <span class="menuItems-UHH">
+                        <div class="menuItems-1">
+                            <ul class="menuItems-2">
+                                <li class="menuItems-3 menuItems-yyy" *ngFor="let category of categories">
+                                    <span class="menuItems-4">
                                         <span id="category_name">
                                             {{category.name}}
                                         </span>
                                     </span>
                                     <span class="separator"></span>
-                                    <div class="menuItems-Lui">
-                                        <div class="childMenuItems-PP navigationContainer">
-                                            <div class="childMenuItems-abU"
+                                    <div class="menuItems-5">
+                                        <div class="childMenuItems-1 navigationContainer">
+                                            <div class="childMenuItems-2"
                                                 *ngFor="let subcategory of category.subcategories">
-                                                <div class="childMenuItems-a4G0"
+                                                <div class="childMenuItems-3"
                                                     style="margin-top: 20px; margin-bottom: 20px;">
                                                     <ul>
                                                         <li>
-                                                            <ul class="childMenuItems-xEX">
+                                                            <ul class="childMenuItems-4">
                                                                 <li>
                                                                     <a
-                                                                        class="childMenuItems-Kdz">{{subcategory.name}}</a>
-                                                                    <ul class="childMenuItems-xEX"
+                                                                        class="childMenuItems-5">{{subcategory.name}}</a>
+                                                                    <ul class="childMenuItems-4"
                                                                         *ngFor="let grandchild of subcategory.subcategories">
                                                                         <li>
-                                                                            <a class="childMenuItems-OIX">
+                                                                            <a class="childMenuItems-6">
                                                                                 <span>
                                                                                     {{grandchild.name}}
                                                                                 </span>

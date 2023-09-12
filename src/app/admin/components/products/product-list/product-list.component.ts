@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { FormControl } from '@angular/forms';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource, _MatTableDataSource} from '@angular/material/table';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -33,6 +34,40 @@ export class ProductListComponent extends BaseComponent implements OnInit{
   }
 
   selectedProducts: List_Product[] = []
+
+  productNameControl = new FormControl();
+  products: List_Product[] = [];
+  filteredProducts: List_Product[] = [];
+
+  private subscribeToProductNameChanges() {
+    this.productNameControl.valueChanges.subscribe(value => {
+      this.filteredProducts = this.dataSource.data.filter(product =>
+        product.name.toLowerCase().includes(value.toLowerCase())
+      );
+    });
+  }
+
+  loadProducts() {
+    this.showSpinner(SpinnerType.BallSpinClockwise);
+    this.productService.list(0, 1000, () => {
+      this.hideSpinner(SpinnerType.BallSpinClockwise);
+    }, errorMessage => {
+      this.alertifyService.message("Ürünler yüklenemedi", {
+        dismissOthers: true,
+        messageType: MessageType.Error,
+        position: Position.TopRight
+        });
+    }).then(result => {
+      this.products = result.products;
+      this.filteredProducts = this.products;
+    });
+  }
+
+  onProductNameInput(inputValue: string) {
+    this.filteredProducts = this.products.filter(product => 
+      product.name.toLowerCase().includes(inputValue.toLowerCase())
+    ).slice(0, 5);
+  }
   
   async getProducts() {
 
@@ -58,6 +93,8 @@ export class ProductListComponent extends BaseComponent implements OnInit{
     }
 
   }
+
+  
   
   addProductImages(id:string){
     this.dialogService.openDialog({
@@ -133,6 +170,7 @@ export class ProductListComponent extends BaseComponent implements OnInit{
 
   async ngOnInit(){
     await this.getProducts();
+    this.loadProducts();
   }
 
   showQrCode(productId:string){

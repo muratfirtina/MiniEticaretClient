@@ -208,4 +208,21 @@ li { list-style: none }
     background-color: #ccc;
     pointer-events: none;
     cursor: not-allowed;
-  }
+}
+
+.searchContainer{
+    width: 1200px;
+    height: 100%;
+    color: #fff;
+    margin-top: 20px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.filteredProductContainer{
+    width: 1200px;
+    height: 100%;
+    color: #fff;
+    margin-top: 20px;
+    margin-left: 240px;
+    margin-right: auto;
+}

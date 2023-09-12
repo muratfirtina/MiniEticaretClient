@@ -1,161 +1,158 @@
 <div class="row">
-  <!-- <div class="searchContainer">
-    <input
-      type="text"
-      class="form-control"
-      placeholder="Search products..."
-      [(ngModel)]="searchKeyword"
-      (input)="searchProducts()"
-    />
+  <div class="searchContainer">
+    <input type="text" [(ngModel)]="filterText" class="form-control" id="filterText" placeholder="arama ifadesi giriniz"
+      (ngModelChange)="filterProducts()" />
   </div>
+  
   <div class="col-md-10">
-    <div
-      class="card"
-      id="card-products"
-      *ngFor="let product of filteredProducts">
-      <div [id]="'carouselExampleIndicators-' + product.id" class="carousel slide">
-            <ol class="carousel-indicators">
-              <li *ngFor="let image of product.productImageFiles; let i = index"
-                [attr.data-bs-target]="'#carouselExampleIndicators-' + product.id" [attr.data-bs-slide-to]="i"
-                [class.active]="i === 0"></li>
-            </ol>
-            <div class="carousel-inner">
-              <ng-container
-                *ngIf="product.productImageFiles && product.productImageFiles.length > 0; else defaultImage">
-                <div class="carousel-item" *ngFor="let image of product.productImageFiles; let i = index"
-                  [class.active]="i === 0">
-                  <img [src]="baseUrl.url + '/' + image.path" class="d-block w-100" [alt]="product.name">
-                </div>
-              </ng-container>
-              <ng-template #defaultImage>
-                <div class="carousel-item active">
-                  <img src="../../../../../assets/default_product.png" class="d-block w-100" alt="Default Image">
-                </div>
-              </ng-template>
-            </div>
-            <button class="carousel-control-prev" type="button"
-              [attr.data-bs-target]="'#carouselExampleIndicators-' + product.id" data-bs-slide="prev">
-              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-              <span class="visually-hidden">Previous</span>
-            </button>
-            <button class="carousel-control-next" type="button"
-              [attr.data-bs-target]="'#carouselExampleIndicators-' + product.id" data-bs-slide="next">
-              <span class="carousel-control-next-icon" aria-hidden="true"></span>
-              <span class="visually-hidden">Next</span>
-            </button>
+    <div class="filteredProductContainer">
+      <div class="card" id="card-products" *ngFor="let product of filteredProducts">
+        <div [id]="'carouselExampleIndicators-' + product.id" class="carousel slide">
+          <ol class="carousel-indicators">
+            <li *ngFor="let image of product.productImageFiles; let i = index"
+              [attr.data-bs-target]="'#carouselExampleIndicators-' + product.id" [attr.data-bs-slide-to]="i"
+              [class.active]="i === 0"></li>
+          </ol>
+          <div class="carousel-inner">
+            <ng-container *ngIf="product.productImageFiles && product.productImageFiles.length > 0; else defaultImage">
+              <div class="carousel-item" *ngFor="let image of product.productImageFiles; let i = index"
+                [class.active]="i === 0">
+                <img [src]="baseUrl.url + '/' + image.path" class="d-block w-100" [alt]="product.name">
+              </div>
+            </ng-container>
+            <ng-template #defaultImage>
+              <div class="carousel-item active">
+                <img src="../../../../../assets/default_product.png" class="d-block w-100" alt="Default Image">
+              </div>
+            </ng-template>
           </div>
-          <div class="card-body">
-            <h5 class="card-title">{{product.name}}</h5>
-            <p class="card-text">Price: {{product.price | currency: "₺"}}</p>
-            <p class="card-text">Stock: {{product.stock}}</p>
-            <a class="btn btn-addCart" (click)="addToCart(product)">Add to cart</a>
-          </div>
-      
+          <button class="carousel-control-prev" type="button"
+            [attr.data-bs-target]="'#carouselExampleIndicators-' + product.id" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+          </button>
+          <button class="carousel-control-next" type="button"
+            [attr.data-bs-target]="'#carouselExampleIndicators-' + product.id" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+          </button>
+        </div>
+        <div class="card-body">
+          <h5 class="card-title">{{product.name}}</h5>
+          <p class="card-text">Price: {{product.price | currency: "₺"}}</p>
+          <p class="card-text">Stock: {{product.stock}}</p>
+          <a class="btn btn-addCart" (click)="addToCart(product)">Add to cart</a>
+        </div>
+
+      </div>
     </div>
-  </div> -->
+  </div>
+
+
   <div class="productsContainer">
     <div class="row">
-      
+
       <div class="col-md-2">
         <div class="sticky-top">
-        <div class="filterContainer">
-          <div class="card" id="filter">
-            <div class="totalFilteredProductCount">
-              <p>Filtrelenen ürün sayısı: <!-- {{totalFilteredProductCount}} --></p>
-            </div>
-            <div class="selectedfilters">
-              <p>Seçilen filtreler:</p>
-              <div class="selectedfiltersContainer">
-                <div class="selectedfilter">
+          <div class="filterContainer">
+            <div class="card" id="filter">
+              <div class="totalFilteredProductCount">
+                <p>Filtrelenen ürün sayısı: <!-- {{totalFilteredProductCount}} --></p>
+              </div>
+              <div class="selectedfilters">
+                <p>Seçilen filtreler:</p>
+                <div class="selectedfiltersContainer">
+                  <div class="selectedfilter">
+                    <div>
+                      <button type="button" class="btn btn-removeFilter">Apple
+                        <button class="badge bg-danger">x</button>
+                      </button>
+                      <button type="button" class="btn btn-removeFilter">10000-70000 TL
+                        <button class="badge bg-danger">x</button>
+                      </button>
+                      <button type="button" class="btn btn-removeFilter">Siyah
+                        <button class="badge bg-danger">x</button>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="brandsSelectionContainer">
+                <div class="brandsSelection">
+                  <p>Marka seçimi</p>
+                  <form role="search" id="searchbox" style="width: 180px; margin: auto; margin-bottom: 8px;">
+                    <div class="input-group">
+                      <input type="search" class="form-control" placeholder="Ara" aria-label="Search"
+                        style="font-size: 13px;">
+                      <button class="btn btn-outline-secondary" type="button">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                          class="bi bi-search" viewBox="0 0 16 16" style="vertical-align:0">
+                          <path
+                            d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
+                        </svg>
+                      </button>
+                    </div>
+                  </form>
                   <div>
-                    <button type="button" class="btn btn-removeFilter">Apple
-                      <button class="badge bg-danger">x</button>
-                    </button>
-                    <button type="button" class="btn btn-removeFilter">10000-70000 TL
-                      <button class="badge bg-danger">x</button>
-                    </button>
-                    <button type="button" class="btn btn-removeFilter">Siyah
-                      <button class="badge bg-danger">x</button>
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="brandsSelectionContainer">
-              <div class="brandsSelection">
-                <p>Marka seçimi</p>
-                <form role="search" id="searchbox" style="width: 180px; margin: auto; margin-bottom: 8px;">
-                  <div class="input-group">
-                    <input type="search" class="form-control" placeholder="Ara" aria-label="Search"
-                      style="font-size: 13px;">
-                    <button class="btn btn-outline-secondary" type="button">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                        class="bi bi-search" viewBox="0 0 16 16" style="vertical-align:0">
-                        <path
-                          d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
-                      </svg>
-                    </button>
-                  </div>
-                </form>
-                <div>
-                  <div id="form-check-column">
-                    <div class="form-check">
-                      <input type="checkbox" class="form-check-input" id="checkbox" checked>
-                      <label class="form-check-label" style="margin-left: 8px;">Apple</label>
-                    </div>
-                    <div class="form-check">
-                      <input type="checkbox" class="form-check-input" id="checkbox">
-                      <label class="form-check-label" style="margin-left: 8px;">Samsung</label>
-                    </div>
-                    <div class="form-check">
-                      <input type="checkbox" class="form-check-input" id="checkbox">
-                      <label class="form-check-label" style="margin-left: 8px;">Huawei</label>
-                    </div>
-                    <div class="form-check">
-                      <input type="checkbox" class="form-check-input" id="checkbox">
-                      <label class="form-check-label" style="margin-left: 8px;">Xaiomi</label>
+                    <div id="form-check-column">
+                      <div class="form-check">
+                        <input type="checkbox" class="form-check-input" id="checkbox" checked>
+                        <label class="form-check-label" style="margin-left: 8px;">Apple</label>
+                      </div>
+                      <div class="form-check">
+                        <input type="checkbox" class="form-check-input" id="checkbox">
+                        <label class="form-check-label" style="margin-left: 8px;">Samsung</label>
+                      </div>
+                      <div class="form-check">
+                        <input type="checkbox" class="form-check-input" id="checkbox">
+                        <label class="form-check-label" style="margin-left: 8px;">Huawei</label>
+                      </div>
+                      <div class="form-check">
+                        <input type="checkbox" class="form-check-input" id="checkbox">
+                        <label class="form-check-label" style="margin-left: 8px;">Xaiomi</label>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
-            <div class="priceContainer">
-              <div class="priceRange">
-                <div class="priceInput">
-                  <p>Fiyat aralığı</p>
-                  <div class="input-group">
-                    <span class="input-group-text">₺</span>
-                    <input type="text" class="form-control" placeholder="En az">
-                    <span class="input-group-text">₺</span>
-                    <input type="text" class="form-control" placeholder="En fazla">
-                  </div>
-                  <div class="form-check">
-                    <input type="checkbox" class="form-check-input" id="checkbox">
-                    <label class="form-check-label" style="margin-left: 8px;">3000 TL - 5000 TL</label>
-                  </div>
-                  <div class="form-check">
-                    <input type="checkbox" class="form-check-input" id="checkbox">
-                    <label class="form-check-label" style="margin-left: 8px;">5000 TL - 10000 TL</label>
-                  </div>
-                  <div class="form-check">
-                    <input type="checkbox" class="form-check-input" id="checkbox">
-                    <label class="form-check-label" style="margin-left: 8px;">10000 TL - 15000 TL</label>
-                  </div>
-                  <div class="form-check">
-                    <input type="checkbox" class="form-check-input" id="checkbox">
-                    <label class="form-check-label" style="margin-left: 8px;">15000 TL - 20000 TL</label>
-                  </div>
-                  <div class="form-check">
-                    <input type="checkbox" class="form-check-input" id="checkbox">
-                    <label class="form-check-label" style="margin-left: 8px;">20000 TL - 30000 TL</label>
-                  </div>
-                  <div class="form-check">
-                    <input type="checkbox" class="form-check-input" id="checkbox">
-                    <label class="form-check-label" style="margin-left: 8px;">30000 TL - 50000 TL</label>
-                  </div>
-                  <div class="form-check">
-                    <input type="checkbox" class="form-check-input" id="checkbox">
-                    <label class="form-check-label" style="margin-left: 8px;">50000 TL - 70000 TL</label>
+              <div class="priceContainer">
+                <div class="priceRange">
+                  <div class="priceInput">
+                    <p>Fiyat aralığı</p>
+                    <div class="input-group">
+                      <span class="input-group-text">₺</span>
+                      <input type="text" class="form-control" placeholder="En az">
+                      <span class="input-group-text">₺</span>
+                      <input type="text" class="form-control" placeholder="En fazla">
+                    </div>
+                    <div class="form-check">
+                      <input type="checkbox" class="form-check-input" id="checkbox">
+                      <label class="form-check-label" style="margin-left: 8px;">3000 TL - 5000 TL</label>
+                    </div>
+                    <div class="form-check">
+                      <input type="checkbox" class="form-check-input" id="checkbox">
+                      <label class="form-check-label" style="margin-left: 8px;">5000 TL - 10000 TL</label>
+                    </div>
+                    <div class="form-check">
+                      <input type="checkbox" class="form-check-input" id="checkbox">
+                      <label class="form-check-label" style="margin-left: 8px;">10000 TL - 15000 TL</label>
+                    </div>
+                    <div class="form-check">
+                      <input type="checkbox" class="form-check-input" id="checkbox">
+                      <label class="form-check-label" style="margin-left: 8px;">15000 TL - 20000 TL</label>
+                    </div>
+                    <div class="form-check">
+                      <input type="checkbox" class="form-check-input" id="checkbox">
+                      <label class="form-check-label" style="margin-left: 8px;">20000 TL - 30000 TL</label>
+                    </div>
+                    <div class="form-check">
+                      <input type="checkbox" class="form-check-input" id="checkbox">
+                      <label class="form-check-label" style="margin-left: 8px;">30000 TL - 50000 TL</label>
+                    </div>
+                    <div class="form-check">
+                      <input type="checkbox" class="form-check-input" id="checkbox">
+                      <label class="form-check-label" style="margin-left: 8px;">50000 TL - 70000 TL</label>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -163,7 +160,6 @@
           </div>
         </div>
       </div>
-    </div>
       <div class="col-md-10">
         <div class="card" id="card-products" *ngFor="let product of products">
           <div [id]="'carouselExampleIndicators-' + product.id" class="carousel slide">

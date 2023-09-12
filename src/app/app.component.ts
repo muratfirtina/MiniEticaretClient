@@ -14,7 +14,7 @@ declare var bootstrap: any;
 
 
 $(document).ready(function() {
-  $('.menuItems-Wul').hover(
+  $('.menuItems-3').hover(
     function() {
       var menuWidth = 1200;
       var menuHeight = 56;
@@ -23,7 +23,7 @@ $(document).ready(function() {
       var menuLeft = (containerWidth - menuWidth) / 2;
       var menuTop = 150;
 
-      $(this).find('.menuItems-Lui').css({
+      $(this).find('.menuItems-5').css({
         'visibility': 'visible',
         'width': '1200px',
         'left': menuLeft,
@@ -31,7 +31,7 @@ $(document).ready(function() {
       });
     },
     function() {
-      $(this).find('.menuItems-Lui').css('visibility', 'hidden');
+      $(this).find('.menuItems-5').css('visibility', 'hidden');
     }
   );
 });
