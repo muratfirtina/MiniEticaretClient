@@ -6,7 +6,7 @@ declare var $: any;
 @Component({
   selector: 'app-order-item-remove-dialog',
   templateUrl: './order-item-remove-dialog.component.html',
-  styleUrls: ['./order-item-remove-dialog.component.css']
+  styleUrls: ['./order-item-remove-dialog.component.scss']
 })
 export class OrderItemRemoveDialogComponent extends BaseDialog<OrderItemRemoveDialogComponent> implements OnDestroy {
 
