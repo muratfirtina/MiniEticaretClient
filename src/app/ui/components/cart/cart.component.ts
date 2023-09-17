@@ -173,8 +173,8 @@ export class CartComponent extends BaseComponent implements OnInit {
       afterClosed: async () => {
         this.showSpinner(SpinnerType.BallSpinClockwise);
         const order: Create_Order = new Create_Order();
-        order.address = 'Altıntepe Mahallesi, 34760 Maltepe/İstanbul, Türkiye';
-        order.description = 'Acil teslim edilmesi gereken sipariş';
+        order.address = '----- ----/İstanbul, Türkiye';
+        order.description = 'Hediye Paketi yapılsın.';
         await this.orderService.create(order);
         this.hideSpinner(SpinnerType.BallSpinClockwise);
         this.toastrService.message(
